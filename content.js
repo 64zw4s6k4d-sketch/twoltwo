@@ -2,7 +2,7 @@
 window.SITE_CONFIG = { contactEmail: "" }; // 受信確認済みの会社メールを入れるまで問い合わせボタンは無効。
 window.SITE_COPY = {
  ja: {
-  nav:{home:"ホーム",services:"事業内容",technology:"技術紹介",projects:"開発・検証",company:"会社概要",contact:"お問い合わせ"},
+  nav:{home:"ホーム",services:"事業内容",technology:"技術紹介",projects:"開発・検証",company:"会社概要",contact:"お問い合わせ",privacy:"個人情報方針"},
   common:{scroll:"SCROLL TO EXPLORE"},
   hero:{kicker:"2L² / LOCAL AI",title:"あなたのAIに、<br>誰の許可もいらない",lead:"企業や医療の現場に合わせて、<br>AIの設計から運用までを最適化する。",primary:"私たちの事業",secondary:"お問い合わせ",side:"一つの答えではなく、<br>現場に合う設計を。"},
   philosophy:{title:"必要な場所に、<br>必要な技術を、<br><em>必要な分だけ。</em>",text:"現場に合わせて、技術・機能・コストを最適化。課題理解から運用まで、一貫して支援します。"},
@@ -13,7 +13,7 @@ window.SITE_COPY = {
   contact:{kicker:"06 / CONTACT",prelude:"技術の相談から、始めませんか。",title:"次の可能性を、<br>ともに。",text:"課題のご相談、PoCや共同開発について、お気軽にお問い合わせください。",cta:"メールで問い合わせる",unavailable:"お問い合わせ先の設定中です。公開前にメールアドレスを登録してください。"},footer:{back:"ページの先頭へ ↑"}
  },
  en: {
-  nav:{home:"Home",services:"Services",technology:"Technology",projects:"Development",company:"Company",contact:"Contact"},common:{scroll:"SCROLL TO EXPLORE"},
+  nav:{home:"Home",services:"Services",technology:"Technology",projects:"Development",company:"Company",contact:"Contact",privacy:"Privacy Policy"},common:{scroll:"SCROLL TO EXPLORE"},
   hero:{kicker:"2L² / LOCAL AI",title:"Your AI.<br>No one else’s permission required.",lead:"Designed for business and healthcare.<br>Optimized from AI design through operations.",primary:"What we do",secondary:"Get in touch",side:"Not a one-size-fits-all answer.<br>A design for your environment."},
   philosophy:{title:"The right place.<br>The right technology.<br><em>Only what you need.</em>",text:"We optimize technology, functionality, and cost for each setting—from understanding the challenge through ongoing operations."},
   services:{kicker:"02 / SERVICES",title:"Start with the work.<br>Design the AI.",intro:"We explore the requirements of each workflow and design technology for practical use.",s1title:"Local LLM",s1text:"Exploring and designing AI usage in local environments according to organizational requirements.",s2title:"Medical document extraction",s2text:"Research and development in extracting and structuring information from paper and PDF documents.",s3title:"Custom AI development",s3text:"Designing document search and workflow-support tools for specific operating contexts."},
@@ -23,7 +23,7 @@ window.SITE_COPY = {
   contact:{kicker:"06 / CONTACT",prelude:"Start with a conversation.",title:"The next possibility,<br>together.",text:"Get in touch about your challenges, proof-of-concept work, or joint development.",cta:"Contact via email",unavailable:"Contact email is not configured yet. Add a verified inbox before launch."},footer:{back:"Back to top ↑"}
  },
  th: {
-  nav:{home:"หน้าแรก",services:"บริการ",technology:"เทคโนโลยี",projects:"การพัฒนา",company:"บริษัท",contact:"ติดต่อเรา"},common:{scroll:"เลื่อนเพื่อสำรวจ"},
+  nav:{home:"หน้าแรก",services:"บริการ",technology:"เทคโนโลยี",projects:"การพัฒนา",company:"บริษัท",contact:"ติดต่อเรา",privacy:"นโยบายความเป็นส่วนตัว"},common:{scroll:"เลื่อนเพื่อสำรวจ"},
   hero:{kicker:"2L² / LOCAL AI",title:"AI ของคุณ<br>ไม่ต้องขออนุญาตใคร",lead:"ปรับการออกแบบและการดำเนินงาน AI ให้เหมาะกับองค์กรและสถานพยาบาล",primary:"บริการของเรา",secondary:"ติดต่อเรา",side:"ไม่ใช่คำตอบเดียวสำหรับทุกแห่ง<br>แต่เป็นการออกแบบเพื่อหน้างานของคุณ"},
   philosophy:{title:"เทคโนโลยีที่ใช่<br>ในสถานที่ที่ใช่<br><em>เท่าที่จำเป็น</em>",text:"ปรับเทคโนโลยี ฟังก์ชัน และต้นทุนให้เหมาะกับหน้างาน ตั้งแต่เข้าใจปัญหาจนถึงการดำเนินงาน"},
   services:{kicker:"02 / SERVICES",title:"เริ่มจากหน้างาน<br>แล้วจึงออกแบบ AI",intro:"ทำความเข้าใจข้อกำหนดของแต่ละอุตสาหกรรมและกระบวนการทำงาน เพื่อออกแบบเทคโนโลยีที่ใช้งานได้จริง",s1title:"Local LLM",s1text:"ศึกษาและออกแบบการใช้ AI ในระบบภายในองค์กรตามข้อกำหนดที่เกี่ยวข้อง",s2title:"การดึงข้อมูลเอกสารทางการแพทย์",s2text:"วิจัยและพัฒนาการดึงและจัดโครงสร้างข้อมูลจากเอกสารกระดาษและ PDF",s3title:"การพัฒนา AI เฉพาะงาน",s3text:"ออกแบบระบบค้นหาเอกสารและเครื่องมือสนับสนุนงานให้เหมาะกับสภาพแวดล้อมที่ใช้งาน"},
