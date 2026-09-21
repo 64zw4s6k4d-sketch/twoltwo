@@ -1,20 +1,28 @@
-# 2L² — Atelier / continuous-scroll website
+# 2L² | ONE WORLD
 
-## Preview locally
-Unzip the archive, then double-click `index.html`. No installation or build tools are required. Use Chrome, Edge or Safari. The six HTML pages share the same visual language and navigation; the **home page is one uninterrupted long scroll**, not a slideshow.
+黒・深いネイビー・控えめなゴールドだけで構成した、写真・CG画像なしのホームページです。画像ファイルはユーザー提供の正式なロゴと、そのタブ用アイコンのみです。
 
-## Edit the website
-- `content.js`: editable Japanese, English and Thai text. Edit text only inside the quotation marks. For a heading line break use `\n`. Also set `window.SITE_CONFIG.contactEmail` to a *tested* inbox before announcing the website; while empty the contact CTA displays an honest setup notice.
-- `styles.css`: colors (`--gold`, `--night`), font sizes, spacing, cinematic animations and responsive layout.
-- `main.js`: structure, language switching, animated scene and smooth scroll.
-- `assets/brand-logo.png`: official shield logo shown in the upper-left header and small footer.
-- `assets/hero-chip.webp`, `compute-stack.webp`, `light-portal.webp`: illustration-only crops of **your supplied reference concept image**; the text/menu are real HTML, not embedded in these graphics. Replace the graphics with originals later if you wish.
+## 見る
 
-## GitHub workflow
-1. Push the whole unzipped folder (files at repo root, assets in `assets/`). Keep file names and folder structure. Do not upload the ZIP itself.
-2. In GitHub, open `content.js`, click the pencil icon, edit the relevant locale, click **Commit changes**.
-3. Connect the repository to Cloudflare Pages: Framework preset `None`, build command empty, output directory `.`. If the repository is private, authorize the GitHub integration. Test on the Pages preview URL before attaching twoltwo.com.
-4. Before public launch, verify company registration/address, data protection and contact details; confirm that setting up hosting DNS does not interrupt existing MX/SPF/DKIM mail forwarding.
+ZIPを解凍し、直下の `index.html` を Chrome / Safari で開いてください。インターネット接続・ビルド・ライブラリ不要。マウスやトラックパッドでページを最後までスクロールすると、奥行きのある背景がひと続きに変化します。
 
-## Accessibility and technical notes
-The page uses semantic sections and headings, focusable links, a keyboard-operable mobile menu, a skip link, reduced-motion support and passive/RAF-based scroll animation. All graphics have been separated from live website text; motion is purely decorative.
+## 編集
+
+- **文章・3言語**：`content.js` の `window.SITE_COPY.ja / en / th` を編集します。`<br>` は見出しの改行。
+- **デザイン**：`styles.css` の先頭の `:root` で色・余白を編集できます。
+- **動き**：`main.js` の `draw()` がスクロール位置をもとに全背景フレームの位置を計算します。写真に置き換えていません。
+- **正式ロゴ**：`assets/brand-logo.png` を差し替えられます。
+- **問い合わせ先**：`content.js` 先頭の `window.SITE_CONFIG.contactEmail` に、受信確認済みアドレスを設定してください。設定前は問い合わせボタンを非表示にします。フォーム送信バックエンドはありません。
+
+## GitHub へアップロード
+
+`https://github.com/64zw4s6k4d-sketch/twoltwo` を開き、今回のZIPを解凍した**中身だけ**をリポジトリのルートへ追加します。`index.html`, `styles.css`, `content.js`, `main.js`, `assets/brand-logo.png`, `assets/favicon.png`, `README.md` がルートから辿れるようにします。前の構成を残しておきたい場合は新しいブランチでプレビューしてください。`index.html` が `2L2_ONE_WORLD/index.html` という下位パスにならないようご注意ください。
+
+**公開前チェック**：商号・代表者・登記住所の記載、問い合わせメール、3言語翻訳の最終校正、プライバシーポリシー等の必要な法的表示を確認してください。サイトを公開する際に独自ドメインのDNSを変更するなら、既存メール転送のMX/SPF/DKIM等の設定を維持する必要があります。
+
+## 技術上の注意
+
+- このサイトは単一ページで、メニューは `#services` などのアンカーへ移動します。スライドをページごとに切り替えるものではありません。
+- `prefers-reduced-motion` の設定がある場合、立体移動やフェードを抑制します。
+- ユーザー自身で `content.js` に HTML を追加する場合、信頼できない外部入力やスクリプトを含めないでください。
+- 本サイトの説明文は事業内容の紹介であり、商品性能・顧客導入実績・医療上の精度を主張するものではありません。
