@@ -77,3 +77,135 @@
   .gpu-door{transform:none!important}
   .gpu-stack{transform:none!important}
 }
+
+/* GPU JOURNEY v2: shared square-space camera and editorial readability */
+:root {
+  --gpu-door-depth:0px;--gpu-stack-depth:-1200px;
+  --gpu-frame-depth:-850px;--door-angle-left:0deg;--door-angle-right:0deg;
+  --gpu-anchor-opacity:.76;--future-glow:0px;--future-alpha:0;
+  --future-border-alpha:.44;--future-core-alpha:0;
+}
+/* Keep illumination attached to the traveling squares; the world stays dark. */
+.atmosphere::after{background:none!important}
+.future-horizon{display:none!important}
+.company::before,.contact::before{display:none!important}
+.scene-3d{transform-style:preserve-3d}
+.space-frame{
+  border-color:rgba(255,224,166,var(--future-border-alpha));
+  box-shadow:0 0 var(--future-glow) rgba(255,236,196,var(--future-alpha)),
+    inset 0 0 var(--future-glow) rgba(255,225,154,var(--future-core-alpha)),
+    0 0 2px rgba(251,218,163,.17);
+  background:radial-gradient(ellipse at 50% 48%,rgba(255,234,185,var(--future-core-alpha)),transparent 72%);
+  transition:none; 
+}
+.space-frame::before,.space-frame::after{
+  border-color:rgba(255,230,174,var(--future-border-alpha));
+  box-shadow:0 0 var(--future-glow) rgba(255,232,179,var(--future-alpha));
+}
+.scene-3d .gpu-stage{position:absolute;inset:0;overflow:visible;z-index:3;perspective:1550px;perspective-origin:70% 48%;transform-style:preserve-3d;pointer-events:none}
+.gpu-stage::before{right:-1vw;top:18vh;width:48vw;height:65vh;opacity:var(--gpu-door-opacity);background:radial-gradient(ellipse,rgba(177,125,65,.14),transparent 68%);filter:blur(34px)}
+.gpu-anchor-frame{
+  position:absolute;right:3vw;top:21vh;width:min(42vw,610px);height:min(58vh,570px);
+  opacity:var(--gpu-anchor-opacity);border:1px solid rgba(231,190,120,.6);
+  transform:translate3d(0,0,var(--gpu-frame-depth)) rotateY(-13deg);
+  box-shadow:inset 0 0 1px rgba(247,223,181,.35),0 0 23px rgba(229,177,93,.12);
+  transform-style:preserve-3d;will-change:transform,opacity;
+}
+.gpu-anchor-frame::before,.gpu-anchor-frame::after{content:"";position:absolute;width:24px;height:24px;border-color:rgba(253,223,158,.9)}
+.gpu-anchor-frame::before{left:-2px;top:-2px;border-left:2px solid;border-top:2px solid}
+.gpu-anchor-frame::after{right:-2px;bottom:-2px;border-right:2px solid;border-bottom:2px solid}
+/* Half-image doors hinge around their real outer edges; shading exposes thickness. */
+.gpu-door{
+  position:absolute;right:1vw;top:13vh;width:min(46vw,690px);height:min(76vh,780px);
+  opacity:var(--gpu-door-opacity);perspective:1450px;
+  transform:translate3d(0,var(--gpu-door-y),var(--gpu-door-depth)) rotateY(-9deg);
+  transform-style:preserve-3d;will-change:transform,opacity;
+}
+.gpu-door::before{inset:21% 19%;z-index:0;opacity:var(--portal-open);filter:blur(25px);background:radial-gradient(ellipse,rgba(255,216,140,.27),transparent 67%)}
+.gpu-door-aperture{
+  position:absolute;inset:12% 13%;z-index:0;
+  opacity:var(--portal-open);transform:translateZ(-28px);
+  background:radial-gradient(ellipse at center,rgba(185,143,85,.21),rgba(5,10,18,.72) 46%,transparent 80%);
+  border:1px solid rgba(230,186,107,.25);
+  box-shadow:inset 0 0 40px rgba(231,181,102,.19),0 0 25px rgba(228,185,107,.12);
+}
+.gpu-door-leaf{
+  position:absolute;top:0;bottom:0;width:50%;transform-style:preserve-3d;
+  backface-visibility:hidden;will-change:transform;
+}
+.gpu-door-left{left:0;transform-origin:0% 50%;transform:rotateY(var(--door-angle-left))}
+.gpu-door-right{right:0;transform-origin:100% 50%;transform:rotateY(var(--door-angle-right))}
+.gpu-door-face{
+  position:absolute;inset:0;background-image:url("./assets/gpu-door.png");
+  background-size:200% 100%;background-repeat:no-repeat;
+  backface-visibility:hidden;
+  filter:drop-shadow(0 0 12px rgba(213,161,88,.12));
+}
+.gpu-door-left .gpu-door-face{background-position:left center}
+.gpu-door-right .gpu-door-face{background-position:right center}
+.gpu-door-edge{
+  position:absolute;top:9%;bottom:8%;width:9px;
+  background:linear-gradient(90deg,rgba(255,232,182,.86),#70512b 34%,#171920 88%);
+  border:1px solid rgba(241,193,125,.45);
+  box-shadow:0 0 9px rgba(243,193,103,.27),3px 0 18px rgba(0,0,0,.6);
+  opacity:var(--portal-open);transform:translateZ(-8px);
+}
+.gpu-door-left .gpu-door-edge{right:0}
+.gpu-door-right .gpu-door-edge{left:0;transform:translateZ(-8px) rotateY(180deg)}
+.gpu-stack{
+  position:absolute;right:0;top:13vh;width:min(47vw,700px);height:min(77vh,800px);
+  opacity:var(--gpu-stack-opacity);
+  transform:translate3d(0,var(--gpu-stack-y),var(--gpu-stack-depth)) rotateY(-11deg);
+  transform-style:preserve-3d;will-change:transform,opacity;
+}
+.gpu-stack img{filter:drop-shadow(0 18px 38px rgba(0,0,0,.50)) drop-shadow(0 0 18px rgba(226,174,93,.2))}
+/* Editorial layout: reserve the left side for words and the right for the scene. */
+.hero .chapter-content,.philosophy .chapter-content{width:100%;max-width:1380px;padding-left:clamp(18px,2.5vw,44px);padding-right:0}
+.hero-content{padding-left:clamp(18px,2.5vw,44px)}
+.hero h1{font-size:clamp(36px,4.35vw,71px);max-width:min(38.5vw,540px);line-height:1.46;letter-spacing:-.061em;text-shadow:0 5px 23px rgba(2,5,9,.8)}
+.hero-lead{max-width:min(35vw,455px);line-height:2.15;text-shadow:0 3px 16px rgba(2,5,9,.85)}
+.hero .chapter-content{padding-top:clamp(1rem,5vh,4rem)}
+.hero-side{display:none}
+.philosophy-content{max-width:1380px}
+.philosophy .manifesto{max-width:min(40vw,570px);font-size:clamp(33px,4.2vw,71px);line-height:1.51;margin:55px 0 34px;text-shadow:0 5px 24px rgba(2,5,9,.8)}
+.philosophy .manifesto-sub{max-width:min(38vw,485px);margin:0;font-size:clamp(12px,1.1vw,14px);text-shadow:0 3px 12px rgba(2,5,9,.8)}
+.hero::before,.philosophy::before{
+  width:60%;background:linear-gradient(90deg,rgba(5,8,13,.98),rgba(5,8,13,.93) 44%,rgba(5,8,13,.43) 78%,transparent);
+  z-index:1;
+}
+.footer-brand{gap:0!important}
+@media(max-width:1050px){
+  .hero h1{max-width:42vw;font-size:clamp(34px,4.8vw,60px)}
+  .philosophy .manifesto{max-width:44vw;font-size:clamp(30px,4.5vw,54px)}
+  .gpu-door{right:-3vw;width:52vw}.gpu-stack{right:-4vw;width:55vw}
+  .gpu-anchor-frame{right:0;width:49vw}
+}
+@media(max-width:820px){
+  .hero,.philosophy{min-height:117svh;align-items:flex-start}
+  .hero .chapter-content,.philosophy .chapter-content{max-width:100%;padding:0}
+  .hero .chapter-content{padding-top:clamp(0px,3vh,26px)}
+  .hero h1{max-width:min(86vw,650px);font-size:clamp(34px,7.3vw,59px)}
+  .hero-lead{max-width:min(83vw,510px)}
+  .philosophy .manifesto{max-width:85vw;font-size:clamp(33px,6.5vw,60px);margin:25px 0 25px}
+  .philosophy .manifesto-sub{max-width:min(78vw,550px)}
+  .gpu-door{top:38vh;right:-24vw;width:89vw;height:64vh}
+  .gpu-stack{top:35vh;right:-27vw;width:93vw;height:68vh}
+  .gpu-anchor-frame{top:42vh;right:-13vw;width:73vw;height:42vh}
+  .hero::before,.philosophy::before{width:100%;background:linear-gradient(180deg,rgba(5,8,13,.96),rgba(5,8,13,.9) 37%,rgba(5,8,13,.4) 76%,transparent)}
+}
+@media(max-width:560px){
+  .hero,.philosophy{min-height:116svh;padding-top:122px}
+  .hero h1{font-size:clamp(32px,8vw,46px);max-width:90vw;line-height:1.48}
+  .hero-lead{font-size:12px;max-width:88vw}
+  .philosophy .manifesto{font-size:clamp(31px,7.5vw,43px);max-width:89vw}
+  .philosophy .manifesto-sub{font-size:12px;max-width:85vw}
+  .gpu-door{top:43vh;right:-35vw;width:108vw;height:58vh}
+  .gpu-stack{top:41vh;right:-34vw;width:111vw;height:61vh}
+  .gpu-anchor-frame{top:48vh;right:-16vw;width:78vw;height:34vh}
+}
+@media(prefers-reduced-motion:reduce){
+  .gpu-door-left,.gpu-door-right{transform:none!important}
+  .gpu-door{transform:none!important}
+  .gpu-stack{transform:none!important}
+  .space-frame{transition:none!important}
+}
