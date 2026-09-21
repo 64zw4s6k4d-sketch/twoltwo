@@ -209,3 +209,18 @@
   .gpu-stack{transform:none!important}
   .space-frame{transition:none!important}
 }
+
+/* Privacy is its own page, not a stop on the ONE WORLD camera journey. */
+.desktop-nav .nav-privacy{color:#cbb18a}
+.desktop-nav .nav-privacy:hover{color:#f0d5a1}
+.site-footer{justify-content:flex-end;gap:clamp(20px,3vw,44px)}
+.site-footer>a:last-child{margin-left:0}
+.site-footer a:first-child{color:#c6ad81}
+.site-footer a:first-child:hover{color:#f0d5a1}
+@media(max-width:1160px) and (min-width:821px){
+ .desktop-nav{gap:clamp(9px,1.35vw,16px);padding-left:8px}
+ .desktop-nav a{font-size:10px;letter-spacing:.015em}
+}
+@media(max-width:820px){
+ .mobile-nav a[href="./privacy.html"]{color:#dfc494}
+}
