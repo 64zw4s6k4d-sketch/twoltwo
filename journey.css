@@ -1,0 +1,79 @@
+/* 2L² — 00→06, one continuous camera journey.
+   All GPU art belongs to 2L²; other spatial elements are CSS only. */
+:root{
+  --portal-open:0; --gpu-door-opacity:1; --gpu-stack-opacity:0;
+  --gpu-door-y:0px; --gpu-stack-y:0px; --gpu-stack-scale:.42;
+  --future-light:0; --journey-index:0;
+  --gold-deep:#917044;--gold-bright:#dfc18a;
+}
+.brand-wordmark,.scroll-cue{display:none!important}
+.brand{gap:0!important}
+.brand img{width:40px;height:43px;object-fit:contain}
+.hero{min-height:138svh;isolation:isolate}
+.hero .chapter-content{max-width:min(700px,56vw);padding-top:clamp(4rem,9vh,8rem)}
+.hero h1{max-width:12.5em;font-size:clamp(43px,5.5vw,91px);line-height:1.36;letter-spacing:-.052em;text-wrap:balance}
+.hero-lead{max-width:520px}
+.hero-index{font-variant-numeric:tabular-nums}
+.philosophy{min-height:125svh;isolation:isolate}
+.philosophy-content{max-width:min(780px,57vw)}
+.philosophy .manifesto{line-height:1.56;letter-spacing:-.043em;text-wrap:balance}
+.philosophy .manifesto em{font-style:normal;color:#dfc38f}
+.action-solid{color:#f4e4c6!important;background:linear-gradient(132deg,#6a5033 0%,#846338 39%,#3c3125 100%)!important;border:1px solid rgba(247,211,146,.62)!important;box-shadow:inset 0 1px rgba(255,235,191,.38),inset 0 -1px rgba(12,9,5,.5),0 12px 44px rgba(0,0,0,.38),0 0 0 1px rgba(87,62,32,.26)!important}
+.action-solid:hover{background:linear-gradient(130deg,#967347,#aa8350 45%,#54412e)!important;box-shadow:inset 0 1px rgba(255,238,204,.52),0 14px 47px rgba(0,0,0,.46),0 0 30px rgba(190,139,66,.16)!important}
+.atmosphere:after{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;background:radial-gradient(ellipse 80% 90% at 77% 76%,rgba(255,215,152,calc(var(--future-light)*.15)),transparent 68%),linear-gradient(180deg,transparent 28%,rgba(175,136,76,calc(var(--future-light)*.115)));opacity:1}
+.future-horizon{position:absolute;z-index:3;left:-8%;right:-8%;bottom:-24%;height:95%;pointer-events:none;opacity:var(--future-light);transform:translateY(calc((1 - var(--future-light))*24%));background:radial-gradient(ellipse 70% 23% at 68% 56%,rgba(255,236,191,.42),rgba(214,170,101,.14) 36%,transparent 72%),radial-gradient(ellipse 70% 56% at 54% 84%,rgba(64,99,118,.17),transparent 79%);filter:blur(24px);will-change:transform,opacity}
+.future-horizon:after{content:"";position:absolute;width:140%;left:-20%;top:57%;height:1px;background:linear-gradient(90deg,transparent,rgba(254,228,171,.14),rgba(255,245,221,.82),rgba(254,228,171,.24),transparent);box-shadow:0 0 38px 17px rgba(228,190,127,.15)}
+/* The two actual objects are one fixed depth stage, not separate slide backgrounds. */
+.gpu-stage{position:absolute;inset:0;z-index:2;pointer-events:none;perspective:1550px;perspective-origin:72% 50%;overflow:hidden}
+.gpu-stage:before{content:"";position:absolute;width:64vw;height:75vh;right:-8vw;top:12vh;background:radial-gradient(ellipse at center,rgba(199,146,72,.19),rgba(137,99,53,.06) 37%,transparent 71%);filter:blur(28px);opacity:calc(1 - var(--future-light)*.5)}
+.gpu-stage img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 18px 38px rgba(0,0,0,.44)) drop-shadow(0 0 24px rgba(185,131,60,.18));-webkit-user-drag:none;user-select:none}
+.gpu-door{position:absolute;width:min(59vw,900px);height:min(81vh,850px);right:-3vw;top:10vh;opacity:var(--gpu-door-opacity);transform:translate3d(0,var(--gpu-door-y),0) rotateY(calc(var(--portal-open)*-4deg));transform-style:preserve-3d;will-change:transform,opacity}
+.gpu-door:before{content:"";position:absolute;inset:9% 10%;background:radial-gradient(circle,rgba(255,233,174,.35),transparent 67%);filter:blur(38px);opacity:var(--portal-open)}
+.door-half{position:absolute;inset:0;backface-visibility:hidden;will-change:transform;transform-style:preserve-3d}
+.door-half.left{clip-path:inset(0 50% 0 0);transform-origin:28% 50%;transform:translateX(calc(var(--portal-open)*-15vw)) rotateY(calc(var(--portal-open)*-91deg))}
+.door-half.right{clip-path:inset(0 0 0 50%);transform-origin:72% 50%;transform:translateX(calc(var(--portal-open)*15vw)) rotateY(calc(var(--portal-open)*91deg))}
+.gpu-stack{position:absolute;width:min(60vw,870px);height:min(85vh,940px);right:-1vw;top:9vh;opacity:var(--gpu-stack-opacity);transform:translate3d(0,var(--gpu-stack-y),0) scale(var(--gpu-stack-scale)) rotateX(calc((1 - var(--gpu-stack-opacity))*18deg));transform-origin:55% 48%;will-change:transform,opacity}
+.gpu-stack:after{content:"";position:absolute;left:20%;right:20%;bottom:9%;height:11%;background:radial-gradient(ellipse,rgba(208,162,84,.25),transparent 70%);filter:blur(22px)}
+/* Chapter numbers identify stages of a single journey, 00 at entry to 06 at horizon. */
+.journey-label{position:absolute;z-index:3;bottom:4vh;right:var(--pad);font-size:clamp(12px,1.2vw,16px);font-weight:500;letter-spacing:.23em;color:rgba(236,208,157,.66);font-variant-numeric:tabular-nums}
+.journey-label strong{font-size:2.2em;font-weight:300;color:#e6cf9e}
+.hero .chapter-content,.philosophy .chapter-content{position:relative;z-index:6}
+.hero-side{z-index:6}
+/* A veil keeps long headlines readable while the door opens on the right. */
+.hero:before,.philosophy:before{content:"";position:absolute;z-index:1;left:0;top:0;bottom:0;width:61%;pointer-events:none;background:linear-gradient(90deg,rgba(5,8,13,.82),rgba(5,8,13,.52) 66%,transparent)}
+.company,.contact{isolation:isolate}
+.company:before,.contact:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 88% 70% at 72% 83%,rgba(215,168,103,.085),transparent 66%)}
+@media(max-width:1050px){
+  .gpu-door{width:68vw;right:-10vw}.gpu-stack{width:66vw;right:-10vw}
+  .hero .chapter-content{max-width:66vw}.philosophy-content{max-width:63vw}
+}
+@media(max-width:820px){
+  .brand-wordmark{display:none!important}.brand img{width:32px;height:35px}
+  .hero{min-height:120svh;padding-top:115px}
+  .hero .chapter-content,.philosophy-content{max-width:100%}
+  .hero .chapter-content{padding-top:12vh}
+  .hero h1{max-width:11em;font-size:clamp(37px,8vw,62px)}
+  .gpu-stage{perspective-origin:75% 44%}
+  .gpu-door{width:82vw;height:65vh;top:14vh;right:-27vw}
+  .gpu-stack{width:85vw;height:70vh;top:14vh;right:-27vw}
+  .hero:before,.philosophy:before{width:100%;background:linear-gradient(90deg,rgba(5,8,13,.87),rgba(5,8,13,.61) 72%,rgba(5,8,13,.15))}
+  .philosophy{min-height:110svh}
+  .philosophy .manifesto{max-width:13em}
+}
+@media(max-width:560px){
+  .hero{min-height:120svh;padding-top:94px}
+  .hero .chapter-content{padding-top:4vh}
+  .hero h1{font-size:clamp(36px,9vw,51px);line-height:1.44;letter-spacing:-.055em}
+  .hero-lead{max-width:25em;font-size:12px}
+  .gpu-door{width:112vw;height:60vh;right:-41vw;top:36vh;opacity:calc(var(--gpu-door-opacity)*.76)}
+  .gpu-stack{width:115vw;height:65vh;right:-40vw;top:34vh;opacity:calc(var(--gpu-stack-opacity)*.72)}
+  .philosophy{min-height:104svh}
+  .philosophy .manifesto{font-size:clamp(30px,7.8vw,44px);max-width:13em}
+  .hero:before,.philosophy:before{background:linear-gradient(180deg,rgba(5,8,13,.89) 0%,rgba(5,8,13,.75) 48%,rgba(5,8,13,.3) 100%)}
+  .journey-label{right:var(--pad);bottom:3vh}
+}
+@media(prefers-reduced-motion:reduce){
+  .door-half.left,.door-half.right{transform:none!important}
+  .gpu-door{transform:none!important}
+  .gpu-stack{transform:none!important}
+}
