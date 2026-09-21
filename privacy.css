@@ -43,3 +43,47 @@
  .privacy-footer{padding-inline:23px}
 }
 @media(prefers-reduced-motion:reduce){.privacy-back,.privacy-footer a{transition:none}}
+
+/* CUSTOMER INFORMATION — LINK INDEX
+   Separate from the continuous homepage, but using its typography, midnight ink
+   and understated metallic accent. The three destinations contain no invented policy. */
+.customer-main{min-height:100svh;align-items:flex-start;padding-top:clamp(155px,21vh,225px);padding-bottom:clamp(98px,12vh,145px)}
+.customer-main .privacy-frame{top:10%;right:-10%;opacity:.72;transform:perspective(1200px) rotateX(7deg) rotateY(-21deg) rotateZ(-5deg)}
+.customer-main .privacy-eyebrow{margin-bottom:clamp(31px,5vh,58px)}
+.customer-copy{position:relative;width:min(100%,1060px);max-width:1060px}
+.customer-copy h1{font-size:clamp(47px,5.7vw,88px);line-height:1.35;font-weight:400;letter-spacing:-.064em;margin:0 0 14px;text-wrap:balance}
+.customer-intro{font-size:clamp(12px,1.05vw,14px);line-height:2;color:#b8bec2;margin:0 0 clamp(37px,5vh,60px)}
+.customer-links{display:flex;flex-direction:column;border-bottom:1px solid rgba(220,185,123,.32);max-width:1020px}
+.customer-link{display:grid;grid-template-columns:clamp(104px,12vw,162px) minmax(0,1fr) 45px;align-items:center;column-gap:clamp(10px,2.4vw,34px);min-height:clamp(116px,11.9vh,153px);padding:23px clamp(6px,1.4vw,21px) 24px 0;border-top:1px solid rgba(220,185,123,.32);background:linear-gradient(90deg,transparent,transparent);transition:padding .42s cubic-bezier(.18,.8,.22,1),background .42s,border-color .42s;isolation:isolate}
+.customer-link:hover,.customer-link:focus-visible{padding-left:clamp(12px,1.5vw,23px);border-color:rgba(251,224,170,.75);background:linear-gradient(90deg,rgba(183,133,68,.13),rgba(192,148,83,.035) 68%,transparent)}
+.customer-link-no{align-self:center;font-size:10px;color:#af9468;letter-spacing:.18em;white-space:nowrap}
+.customer-link-title{font-size:clamp(22px,2.7vw,38px);font-weight:400;line-height:1.5;letter-spacing:-.045em;color:#e9e7e1;text-wrap:balance;overflow-wrap:anywhere}
+.customer-link-arrow{justify-self:end;font-size:26px;font-weight:300;line-height:1;color:#d5b982;transition:transform .4s,color .4s}
+.customer-link:hover .customer-link-arrow,.customer-link:focus-visible .customer-link-arrow{transform:translate(4px,-4px);color:#f5dbad}
+.customer-detail-page .privacy-container{max-width:1320px}
+.customer-detail-copy{max-width:min(950px,75vw)}
+.customer-detail-copy h1{font-size:clamp(40px,5.3vw,79px);line-height:1.42;max-width:850px;overflow-wrap:anywhere;text-wrap:balance}
+.customer-detail-page .privacy-main{padding-top:clamp(145px,19vh,210px)}
+@media(max-width:820px){
+  .customer-main{min-height:96svh;padding-top:160px;padding-bottom:92px}
+  .customer-main .privacy-frame{right:-46%;top:20%;opacity:.34;width:94vw}
+  .customer-copy h1{font-size:clamp(39px,7vw,62px)}
+  .customer-link{grid-template-columns:112px minmax(0,1fr) 24px;min-height:112px;column-gap:12px}
+  .customer-link-title{font-size:clamp(19px,3.9vw,29px)}
+  .customer-detail-copy{max-width:100%}
+}
+@media(max-width:560px){
+  .customer-main{padding-top:133px;padding-bottom:90px}
+  .customer-main .privacy-eyebrow{margin-bottom:31px}
+  .customer-copy h1{font-size:clamp(37px,9vw,51px);margin-bottom:16px}
+  .customer-intro{margin-bottom:35px}
+  .customer-link{grid-template-columns:1fr 27px;grid-template-rows:auto auto;row-gap:6px;column-gap:8px;min-height:113px;padding:19px 2px 20px 0}
+  .customer-link-no{grid-column:1;grid-row:1;font-size:9px}
+  .customer-link-title{grid-column:1;grid-row:2;font-size:clamp(19px,5vw,26px);line-height:1.6}
+  .customer-link-arrow{grid-column:2;grid-row:1 / span 2;align-self:center;font-size:23px}
+  .customer-detail-page .privacy-main{min-height:80svh;padding-top:137px}
+  .customer-detail-copy h1{font-size:clamp(33px,8.1vw,46px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .customer-link,.customer-link-arrow{transition:none}
+}
