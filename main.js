@@ -3,13 +3,17 @@
   'use strict';
   const $ = (selector) => document.querySelector(selector);
   const $$ = (selector) => Array.from(document.querySelectorAll(selector));
-  const chapters = $$('.chapter[data-chapter]');
+  const chapters = $('.chapter[data-chapter]');
+  const journeySections = [$('#home'),$('#philosophy'),$('#services'),$('#technology'),$('#projects'),$('#company'),$('#contact')];
+  const gpuDoor = $('.gpu-door'), gpuStack = $('.gpu-stack');
+  const isReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const frameNodes = $$('.space-frame');
   const scene = $('#scene-3d');
   const header = $('#site-header');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const labels = {ja:['ホーム','事業内容','技術紹介','開発・検証','会社概要','お問い合わせ'],en:['HOME','SERVICES','TECHNOLOGY','DEVELOPMENT','COMPANY','CONTACT'],th:['หน้าแรก','บริการ','เทคโนโลยี','การพัฒนา','บริษัท','ติดต่อเรา']};
   let currentLang = 'ja';
+  const chapterNumber = (index) => String(index).padStart(2,'0');
   function getCopy(path, lang=currentLang){return path.split('.').reduce((value,part)=>value && value[part], window.SITE_COPY[lang]);}
   function applyLanguage(lang){
     if(!window.SITE_COPY[lang]) return;
@@ -41,7 +45,7 @@
   function updateNavigation(){
     const chapter=chapters[activeIndex], id=chapter?.id||'home';
     $$('.desktop-nav a').forEach(a=>{const selected=a.dataset.nav===id;a.classList.toggle('active',selected);if(selected)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});
-    $('#rail-label').textContent=`${String(activeIndex+1).padStart(2,'0')} — ${labels[currentLang][activeIndex]}`;
+    $('#rail-label').textContent=`${chapterNumber(activeIndex)} — ${labels[currentLang][activeIndex]}`;
     $('#rail-fill').style.width=`${Math.round((activeIndex+1)/chapters.length*100)}%`;
   }
   function detectChapter(){
@@ -58,6 +62,26 @@
     const progress=clamp(smooth/total,0,1);
     document.documentElement.style.setProperty('--progress',progress.toFixed(5));
     $('#progress').style.transform=`scaleX(${progress})`;
+    // 00: the chip is a closed gateway; scrolling opens its two halves.
+    // 01: the horizontal GPU stack rises out of the gate and advances towards the viewer.
+    // 02–04: the existing continuous frames keep carrying the camera forward.
+    // 05–06: light opens towards a future horizon, without resetting the world.
+    const travel=(el)=>el?clamp((smooth-el.offsetTop)/Math.max(el.offsetHeight,1),0,1):0;
+    const gate=clamp((smooth-window.innerHeight*.12)/Math.max(window.innerHeight*.74,1),0,1);
+    const approach=clamp((smooth-window.innerHeight*.57)/Math.max(window.innerHeight*.76,1),0,1);
+    const reveal=gate*gate*(3-2*gate);
+    const stackIn=approach*approach*(3-2*approach);
+    const doorVisible=clamp(1-(smooth-window.innerHeight*.88)/Math.max(window.innerHeight*.55,1),0,1);
+    const stackVisible=clamp((smooth-window.innerHeight*.65)/Math.max(window.innerHeight*.36,1),0,1)
+      *clamp(1-(smooth-journeySections[3].offsetTop)/Math.max(window.innerHeight*.8,1),0,1);
+    const future=clamp((smooth-journeySections[5].offsetTop+window.innerHeight*.24)/Math.max(window.innerHeight*1.7,1),0,1);
+    document.documentElement.style.setProperty('--portal-open',reducedMotion.matches?0:reveal.toFixed(4));
+    document.documentElement.style.setProperty('--gpu-door-opacity',reducedMotion.matches?1:doorVisible.toFixed(4));
+    document.documentElement.style.setProperty('--gpu-door-y',reducedMotion.matches?'0px':`${Math.round(-reveal*window.innerHeight*.14)}px`);
+    document.documentElement.style.setProperty('--gpu-stack-opacity',reducedMotion.matches?0:stackVisible.toFixed(4));
+    document.documentElement.style.setProperty('--gpu-stack-y',reducedMotion.matches?'0px':`${Math.round((1-stackIn)*-window.innerHeight*.10+travel(journeySections[2])*-window.innerHeight*.1)}px`);
+    document.documentElement.style.setProperty('--gpu-stack-scale',reducedMotion.matches?1:(.42+stackIn*.65).toFixed(4));
+    document.documentElement.style.setProperty('--future-light',future.toFixed(4));
     if(!reducedMotion.matches){
       const pace=smooth/Math.max(680,window.innerHeight*.92);
       const phase=pace*740;
