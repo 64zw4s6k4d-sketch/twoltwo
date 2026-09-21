@@ -9,7 +9,7 @@
   const scene = $('#scene-3d');
   const header = $('#site-header');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const labels = {ja:['ホーム','事業内容','技術紹介','開発・検証','会社概要','お問い合わせ'],en:['HOME','SERVICES','TECHNOLOGY','DEVELOPMENT','COMPANY','CONTACT'],th:['หน้าแรก','บริการ','เทคโนโลยี','การพัฒนา','บริษัท','ติดต่อเรา']};
+  const labels = {ja:['ホーム','設計思想','事業内容','技術紹介','開発・検証','会社概要','お問い合わせ'],en:['HOME','APPROACH','SERVICES','TECHNOLOGY','DEVELOPMENT','COMPANY','CONTACT'],th:['หน้าแรก','แนวทาง','บริการ','เทคโนโลยี','การพัฒนา','บริษัท','ติดต่อเรา']};
   let currentLang = 'ja';
   const chapterNumber = (index) => String(index).padStart(2,'0');
   function getCopy(path, lang=currentLang){return path.split('.').reduce((value,part)=>value && value[part], window.SITE_COPY[lang]);}
@@ -44,7 +44,7 @@
     const chapter=chapters[activeIndex], id=chapter?.id||'home';
     $$('.desktop-nav a').forEach(a=>{const selected=a.dataset.nav===id;a.classList.toggle('active',selected);if(selected)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});
     $('#rail-label').textContent=`${chapterNumber(activeIndex)} — ${labels[currentLang][activeIndex]}`;
-    $('#rail-fill').style.width=`${Math.round((activeIndex+1)/chapters.length*100)}%`;
+    $('#rail-fill').style.width=`${Math.round(activeIndex/Math.max(1,chapters.length-1)*100)}%`;
   }
   function detectChapter(){
     const mid=window.scrollY+window.innerHeight*.53;
