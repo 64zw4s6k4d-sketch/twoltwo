@@ -5,9 +5,7 @@
   const $$ = (selector) => Array.from(document.querySelectorAll(selector));
   const chapters = $('.chapter[data-chapter]');
   const journeySections = [$('#home'),$('#philosophy'),$('#services'),$('#technology'),$('#projects'),$('#company'),$('#contact')];
-  const gpuDoor = $('.gpu-door'), gpuStack = $('.gpu-stack');
-  const isReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const frameNodes = $$('.space-frame');
+    const frameNodes = $$('.space-frame');
   const scene = $('#scene-3d');
   const header = $('#site-header');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -72,7 +70,7 @@
     const reveal=gate*gate*(3-2*gate);
     const stackIn=approach*approach*(3-2*approach);
     const doorVisible=clamp(1-(smooth-window.innerHeight*.88)/Math.max(window.innerHeight*.55,1),0,1);
-    const stackVisible=clamp((smooth-window.innerHeight*.65)/Math.max(window.innerHeight*.36,1),0,1)
+    const stackVisible=clamp((smooth-window.innerHeight*.47)/Math.max(window.innerHeight*.35,1),0,1)
       *clamp(1-(smooth-journeySections[3].offsetTop)/Math.max(window.innerHeight*.8,1),0,1);
     const future=clamp((smooth-journeySections[5].offsetTop+window.innerHeight*.24)/Math.max(window.innerHeight*1.7,1),0,1);
     document.documentElement.style.setProperty('--portal-open',reducedMotion.matches?0:reveal.toFixed(4));
@@ -98,7 +96,7 @@
         frame.style.setProperty('--frame-blur',`${clamp((depth-550)/380,0,4)}px`);
       });
     }
-    if(Math.abs(target-smooth)>.18){smooth+=(target-smooth)*.105;requestAnimationFrame(draw);ticking=true;}else smooth=target;
+    if(Math.abs(target-smooth)>.18){smooth+=(target-smooth)*.105;requestAnimationFrame(draw);ticking=true;}else{smooth=target;}
   }
   function schedule(){if(!ticking){ticking=true;requestAnimationFrame(draw);}}
   function onScroll(){target=window.scrollY;if(reducedMotion.matches){smooth=target;}schedule();detectChapter();header.classList.toggle('scrolled',window.scrollY>30);}
