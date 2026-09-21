@@ -37,7 +37,7 @@
   if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(configuredEmail)){
     const link=$('#email-link');link.href=`mailto:${configuredEmail}?subject=${encodeURIComponent('2L² お問い合わせ')}`;link.hidden=false;$('#contact-unavailable').hidden=true;
   }
-  $('#year').textContent=String(new Date().getFullYear());
+  // Footer branding and copyright were intentionally removed. No #year element remains.
   const clamp=(x,min,max)=>Math.max(min,Math.min(max,x));
   let target=0, smooth=0, ticking=false, activeIndex=0, lastWidth=window.innerWidth;
   function updateNavigation(){
