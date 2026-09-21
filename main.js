@@ -3,7 +3,7 @@
   'use strict';
   const $ = (selector) => document.querySelector(selector);
   const $$ = (selector) => Array.from(document.querySelectorAll(selector));
-  const chapters = $('.chapter[data-chapter]');
+  const chapters = $$('.chapter[data-chapter]');
   const journeySections = [$('#home'),$('#philosophy'),$('#services'),$('#technology'),$('#projects'),$('#company'),$('#contact')];
     const frameNodes = $$('.space-frame');
   const scene = $('#scene-3d');
@@ -60,26 +60,38 @@
     const progress=clamp(smooth/total,0,1);
     document.documentElement.style.setProperty('--progress',progress.toFixed(5));
     $('#progress').style.transform=`scaleX(${progress})`;
-    // 00: the chip is a closed gateway; scrolling opens its two halves.
-    // 01: the horizontal GPU stack rises out of the gate and advances towards the viewer.
-    // 02–04: the existing continuous frames keep carrying the camera forward.
-    // 05–06: light opens towards a future horizon, without resetting the world.
-    const travel=(el)=>el?clamp((smooth-el.offsetTop)/Math.max(el.offsetHeight,1),0,1):0;
-    const gate=clamp((smooth-window.innerHeight*.12)/Math.max(window.innerHeight*.74,1),0,1);
-    const approach=clamp((smooth-window.innerHeight*.57)/Math.max(window.innerHeight*.76,1),0,1);
-    const reveal=gate*gate*(3-2*gate);
-    const stackIn=approach*approach*(3-2*approach);
-    const doorVisible=clamp(1-(smooth-window.innerHeight*.88)/Math.max(window.innerHeight*.55,1),0,1);
-    const stackVisible=clamp((smooth-window.innerHeight*.47)/Math.max(window.innerHeight*.35,1),0,1)
-      *clamp(1-(smooth-journeySections[3].offsetTop)/Math.max(window.innerHeight*.8,1),0,1);
-    const future=clamp((smooth-journeySections[5].offsetTop+window.innerHeight*.24)/Math.max(window.innerHeight*1.7,1),0,1);
-    document.documentElement.style.setProperty('--portal-open',reducedMotion.matches?0:reveal.toFixed(4));
-    document.documentElement.style.setProperty('--gpu-door-opacity',reducedMotion.matches?1:doorVisible.toFixed(4));
-    document.documentElement.style.setProperty('--gpu-door-y',reducedMotion.matches?'0px':`${Math.round(-reveal*window.innerHeight*.14)}px`);
-    document.documentElement.style.setProperty('--gpu-stack-opacity',reducedMotion.matches?0:stackVisible.toFixed(4));
-    document.documentElement.style.setProperty('--gpu-stack-y',reducedMotion.matches?'0px':`${Math.round((1-stackIn)*-window.innerHeight*.10+travel(journeySections[2])*-window.innerHeight*.1)}px`);
-    document.documentElement.style.setProperty('--gpu-stack-scale',reducedMotion.matches?1:(.42+stackIn*.65).toFixed(4));
-    document.documentElement.style.setProperty('--future-light',future.toFixed(4));
+    // 00 and 01 are inside the same 3D camera as the golden traveling squares.
+    // Doors hinge apart; the stack rises from their opening and recedes by 02.
+    // In 05–06 the squares brighten but the backdrop retains its deep navy.
+    const vh=Math.max(window.innerHeight,1);
+    const approachStart=journeySections[1].offsetTop;
+    const servicesStart=journeySections[2].offsetTop;
+    const futureStart=journeySections[5].offsetTop-vh*.5;
+    const futureEnd=journeySections[6].offsetTop+vh*.55;
+    const ease=t=>t*t*(3-2*t);
+    const gate=ease(clamp((smooth-vh*.12)/Math.max(approachStart-vh*.12,1),0,1));
+    const doorVisible=clamp((approachStart+vh*.29-smooth)/(vh*.56),0,1);
+    const approach=ease(clamp((smooth-(approachStart-vh*.62))/(vh*.98),0,1));
+    const stackExit=clamp((servicesStart-smooth)/(vh*.45),0,1);
+    const stackVisible=approach*stackExit;
+    const future=ease(clamp((smooth-futureStart)/Math.max(futureEnd-futureStart,1),0,1));
+    const set=(name,value)=>document.documentElement.style.setProperty(name,value);
+    set('--portal-open',reducedMotion.matches?'0':gate.toFixed(4));
+    set('--gpu-door-opacity',reducedMotion.matches?'1':doorVisible.toFixed(4));
+    set('--door-angle-left',reducedMotion.matches?'0deg':(-74*gate).toFixed(2)+'deg');
+    set('--door-angle-right',reducedMotion.matches?'0deg':(74*gate).toFixed(2)+'deg');
+    set('--gpu-door-y',reducedMotion.matches?'0px':Math.round(-gate*vh*.05)+'px');
+    set('--gpu-door-depth',reducedMotion.matches?'0px':Math.round(-160+gate*220)+'px');
+    set('--gpu-anchor-opacity',reducedMotion.matches?'.36':(.66*Math.max(doorVisible,stackVisible)).toFixed(4));
+    set('--gpu-frame-depth',reducedMotion.matches?'0px':Math.round(-900+gate*930+approach*140)+'px');
+    set('--gpu-stack-opacity',reducedMotion.matches?'0':stackVisible.toFixed(4));
+    set('--gpu-stack-y',reducedMotion.matches?'0px':Math.round((1-approach)*vh*.045+(1-stackExit)*vh*.07)+'px');
+    set('--gpu-stack-depth',reducedMotion.matches?'0px':Math.round(-1150+approach*1300-(1-stackExit)*1100)+'px');
+    set('--future-light',reducedMotion.matches?'0':future.toFixed(4));
+    set('--future-glow',Math.round(13+future*88)+'px');
+    set('--future-alpha',(.045+future*.56).toFixed(4));
+    set('--future-border-alpha',(.44+future*.53).toFixed(4));
+    set('--future-core-alpha',(.015+future*.14).toFixed(4));
     if(!reducedMotion.matches){
       const pace=smooth/Math.max(680,window.innerHeight*.92);
       const phase=pace*740;
