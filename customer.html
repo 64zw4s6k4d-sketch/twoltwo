@@ -3,80 +3,64 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#090e16"><meta name="robots" content="noindex,nofollow">
-<meta name="description" content="2L²のお客様向け情報。情報保護方針、情報の安全管理・取り扱い、導入までの流れ。">
+<meta name="description" content="2L²のお客様向け情報。情報保護方針、情報の安全管理・取り扱い、導入までの流れをご案内します。">
 <title>お客様向け情報 | 2L²</title>
 <link rel="icon" type="image/png" href="./assets/favicon.png">
-<link rel="stylesheet" href="./customer.css">
+<link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./customer.css">
 <script defer src="./customer.js"></script>
 </head>
-<body>
+<body class="customer-page">
 <header class="customer-top">
-  <a class="customer-logo" href="./index.html#home" aria-label="2L² ホーム"><img src="./assets/brand-logo.png" alt="2L²" width="38" height="41"></a>
-  <nav class="customer-nav" aria-label="サイトメニュー">
-    <a href="./index.html#home" data-copy="nav.home">ホーム</a>
-    <a href="./index.html#services" data-copy="nav.services">事業内容</a>
-    <a href="./index.html#technology" data-copy="nav.technology">技術紹介</a>
-    <a href="./index.html#projects" data-copy="nav.projects">開発・検証</a>
-    <a href="./index.html#company" data-copy="nav.company">会社概要</a>
-    <a href="./index.html#contact" data-copy="nav.contact">お問い合わせ</a>
-    <a aria-current="page" href="./customer.html" data-copy="nav.customer">お客様向け情報</a>
-  </nav>
-  <div class="customer-language" aria-label="Language">
-    <button type="button" data-lang="ja" aria-pressed="true">JP</button><span>/</span>
-    <button type="button" data-lang="en" aria-pressed="false">EN</button><span>/</span>
-    <button type="button" data-lang="th" aria-pressed="false">TH</button>
-  </div>
+ <a class="customer-brand" href="./index.html#home" aria-label="2L² ホーム"><img src="./assets/brand-logo.png" alt="2L²" width="38" height="41"></a>
+ <nav class="customer-nav" aria-label="サイトメニュー">
+  <a href="./index.html#home" data-nav-key="home">ホーム</a>
+  <a href="./index.html#services" data-nav-key="services">事業内容</a>
+  <a href="./index.html#technology" data-nav-key="technology">技術紹介</a>
+  <a href="./index.html#projects" data-nav-key="projects">開発・検証</a>
+  <a href="./index.html#company" data-nav-key="company">会社概要</a>
+  <a href="./index.html#contact" data-nav-key="contact">お問い合わせ</a>
+  <a href="./customer.html" aria-current="page" data-nav-key="customer">お客様向け情報</a>
+ </nav>
+ <div class="customer-language" role="group" aria-label="Language"><button type="button" data-lang="ja" aria-pressed="true">JP</button><span>/</span><button type="button" data-lang="en" aria-pressed="false">EN</button><span>/</span><button type="button" data-lang="th" aria-pressed="false">TH</button></div>
 </header>
 
 <main class="customer-main" id="customer-information">
-  <div class="customer-intro">
-    <p class="customer-kicker">CUSTOMER INFORMATION / 2L²</p>
-    <h1 data-copy="intro.title">お客様向け情報</h1>
-    <p data-copy="intro.subtitle">大切な情報と導入プロセスを、わかりやすく。</p>
+ <div class="customer-intro">
+  <p class="customer-kicker" id="customer-kicker">CUSTOMER INFORMATION / 2L²</p>
+  <h1 id="customer-title">お客様向け情報</h1>
+  <p id="customer-subtitle">必要な情報を、わかりやすく。</p>
+ </div>
+
+ <section class="customer-stage" id="customer-stage" data-active="0" tabindex="0" role="region" aria-label="お客様向け情報を左右にスワイプして切り替えます">
+  <div class="customer-orbit"><i class="customer-orbit-dot"></i></div><div class="customer-halo"></div>
+  <div class="customer-object-holder"><img class="customer-object" src="./assets/gpu-stack.png" alt="" draggable="false"></div>
+
+  <button type="button" class="customer-node active" data-node="0" style="--x:16%;--y:38%" aria-pressed="true"><small>01 / POLICY</small><strong>情報保護方針</strong><span class="go" aria-hidden="true">↗</span></button>
+  <button type="button" class="customer-node" data-node="1" style="--x:84%;--y:35%" aria-pressed="false"><small>02 / SECURITY</small><strong>情報の安全管理・取り扱い</strong><span class="go" aria-hidden="true">↗</span></button>
+  <button type="button" class="customer-node" data-node="2" style="--x:78%;--y:78%" aria-pressed="false"><small>03 / PROCESS</small><strong>導入までの流れ</strong><span class="go" aria-hidden="true">↗</span></button>
+
+  <div class="customer-stage-hint"><i></i><span id="customer-hint-text">右にスワイプして次へ　→　ドラッグ・タップでも操作できます</span><i></i></div>
+ </section>
+
+ <div class="customer-under">
+  <div class="customer-overline" id="customer-counter">01 / 03 — POLICY</div>
+  <div class="customer-controls">
+   <button class="customer-arrow" type="button" id="customer-prev" aria-label="前の項目へ">←</button>
+   <div class="customer-pips" aria-hidden="true"><span class="customer-pip active"></span><span class="customer-pip"></span><span class="customer-pip"></span></div>
+   <button class="customer-arrow" type="button" id="customer-next" aria-label="次の項目へ">→</button>
   </div>
+ </div>
 
-  <section class="customer-stage" id="customer-stage" data-active="0" tabindex="0" role="region"
-    aria-label="お客様向け情報を左右にスワイプして切り替えます。"
-    aria-roledescription="スワイプ対応の項目切り替え">
-    <div class="customer-orbit"><i class="customer-orbit-dot"></i></div>
-    <div class="customer-halo"></div>
-    <div class="customer-core" aria-hidden="true">
-      <div class="customer-core-back"></div>
-      <div class="customer-core-ring"></div>
-      <img src="./assets/brand-logo.png" alt="" width="210" height="226">
-    </div>
-
-    <button type="button" class="customer-tag active" data-node="0" style="--x:15%;--y:39%" aria-pressed="true">
-      <small>01 / POLICY</small><strong data-topic-title="0">情報保護方針</strong><span class="go" aria-hidden="true">↗</span>
-    </button>
-    <button type="button" class="customer-tag" data-node="1" style="--x:84%;--y:35%" aria-pressed="false">
-      <small>02 / SECURITY</small><strong data-topic-title="1">情報の安全管理・取り扱い</strong><span class="go" aria-hidden="true">↗</span>
-    </button>
-    <button type="button" class="customer-tag" data-node="2" style="--x:78%;--y:78%" aria-pressed="false">
-      <small>03 / PROCESS</small><strong data-topic-title="2">導入までの流れ</strong><span class="go" aria-hidden="true">↗</span>
-    </button>
-
-    <div class="customer-stage-hint"><i></i><span data-copy="stage.hint">右にスワイプして次へ&nbsp; → &nbsp;ドラッグ・タップでも操作できます</span><i></i></div>
-  </section>
-
-  <div class="customer-under">
-    <div class="customer-overline" id="customer-counter">01 / 03&nbsp; — &nbsp;POLICY</div>
-    <div class="customer-controls">
-      <button class="customer-arrow" type="button" id="customer-prev" aria-label="前の項目へ">←</button>
-      <div class="customer-pips" aria-hidden="true"><span class="customer-pip active"></span><span class="customer-pip"></span><span class="customer-pip"></span></div>
-      <button class="customer-arrow" type="button" id="customer-next" aria-label="次の項目へ">→</button>
-    </div>
+ <section class="customer-details" aria-live="polite">
+  <div>
+   <p class="customer-eyetag" id="customer-section-en">01 / INFORMATION PROTECTION POLICY</p>
+   <h2 id="customer-section-title">情報保護方針</h2>
+   <p id="customer-section-description">2L²における情報保護に関する基本的な考え方をご案内する項目です。</p>
+   <a class="customer-detail-link" id="customer-detail-link" href="./privacy.html"><span id="customer-open-text">この項目を見る</span><span aria-hidden="true">↗</span></a>
   </div>
+  <aside class="customer-aside"><strong id="customer-choose">CHOOSE A TOPIC</strong><span id="customer-choose-text">周りにある3つの項目を選択するか、右方向へスワイプすると、表示内容とレイアウトが連動して変化します。</span></aside>
+ </section>
 
-  <section class="customer-details" aria-live="polite">
-    <div>
-      <p class="customer-eyetag" id="customer-section-en">01 / INFORMATION POLICY</p>
-      <h2 id="customer-section-title">情報保護方針</h2>
-      <p id="customer-section-description">2L²における情報保護の考え方を紹介する項目です。正式な方針の文面は、運用実態や適用範囲を確認してから掲載します。</p>
-      <a class="customer-open" id="customer-open" href="./privacy.html"><span data-copy="details.open">この項目を見る</span><span aria-hidden="true">↗</span></a>
-    </div>
-    <aside class="customer-aside"><strong>CHOOSE A TOPIC</strong><span data-copy="details.aside">中央のマークの周りにある3つの項目を選択するか、左右にスワイプすると、レイアウトと表示内容が連動して切り替わります。</span></aside>
-  </section>
+ <div class="customer-foot"><span>2L² — CUSTOMER INFORMATION</span><span>INFORMATION / SECURITY / PROCESS</span></div>
 </main>
-</body>
-</html>
+</body></html>
