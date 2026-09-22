@@ -115,8 +115,6 @@
   }
   function schedule(){if(!ticking){ticking=true;requestAnimationFrame(draw);}}
   function onScroll(){target=window.scrollY;if(reducedMotion.matches){smooth=target;}schedule();detectChapter();header.classList.toggle('scrolled',window.scrollY>30);}
-  const observer=new IntersectionObserver(entries=>{entries.forEach(e=>e.target.classList.toggle('is-visible',e.isIntersecting));},{rootMargin:'-7% 0px -10% 0px',threshold:.07});
-  $$('.chapter:not(.hero)').forEach(section=>observer.observe(section));
   window.addEventListener('scroll',onScroll,{passive:true});
   window.addEventListener('resize',()=>{if(window.innerWidth!==lastWidth){lastWidth=window.innerWidth;closeMenu();}onScroll();},{passive:true});
   reducedMotion.addEventListener?.('change',onScroll);
