@@ -9,7 +9,7 @@
   const $ = selector => document.querySelector(selector);
   const $$ = selector => Array.from(document.querySelectorAll(selector));
   const stage = $("#customer-stage");
-  const sprite = $("#customer-character");
+  let sprite = $("#customer-character");
   const tags = $$(".customer-tag");
   const positions = [
     [[15,39],[84,35],[78,78]],
@@ -96,7 +96,7 @@
       const fresh=document.createElement("img");
       fresh.className="customer-character";fresh.id="customer-character";
       fresh.alt=current.topics[index].alt;fresh.draggable=false;
-      fresh.src=selection.asset;sprite.replaceWith(fresh);
+      fresh.src=selection.asset;sprite.replaceWith(fresh);sprite=fresh;
     }else{
       $("#customer-character").alt=current.topics[index].alt;
     }
