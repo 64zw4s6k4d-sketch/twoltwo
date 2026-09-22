@@ -1,0 +1,39 @@
+/* 導入までの流れ — 3-step implementation flow cards.
+   Dark cards with yellow step headers and yellow arrows between them. */
+
+/* Override the centered flex layout so the flow can grow with content. */
+.onboarding-main{display:block;align-items:stretch;min-height:100svh;overflow:visible;padding-top:clamp(130px,17vh,190px);padding-bottom:clamp(70px,10vh,120px)}
+.onboarding-main::before{background:radial-gradient(ellipse 58% 76% at 88% 40%,#111f29 0%,#080f18 43%,#06090f 83%)}
+/* Subtle dot-grid texture */
+.onboarding-main .privacy-container::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:radial-gradient(rgba(244,180,0,.04) 1px,transparent 1px);background-size:26px 26px;opacity:.6}
+.onboarding-container{max-width:1280px;position:relative}
+.onboarding-container .privacy-eyebrow{margin-bottom:clamp(36px,5vh,60px)}
+
+.onboarding-flow{width:100%}
+.flow-header{display:flex;align-items:center;gap:18px;margin-bottom:clamp(36px,5vh,60px)}
+.flow-header-bar{width:4px;height:clamp(32px,4.5vw,52px);background:#f0eee8;border-radius:2px;flex:none}
+.flow-header h1{font-size:clamp(28px,3.8vw,48px);font-weight:400;letter-spacing:-.05em;line-height:1.3;margin:0;color:#f0eee8}
+
+.flow-cards{display:flex;align-items:stretch;gap:0}
+.flow-card{flex:1 1 0;min-width:0;background:#2c2e30;border:1px solid #f4b400;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 12px 36px rgba(0,0,0,.25)}
+.flow-card-step{background:#f4b400;color:#1a1a1a;font-size:13px;font-weight:700;letter-spacing:.12em;padding:10px 20px;text-align:center}
+.flow-card-body{padding:clamp(20px,2.5vw,30px) clamp(18px,2vw,26px);flex:1}
+.flow-card-title{font-size:clamp(20px,2.2vw,28px);font-weight:500;margin:0 0 8px;color:#f0eee8;letter-spacing:-.02em}
+.flow-card-subtitle{font-size:clamp(13px,1.1vw,16px);color:#f4b400;font-weight:600;margin:0 0 18px}
+.flow-list{list-style:none;padding:0;margin:0}
+.flow-list li{font-size:clamp(12px,1vw,14px);line-height:2.1;color:#c0c4c8;padding-left:14px;position:relative}
+.flow-list li::before{content:"・";position:absolute;left:0;color:#f4b400}
+.flow-arrow{display:flex;align-items:center;justify-content:center;width:clamp(36px,4vw,56px);flex:none;color:#f4b400;font-size:clamp(22px,2.5vw,32px);font-weight:300}
+
+/* Stack vertically on narrow screens; arrows rotate downward */
+@media(max-width:980px){
+  .flow-cards{flex-direction:column;gap:0}
+  .flow-card{flex:none}
+  .flow-arrow{width:100%;height:clamp(30px,5vh,44px);transform:rotate(90deg)}
+}
+@media(max-width:560px){
+  .flow-header h1{font-size:clamp(24px,6vw,36px)}
+  .flow-card-body{padding:18px 16px}
+  .flow-card-title{font-size:20px}
+}
+@media(prefers-reduced-motion:reduce){.flow-card{transition:none}}

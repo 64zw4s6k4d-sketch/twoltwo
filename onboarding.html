@@ -5,7 +5,7 @@
 <meta name="theme-color" content="#06090f"><meta name="robots" content="noindex,nofollow">
 <title>導入までの流れ | 2L²</title>
 <link rel="icon" type="image/png" href="./assets/favicon.png">
-<link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./privacy.css">
+<link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./privacy.css"><link rel="stylesheet" href="./onboarding-flow.css">
 <script defer src="./privacy.js"></script>
 </head>
 <body class="privacy-page customer-detail-page" data-customer-page="onboarding">
@@ -16,31 +16,164 @@
 <div class="language" role="group" aria-label="Language"><button type="button" data-lang="ja" aria-pressed="true">JP</button><span>/</span><button type="button" data-lang="en" aria-pressed="false">EN</button><span>/</span><button type="button" data-lang="th" aria-pressed="false">TH</button></div>
 </div>
 </header>
-<main class="privacy-main" id="main">
+<main class="privacy-main onboarding-main" id="main">
 <div class="privacy-frame" aria-hidden="true"><span></span><span></span></div>
-<div class="privacy-container">
+<div class="privacy-container onboarding-container">
 <p class="privacy-eyebrow">2L² <span aria-hidden="true">/</span> CUSTOMER INFORMATION <span aria-hidden="true">/</span> 03 / PROCESS</p>
-<section class="privacy-copy customer-detail-copy" data-policy-lang="ja" lang="ja" aria-labelledby="onboarding-title-ja">
-<p class="privacy-status">CONTENTS PENDING</p>
-<h1 id="onboarding-title-ja">導入までの流れ</h1>
-<div class="privacy-rule" aria-hidden="true"></div>
-<p class="privacy-message">このページの内容は現在準備中です。</p>
-<p class="privacy-note">詳細は確認後、ここに掲載します。</p>
+
+<!-- JA -->
+<section class="onboarding-flow" data-policy-lang="ja" lang="ja">
+<div class="flow-header"><span class="flow-header-bar" aria-hidden="true"></span><h1>導入までの流れ</h1></div>
+<div class="flow-cards">
+  <div class="flow-card">
+    <div class="flow-card-step">STEP 1</div>
+    <div class="flow-card-body">
+      <h3 class="flow-card-title">無料診断</h3>
+      <ul class="flow-list">
+        <li>業務ヒアリング</li>
+        <li>AI導入候補業務の整理</li>
+        <li>導入効果の概算</li>
+        <li>PoC計画書の作成</li>
+      </ul>
+    </div>
+  </div>
+  <span class="flow-arrow" aria-hidden="true">→</span>
+  <div class="flow-card">
+    <div class="flow-card-step">STEP 2</div>
+    <div class="flow-card-body">
+      <h3 class="flow-card-title">小規模PoC</h3>
+      <p class="flow-card-subtitle">50万〜150万円</p>
+      <ul class="flow-list">
+        <li>権限管理の簡易検証</li>
+        <li>回答精度の確認</li>
+        <li>文書を使った検索、回答環境の試作</li>
+        <li>現場ユーザーによる使用</li>
+        <li>費用対効果の試算</li>
+      </ul>
+    </div>
+  </div>
+  <span class="flow-arrow" aria-hidden="true">→</span>
+  <div class="flow-card">
+    <div class="flow-card-step">STEP 3</div>
+    <div class="flow-card-body">
+      <h3 class="flow-card-title">本導入</h3>
+      <p class="flow-card-subtitle">300万〜1000万円以上</p>
+      <ul class="flow-list">
+        <li>社内サーバーまたはオンプレ環境構築</li>
+        <li>文書データベース化</li>
+        <li>RAG構築</li>
+        <li>権限管理</li>
+        <li>監査ログ</li>
+        <li>社員向けUI（別途相談可）</li>
+        <li>保守、改善</li>
+      </ul>
+    </div>
+  </div>
+</div>
 </section>
-<section class="privacy-copy customer-detail-copy" data-policy-lang="en" lang="en" aria-labelledby="onboarding-title-en" hidden>
-<p class="privacy-status">CONTENTS PENDING</p>
-<h1 id="onboarding-title-en">Our Implementation Process</h1>
-<div class="privacy-rule" aria-hidden="true"></div>
-<p class="privacy-message">The content of this page is currently being prepared.</p>
-<p class="privacy-note">Further information will be published here after review.</p>
+
+<!-- EN -->
+<section class="onboarding-flow" data-policy-lang="en" lang="en" hidden>
+<div class="flow-header"><span class="flow-header-bar" aria-hidden="true"></span><h1>Our Implementation Process</h1></div>
+<div class="flow-cards">
+  <div class="flow-card">
+    <div class="flow-card-step">STEP 1</div>
+    <div class="flow-card-body">
+      <h3 class="flow-card-title">Free Assessment</h3>
+      <ul class="flow-list">
+        <li>Workflow hearing</li>
+        <li>Identify AI candidate tasks</li>
+        <li>Estimate implementation impact</li>
+        <li>Create PoC plan</li>
+      </ul>
+    </div>
+  </div>
+  <span class="flow-arrow" aria-hidden="true">→</span>
+  <div class="flow-card">
+    <div class="flow-card-step">STEP 2</div>
+    <div class="flow-card-body">
+      <h3 class="flow-card-title">Small-scale PoC</h3>
+      <p class="flow-card-subtitle">¥500K–¥1.5M</p>
+      <ul class="flow-list">
+        <li>Simple permission management verification</li>
+        <li>Answer accuracy verification</li>
+        <li>Document search &amp; answer environment prototype</li>
+        <li>Field user testing</li>
+        <li>Cost-benefit estimation</li>
+      </ul>
+    </div>
+  </div>
+  <span class="flow-arrow" aria-hidden="true">→</span>
+  <div class="flow-card">
+    <div class="flow-card-step">STEP 3</div>
+    <div class="flow-card-body">
+      <h3 class="flow-card-title">Full Implementation</h3>
+      <p class="flow-card-subtitle">¥3M–¥10M+</p>
+      <ul class="flow-list">
+        <li>On-premise / internal server setup</li>
+        <li>Document database construction</li>
+        <li>RAG construction</li>
+        <li>Permission management</li>
+        <li>Audit logging</li>
+        <li>Employee UI (negotiable)</li>
+        <li>Maintenance &amp; improvement</li>
+      </ul>
+    </div>
+  </div>
+</div>
 </section>
-<section class="privacy-copy customer-detail-copy" data-policy-lang="th" lang="th" aria-labelledby="onboarding-title-th" hidden>
-<p class="privacy-status">CONTENTS PENDING</p>
-<h1 id="onboarding-title-th">ขั้นตอนการนำไปใช้งาน</h1>
-<div class="privacy-rule" aria-hidden="true"></div>
-<p class="privacy-message">ขณะนี้อยู่ระหว่างการจัดเตรียมเนื้อหาของหน้านี้</p>
-<p class="privacy-note">รายละเอียดจะเผยแพร่ที่นี่หลังจากตรวจสอบแล้ว</p>
+
+<!-- TH -->
+<section class="onboarding-flow" data-policy-lang="th" lang="th" hidden>
+<div class="flow-header"><span class="flow-header-bar" aria-hidden="true"></span><h1>ขั้นตอนการนำไปใช้งาน</h1></div>
+<div class="flow-cards">
+  <div class="flow-card">
+    <div class="flow-card-step">STEP 1</div>
+    <div class="flow-card-body">
+      <h3 class="flow-card-title">การประเมินฟรี</h3>
+      <ul class="flow-list">
+        <li>สัมภาษณ์ขั้นตอนการทำงาน</li>
+        <li>จัดหมวดงานที่เหมาะกับ AI</li>
+        <li>ประเมินผลการนำไปใช้</li>
+        <li>จัดทำแผน PoC</li>
+      </ul>
+    </div>
+  </div>
+  <span class="flow-arrow" aria-hidden="true">→</span>
+  <div class="flow-card">
+    <div class="flow-card-step">STEP 2</div>
+    <div class="flow-card-body">
+      <h3 class="flow-card-title">PoC ขนาดเล็ก</h3>
+      <p class="flow-card-subtitle">500,000–1,500,000 บาท</p>
+      <ul class="flow-list">
+        <li>ทดสอบการจัดการสิทธิ์แบบง่าย</li>
+        <li>ตรวจสอบความแม่นยำของคำตอบ</li>
+        <li>สร้างต้นแบบการค้นหาและตอบจากเอกสาร</li>
+        <li>ให้ผู้ใช้ในสนามทดลองใช้</li>
+        <li>ประเมินความคุ้มทุน</li>
+      </ul>
+    </div>
+  </div>
+  <span class="flow-arrow" aria-hidden="true">→</span>
+  <div class="flow-card">
+    <div class="flow-card-step">STEP 3</div>
+    <div class="flow-card-body">
+      <h3 class="flow-card-title">การนำไปใช้เต็มรูปแบบ</h3>
+      <p class="flow-card-subtitle">3,000,000–10,000,000+ บาท</p>
+      <ul class="flow-list">
+        <li>สร้างเซิร์ฟเวอร์ภายในหรือระบบ On-premise</li>
+        <li>สร้างฐานข้อมูลเอกสาร</li>
+        <li>สร้าง RAG</li>
+        <li>การจัดการสิทธิ์</li>
+        <li>บันทึกการตรวจสอบ</li>
+        <li>UI สำหรับพนักงาน (ตกลงเพิ่มเติมได้)</li>
+        <li>บำรุงรักษาและปรับปรุง</li>
+      </ul>
+    </div>
+  </div>
+</div>
 </section>
+
 </div></main>
 <footer class="privacy-footer"><a href="./customer.html" data-policy-i18n="back">お客様向け情報に戻る <span aria-hidden="true">↗</span></a></footer>
 </body></html>
