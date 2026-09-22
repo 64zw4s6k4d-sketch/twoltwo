@@ -110,8 +110,10 @@
         const vh=window.innerHeight;
         let bestTarget=null,bestDist=Infinity;
         chapters.forEach(ch=>{
-          const isHero=ch.classList.contains('hero');
-          const target=isHero?0:ch.offsetTop+ch.offsetHeight/2-vh/2;
+          let target;
+          if(ch.classList.contains('hero')){target=0;}
+          else if(ch.id==='philosophy'){target=ch.offsetTop+vh*.29;}
+          else{target=ch.offsetTop+ch.offsetHeight/2-vh/2;}
           const dist=Math.abs(window.scrollY-target);
           if(dist<bestDist){bestDist=dist;bestTarget=target;}
         });
@@ -121,20 +123,25 @@
       },200);
     }
   }
-  // Cursor glow — elegant golden glow that follows the pointer
+  // Cursor glow — golden ring that glows while the pointer moves
   if(window.matchMedia('(hover:hover)').matches){
     const glow=document.createElement('div');
     glow.className='cursor-glow';
     document.body.appendChild(glow);
-    let mx=window.innerWidth/2,my=window.innerHeight/2,gx=mx,gy=my;
-    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+    let mx=window.innerWidth/2,my=window.innerHeight/2,gx=mx,gy=my,moveTimer=null;
+    document.addEventListener('mousemove',e=>{
+      mx=e.clientX;my=e.clientY;
+      glow.classList.add('active');
+      clearTimeout(moveTimer);
+      moveTimer=setTimeout(()=>glow.classList.remove('active'),400);
+    });
     document.querySelectorAll('a,button,.service-line,.architecture-row,.ledger-row').forEach(el=>{
       el.addEventListener('mouseenter',()=>glow.classList.add('hover'));
       el.addEventListener('mouseleave',()=>glow.classList.remove('hover'));
     });
     (function animate(){
-      gx+=(mx-gx)*.18;
-      gy+=(my-gy)*.18;
+      gx+=(mx-gx)*.2;
+      gy+=(my-gy)*.2;
       glow.style.transform=`translate(${gx}px,${gy}px) translate(-50%,-50%)`;
       requestAnimationFrame(animate);
     })();

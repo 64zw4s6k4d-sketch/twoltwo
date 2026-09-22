@@ -14,10 +14,8 @@
 /* Keep the cinematic typography unobstructed; the top progress rule replaces the former left-hand rail. */
 .chapter-rail{display:none}
 
-/* Cursor glow — elegant golden glow that follows the pointer */
-.cursor-glow{position:fixed;left:0;top:0;width:40px;height:40px;pointer-events:none;z-index:9999;mix-blend-mode:screen;will-change:transform}
-.cursor-glow::before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,rgba(221,193,138,.18) 0%,rgba(221,193,138,.06) 40%,transparent 70%);transition:transform .25s var(--ease)}
-.cursor-glow::after{content:"";position:absolute;left:50%;top:50%;width:5px;height:5px;border-radius:50%;background:rgba(240,220,170,.9);transform:translate(-50%,-50%);box-shadow:0 0 8px 2px rgba(221,193,138,.5);transition:box-shadow .25s var(--ease)}
-.cursor-glow.hover::before{transform:scale(1.6)}
-.cursor-glow.hover::after{box-shadow:0 0 14px 4px rgba(221,193,138,.7)}
+/* Cursor glow — golden ring that glows while the pointer moves */
+.cursor-glow{position:fixed;left:0;top:0;width:36px;height:36px;border:1.5px solid rgba(221,193,138,.4);border-radius:50%;pointer-events:none;z-index:9999;mix-blend-mode:screen;will-change:transform;opacity:0;transition:opacity .4s var(--ease),border-color .3s,box-shadow .3s;box-shadow:0 0 10px rgba(221,193,138,.15)}
+.cursor-glow.active{opacity:1;border-color:rgba(240,220,170,.55);box-shadow:0 0 14px rgba(221,193,138,.25)}
+.cursor-glow.hover{border-color:rgba(240,220,170,.7);box-shadow:0 0 20px rgba(221,193,138,.35),inset 0 0 8px rgba(221,193,138,.1)}
 @media(hover:none){.cursor-glow{display:none}}

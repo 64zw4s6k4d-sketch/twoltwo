@@ -59,9 +59,15 @@
               <linearGradient id="rg-gold" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0" stop-color="#FFD54F"/><stop offset="0.5" stop-color="#FFB300"/><stop offset="1" stop-color="#E68A00"/>
               </linearGradient>
-              <linearGradient id="rg-body" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#2B2B2B"/><stop offset="1" stop-color="#1A1A1A"/>
+              <linearGradient id="rg-body" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#3a3a3a"/><stop offset="0.5" stop-color="#2B2B2B"/><stop offset="1" stop-color="#1A1A1A"/>
               </linearGradient>
+              <radialGradient id="rg-head-grad" cx="0.4" cy="0.3" r="0.8">
+                <stop offset="0" stop-color="#3a3a3a"/><stop offset="0.6" stop-color="#2B2B2B"/><stop offset="1" stop-color="#1A1A1A"/>
+              </radialGradient>
+              <radialGradient id="rg-eye-grad" cx="0.4" cy="0.4" r="0.6">
+                <stop offset="0" stop-color="#FFE082"/><stop offset="0.5" stop-color="#FFB300"/><stop offset="1" stop-color="#E68A00"/>
+              </radialGradient>
               <filter id="rg-glow" x="-50%" y="-50%" width="200%" height="200%">
                 <feGaussianBlur stdDeviation="2.5" result="b"/>
                 <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
@@ -73,16 +79,21 @@
               <rect x="168" y="325" width="24" height="58" rx="5" fill="url(#rg-body)" stroke="#FFB300" stroke-width="0.6"/>
               <circle cx="140" cy="335" r="4" fill="#FFB300" filter="url(#rg-glow)"/>
               <circle cx="180" cy="335" r="4" fill="#FFB300" filter="url(#rg-glow)"/>
+              <ellipse cx="140" cy="385" rx="16" ry="6" fill="#1A1A1A" stroke="#FFB300" stroke-width="0.5"/>
+              <ellipse cx="180" cy="385" rx="16" ry="6" fill="#1A1A1A" stroke="#FFB300" stroke-width="0.5"/>
               <rect x="105" y="240" width="110" height="95" rx="10" fill="url(#rg-body)" stroke="#FFB300" stroke-width="0.8"/>
+              <rect x="112" y="247" width="96" height="81" rx="7" fill="none" stroke="rgba(255,179,0,0.15)" stroke-width="0.5"/>
               <path d="M160 258 L185 268 V288 C185 298 173 306 160 311 C147 306 135 298 135 288 V268 Z" fill="rgba(255,179,0,0.08)" stroke="url(#rg-gold)" stroke-width="1.2"/>
               <image href="./assets/brand-logo.png" x="146" y="270" width="28" height="30" opacity="0.85"/>
               <g class="rg-arm-left">
                 <rect x="78" y="250" width="16" height="44" rx="4" fill="url(#rg-body)" stroke="#FFB300" stroke-width="0.5"/>
+                <circle cx="86" cy="295" r="5" fill="#2B2B2B" stroke="#FFB300" stroke-width="0.5"/>
                 <rect x="70" y="290" width="16" height="40" rx="4" fill="url(#rg-body)" stroke="#FFB300" stroke-width="0.5"/>
                 <circle cx="78" cy="332" r="9" fill="#2B2B2B" stroke="#FFB300" stroke-width="0.5"/>
               </g>
               <g class="rg-arm-right">
                 <rect x="226" y="250" width="16" height="44" rx="4" fill="url(#rg-body)" stroke="#FFB300" stroke-width="0.5"/>
+                <circle cx="234" cy="295" r="5" fill="#2B2B2B" stroke="#FFB300" stroke-width="0.5"/>
                 <rect x="234" y="285" width="16" height="40" rx="4" fill="url(#rg-body)" stroke="#FFB300" stroke-width="0.5"/>
                 <circle cx="242" cy="328" r="9" fill="#2B2B2B" stroke="#FFB300" stroke-width="0.5"/>
               </g>
@@ -95,17 +106,19 @@
               </g>
             </g>
             <g class="rg-head">
-              <circle cx="82" cy="180" r="20" fill="url(#rg-body)" stroke="#FFB300" stroke-width="0.8"/>
+              <circle cx="82" cy="180" r="20" fill="url(#rg-head-grad)" stroke="#FFB300" stroke-width="0.8"/>
               <text x="82" y="183" text-anchor="middle" fill="#FFD54F" font-size="7" font-weight="600">2L²</text>
-              <circle cx="238" cy="180" r="20" fill="url(#rg-body)" stroke="#FFB300" stroke-width="0.8"/>
+              <circle cx="238" cy="180" r="20" fill="url(#rg-head-grad)" stroke="#FFB300" stroke-width="0.8"/>
               <text x="238" y="183" text-anchor="middle" fill="#FFD54F" font-size="7" font-weight="600">2L²</text>
-              <rect x="92" y="125" width="136" height="105" rx="12" fill="url(#rg-body)" stroke="#FFB300" stroke-width="1"/>
-              <rect x="102" y="135" width="116" height="85" rx="8" fill="#080808" stroke="#FFB300" stroke-width="0.5" opacity="0.95"/>
+              <rect x="92" y="125" width="136" height="105" rx="20" fill="url(#rg-head-grad)" stroke="#FFB300" stroke-width="1"/>
+              <path d="M100 135 Q160 128 220 135" stroke="rgba(255,200,100,0.2)" stroke-width="1" fill="none"/>
+              <rect x="102" y="135" width="116" height="85" rx="10" fill="#080808" stroke="#FFB300" stroke-width="0.5" opacity="0.95"/>
+              <rect x="106" y="139" width="108" height="77" rx="8" fill="none" stroke="rgba(255,179,0,0.1)" stroke-width="0.5"/>
               <g class="rg-eyes">
                 <circle cx="128" cy="168" r="11" fill="#FFB300" opacity="0.15"/>
-                <circle class="rg-pupil-l" cx="128" cy="168" r="7" fill="#FFD54F" filter="url(#rg-glow)"/>
+                <circle class="rg-pupil-l" cx="128" cy="168" r="7" fill="url(#rg-eye-grad)" filter="url(#rg-glow)"/>
                 <circle cx="192" cy="168" r="11" fill="#FFB300" opacity="0.15"/>
-                <circle class="rg-pupil-r" cx="192" cy="168" r="7" fill="#FFD54F" filter="url(#rg-glow)"/>
+                <circle class="rg-pupil-r" cx="192" cy="168" r="7" fill="url(#rg-eye-grad)" filter="url(#rg-glow)"/>
               </g>
               <path d="M138 198 Q160 210 182 198" fill="none" stroke="#FFB300" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
               <line x1="115" y1="188" x2="120" y2="188" stroke="#FFB300" stroke-width="1" opacity="0.4"/>
@@ -113,13 +126,12 @@
             </g>
           </svg>
         </div>
-        <p class="robot-hint">カーソルを動かすとロボットが反応します</p>
       </div>
 
       <nav class="customer-grid" aria-label="お客様向け情報の項目" id="customer-topic-nav">
         <a class="customer-card" href="./privacy.html" data-topic="0" aria-label="情報保護方針">
           <span class="customer-card-top"><span class="customer-number">01</span><span class="customer-card-arrow" aria-hidden="true">↗</span></span>
-          <span class="customer-art art-policy" aria-hidden="true"><svg class="card-icon" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M60 12 L92 26 V58 C92 78 76 90 60 98 C44 90 28 78 28 58 V26 Z" opacity="0.85"/><path d="M60 24 L82 34 V58 C82 72 70 82 60 87 C50 82 38 72 38 58 V34 Z" opacity="0.35"/><rect x="50" y="56" width="20" height="18" rx="2" opacity="0.9"/><path d="M53 56 V50 C53 46 56 43 60 43 C64 43 67 46 67 50 V56" opacity="0.9"/><circle cx="60" cy="65" r="1.5" fill="currentColor" stroke="none"/></svg></span>
+          <span class="customer-art art-policy" aria-hidden="true"><svg class="card-icon" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M60 15 L90 28 V56 C90 75 76 87 60 95 C44 87 30 75 30 56 V28 Z"/></svg></span>
           <span class="customer-card-bottom">
             <span class="customer-card-kicker">INFORMATION PROTECTION</span>
             <strong class="customer-card-title">情報保護方針</strong>
@@ -129,7 +141,7 @@
         </a>
         <a class="customer-card" href="./security.html" data-topic="1" aria-label="情報の安全管理・取り扱い">
           <span class="customer-card-top"><span class="customer-number">02</span><span class="customer-card-arrow" aria-hidden="true">↗</span></span>
-          <span class="customer-art art-security" aria-hidden="true"><svg class="card-icon" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="22" y="28" width="76" height="64" rx="5" opacity="0.85"/><rect x="30" y="36" width="60" height="48" rx="3" opacity="0.3"/><circle cx="60" cy="60" r="20" opacity="0.85"/><circle cx="60" cy="60" r="12" opacity="0.35"/><circle cx="60" cy="60" r="3" fill="currentColor" stroke="none" opacity="0.9"/><line x1="60" y1="40" x2="60" y2="46" opacity="0.6"/><line x1="60" y1="74" x2="60" y2="80" opacity="0.6"/><line x1="40" y1="60" x2="46" y2="60" opacity="0.6"/><line x1="74" y1="60" x2="80" y2="60" opacity="0.6"/></svg></span>
+          <span class="customer-art art-security" aria-hidden="true"><svg class="card-icon" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="35" y="50" width="50" height="45" rx="5"/><path d="M42 50 V40 C42 30 50 22 60 22 C70 22 78 30 78 40 V50"/></svg></span>
           <span class="customer-card-bottom">
             <span class="customer-card-kicker">SECURITY &amp; HANDLING</span>
             <strong class="customer-card-title">情報の安全管理・取り扱い</strong>
@@ -139,7 +151,7 @@
         </a>
         <a class="customer-card" href="./onboarding.html" data-topic="2" aria-label="導入までの流れ">
           <span class="customer-card-top"><span class="customer-number">03</span><span class="customer-card-arrow" aria-hidden="true">↗</span></span>
-          <span class="customer-art art-process" aria-hidden="true"><svg class="card-icon" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="28" cy="36" r="12" opacity="0.85"/><circle cx="92" cy="36" r="12" opacity="0.85"/><circle cx="60" cy="88" r="12" opacity="0.85"/><circle cx="28" cy="36" r="5" fill="currentColor" stroke="none" opacity="0.25"/><circle cx="92" cy="36" r="5" fill="currentColor" stroke="none" opacity="0.25"/><circle cx="60" cy="88" r="5" fill="currentColor" stroke="none" opacity="0.25"/><path d="M40 36 L80 36" opacity="0.5" stroke-dasharray="3 3"/><path d="M36 44 L54 78" opacity="0.5" stroke-dasharray="3 3"/><path d="M84 44 L66 78" opacity="0.5" stroke-dasharray="3 3"/></svg></span>
+          <span class="customer-art art-process" aria-hidden="true"><svg class="card-icon" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="30" cy="40" r="8"/><circle cx="90" cy="40" r="8"/><circle cx="60" cy="85" r="8"/><path d="M38 40 L82 40" stroke-dasharray="4 4"/><path d="M36 47 L54 78" stroke-dasharray="4 4"/><path d="M84 47 L66 78" stroke-dasharray="4 4"/></svg></span>
           <span class="customer-card-bottom">
             <span class="customer-card-kicker">IMPLEMENTATION PROCESS</span>
             <strong class="customer-card-title">導入までの流れ</strong>
