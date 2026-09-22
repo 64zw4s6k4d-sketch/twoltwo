@@ -1,0 +1,109 @@
+/* Customer Information interactive index
+   Layout intentionally follows the user's attached swipe-preview concept:
+   quiet midnight canvas, central object, orbit, three topic nodes, swipe controls. */
+.customer-page{min-height:100svh;background:#090e16;color:#f2f4f8}
+.customer-page [hidden]{display:none!important}
+.customer-top{
+  height:76px;padding:0 clamp(24px,5vw,84px);display:flex;align-items:center;gap:32px;
+  border-bottom:1px solid rgba(255,255,255,.07);background:rgba(9,14,22,.96);
+  position:sticky;top:0;z-index:60;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)
+}
+.customer-brand{display:flex;align-items:center;flex:0 0 auto}.customer-brand img{width:38px;height:41px;object-fit:contain}
+.customer-nav{display:flex;align-items:center;gap:clamp(12px,2vw,31px);margin-left:auto;white-space:nowrap}
+.customer-nav a{position:relative;padding:28px 0;color:#9299a4;font-size:10px;letter-spacing:.085em;transition:color .2s}
+.customer-nav a:hover,.customer-nav a[aria-current="page"]{color:#f1f2f4}
+.customer-nav a[aria-current="page"]::after{content:"";position:absolute;left:0;right:0;bottom:20px;height:1px;background:#ccad72}
+.customer-language{display:flex;align-items:center;gap:7px;margin-left:clamp(8px,1.4vw,22px);color:#687484;font-size:9px}
+.customer-language button{padding:7px 0;border:0;background:none;color:#8994a2;font:inherit;cursor:pointer}
+.customer-language button.active{color:#e7ce99}
+.customer-main{max-width:1360px;margin:auto;padding:0 clamp(20px,5vw,80px) 72px}
+.customer-intro{text-align:center;padding:38px 0 4px}
+.customer-kicker{font-size:10px;letter-spacing:.36em;color:#ccad72;font-weight:650;margin:0 0 13px}
+.customer-intro h1{font-size:clamp(33px,3.5vw,53px);font-weight:560;letter-spacing:.08em;margin:0 0 12px}
+.customer-intro>p:last-child{margin:0;color:#a1acbb;line-height:1.9;font-size:12px;letter-spacing:.08em}
+.customer-stage{
+  position:relative;min-height:535px;overflow:hidden;touch-action:pan-y;user-select:none;outline:none;isolation:isolate;
+  --orbrot:-18deg;--orbscale:1;--orbborder:44% 56% 46% 54%/49% 44% 56% 51%;
+  --object-shift:0px;--object-tilt:-4deg;--rim-tint:rgba(201,166,102,.42)
+}
+.customer-stage:focus-visible{outline:1px solid rgba(225,189,120,.65);outline-offset:-2px}
+.customer-orbit{
+  position:absolute;left:50%;top:48%;width:min(49%,535px);height:425px;
+  transform:translate(-50%,-50%) rotate(var(--orbrot)) scaleX(var(--orbscale));
+  border:1px solid var(--rim-tint);border-radius:var(--orbborder);
+  transition:transform .95s cubic-bezier(.17,.78,.17,1),border-radius .95s ease,border-color .5s;
+  pointer-events:none;box-shadow:0 0 36px rgba(190,148,71,.035),inset 0 0 36px rgba(190,148,71,.025)
+}
+.customer-orbit::after{content:"";position:absolute;inset:14px;border:1px dashed rgba(197,166,102,.12);border-radius:inherit}
+.customer-orbit-dot{position:absolute;top:8%;left:18%;height:6px;width:6px;border:1px solid #e7ce99;background:#141921;box-shadow:0 0 13px rgba(220,181,110,.55);border-radius:50%}
+.customer-halo{position:absolute;width:450px;height:415px;left:50%;top:48%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(ellipse,rgba(192,151,83,.095),rgba(33,43,63,.04) 45%,transparent 73%);pointer-events:none}
+.customer-object-holder{
+  position:absolute;left:50%;top:48%;width:min(570px,51vw);height:420px;
+  transform:translate(calc(-50% + var(--object-shift)),-50%) rotate(var(--object-tilt));
+  display:flex;align-items:center;justify-content:center;transition:transform .83s cubic-bezier(.21,.7,.23,1);
+  pointer-events:none;z-index:2
+}
+.customer-object{
+  display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 18px 31px rgba(0,0,0,.34)) drop-shadow(0 0 17px rgba(191,143,71,.12));
+  transition:transform .8s cubic-bezier(.21,.7,.23,1),filter .5s
+}
+.customer-stage[data-active="0"]{--orbrot:-18deg;--orbscale:1;--object-shift:0px;--object-tilt:-5deg;--rim-tint:rgba(201,166,102,.44)}
+.customer-stage[data-active="0"] .customer-object{transform:scale(.98) translateY(4px)}
+.customer-stage[data-active="1"]{--orbrot:21deg;--orbscale:.91;--object-shift:22px;--object-tilt:4deg;--rim-tint:rgba(200,170,110,.67)}
+.customer-stage[data-active="1"] .customer-object{transform:scale(.94) translateY(-3px)}
+.customer-stage[data-active="2"]{--orbrot:-29deg;--orbscale:1.12;--object-shift:-14px;--object-tilt:-8deg;--rim-tint:rgba(200,170,110,.8)}
+.customer-stage[data-active="2"] .customer-object{transform:scale(1.02) translateY(5px)}
+.customer-node{
+  position:absolute;z-index:4;width:clamp(198px,23%,292px);min-height:82px;left:var(--x);top:var(--y);
+  transform:translate(-50%,-50%) scale(var(--sz,1));padding:15px 42px 14px 18px;text-align:left;
+  border:1px solid rgba(157,167,184,.2);border-radius:3px;
+  background:linear-gradient(130deg,rgba(21,29,42,.98),rgba(11,16,25,.95));color:#afb8c6;
+  box-shadow:0 20px 38px rgba(0,0,0,.18);
+  transition:left .87s cubic-bezier(.2,.75,.23,1),top .87s cubic-bezier(.2,.75,.23,1),transform .87s cubic-bezier(.2,.75,.23,1),background .25s,border-color .25s,color .25s,box-shadow .25s;
+  line-height:1.55;cursor:pointer
+}
+.customer-node::before{content:"";display:block;position:absolute;left:0;top:14px;bottom:14px;width:2px;background:transparent;transition:background .25s}
+.customer-node.active{background:linear-gradient(125deg,rgba(48,42,29,.96),rgba(25,28,35,.96));border-color:rgba(228,190,112,.75);color:#f8efd9;box-shadow:0 13px 42px rgba(0,0,0,.25),0 0 24px rgba(209,174,99,.105);--sz:1.05}
+.customer-node.active::before{background:#ccad72}
+.customer-node:hover{border-color:rgba(226,193,126,.7);color:#fff}
+.customer-node small{display:block;font-size:9px;letter-spacing:.21em;color:#ccad72;margin-bottom:6px}
+.customer-node strong{font-size:12px;letter-spacing:.05em;font-weight:560}
+.customer-node .go{position:absolute;right:14px;top:43%;font-size:16px;color:#ccad72}
+.customer-node:focus-visible{outline:2px solid #f3ca82;outline-offset:3px}
+.customer-stage-hint{position:absolute;left:50%;bottom:7px;transform:translateX(-50%);display:flex;align-items:center;gap:13px;color:#a6a6a9;font-size:10px;white-space:nowrap;letter-spacing:.14em;z-index:5}
+.customer-stage-hint i{height:1px;width:31px;background:#816b47;display:block}
+.customer-under{display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(201,171,112,.21);padding:22px 0 25px;gap:20px}
+.customer-overline{font-size:10px;letter-spacing:.24em;color:#b6a07a;white-space:nowrap}
+.customer-controls{display:flex;align-items:center;gap:9px}
+.customer-arrow{display:grid;place-items:center;width:38px;height:38px;border:1px solid #46505d;background:#111722;color:#f1e0be;border-radius:50%;font-size:18px;transition:border .2s,background .2s;cursor:pointer}
+.customer-arrow:hover{border-color:#ccad72;background:#26231f}
+.customer-pips{display:flex;gap:8px;margin:0 13px}.customer-pip{height:4px;width:19px;border-radius:10px;background:#46505d;transition:all .3s}.customer-pip.active{width:36px;background:#ccad72}
+.customer-details{display:grid;grid-template-columns:1fr minmax(240px,35%);gap:31px;padding:22px 0 32px}
+.customer-details h2{font-weight:530;font-size:clamp(22px,2.4vw,31px);margin:0 0 14px;letter-spacing:.06em}
+.customer-details p{color:#9ba6b5;font-size:12px;line-height:2.05;max-width:690px;margin:0}
+.customer-eyetag{font-size:10px!important;color:#ccad72!important;letter-spacing:.23em;margin:0 0 10px!important}
+.customer-detail-link{display:inline-flex;align-items:center;gap:18px;margin-top:22px;color:#e6d0a3;font-size:11px;letter-spacing:.1em;border-bottom:1px solid rgba(204,173,114,.48);padding-bottom:7px;transition:color .25s,border .25s}
+.customer-detail-link:hover{color:#fff;border-color:#e7ce99}
+.customer-aside{border-left:1px solid rgba(201,171,112,.23);padding-left:25px;align-self:center;color:#8993a2;font-size:11px;line-height:2}
+.customer-aside strong{font-weight:500;color:#e4d0aa;display:block;margin-bottom:4px;letter-spacing:.09em}
+.customer-foot{margin-top:15px;border-top:1px solid rgba(255,255,255,.09);padding-top:18px;color:#778294;font-size:10px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.customer-mobile-menu{display:none}
+@media(max-width:1080px){
+ .customer-nav{gap:14px}.customer-nav a{font-size:9px}
+}
+@media(max-width:900px){
+ .customer-top{height:68px;padding:0 19px}.customer-nav{display:none}.customer-mobile-menu{display:inline-flex;margin-left:auto;align-items:center;gap:9px;border:1px solid rgba(204,173,114,.35);background:transparent;color:#d6c19a;padding:9px 12px;font-size:10px;letter-spacing:.08em}
+ .customer-language{margin-left:10px}.customer-intro{padding-top:34px}.customer-stage{min-height:595px}
+ .customer-object-holder{width:min(520px,78vw);top:41%}.customer-orbit{top:41%;width:min(72%,510px);height:375px}.customer-halo{top:41%}
+ .customer-node{width:min(45%,275px);min-height:75px;padding:12px 38px 12px 13px}.customer-node strong{font-size:11px}.customer-stage-hint{bottom:7px}
+ .customer-details{grid-template-columns:1fr}.customer-aside{padding-left:0;border:0;border-top:1px solid rgba(201,171,112,.23);padding-top:14px}
+}
+@media(max-width:600px){
+ .customer-top{padding:0 17px}.customer-brand img{width:34px;height:37px}.customer-language span{display:none}.customer-language{gap:8px}
+ .customer-main{padding-inline:18px}.customer-intro{padding-top:31px}.customer-intro>p:last-child{font-size:11px}
+ .customer-stage{min-height:535px;margin:8px -5px 0}.customer-object-holder{width:min(490px,94vw);height:350px;top:40%}
+ .customer-orbit{width:min(90%,390px);height:305px;top:40%}.customer-halo{top:40%;width:330px;height:330px}
+ .customer-node{width:min(61%,246px);min-height:64px;padding:9px 34px 10px 11px;--sz:.84!important}.customer-node.active{--sz:.95!important}.customer-node strong{font-size:10px;line-height:1.45;display:block}.customer-node small{font-size:8px;margin-bottom:2px}.customer-node .go{right:10px}
+ .customer-stage-hint{bottom:6px;font-size:9px}.customer-under{padding-top:16px}.customer-overline{font-size:9px}.customer-arrow{width:34px;height:34px}.customer-pips{margin:0 4px}.customer-pip{width:10px}.customer-pip.active{width:23px}.customer-details{padding-top:10px}.customer-details h2{font-size:24px}
+}
+@media(prefers-reduced-motion:reduce){.customer-node,.customer-orbit,.customer-object-holder,.customer-object,.customer-pip{transition:none!important}}
