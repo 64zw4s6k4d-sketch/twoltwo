@@ -1,96 +1,87 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#070c14"><meta name="robots" content="noindex,nofollow">
-<meta name="description" content="2L²のお客様向け情報。情報保護方針、情報の安全管理・取り扱い、導入までの流れ。">
-<title>お客様向け情報 | 2L²</title>
-<link rel="icon" type="image/png" href="./assets/favicon.png">
-<link rel="stylesheet" href="./customer-scroll.css">
-<script defer src="./customer-scroll.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#080d15">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="2L²のお客様向け情報。情報保護方針、情報の安全管理・取り扱い、導入までの流れ。">
+  <title>お客様向け情報 | 2L²</title>
+  <link rel="icon" type="image/png" href="./assets/favicon.png">
+  <link rel="stylesheet" href="./customer-scroll.css">
+  <script defer src="./customer-scroll.js"></script>
 </head>
 <body class="customer-page">
-<header class="customer-top">
-  <a class="customer-brand" href="./index.html#home" aria-label="2L² ホーム"><img src="./assets/brand-logo.png" width="37" height="41" alt="2L²"></a>
-  <nav class="customer-nav" aria-label="サイトメニュー">
-    <a href="./index.html#home" data-nav-key="home">ホーム</a>
-    <a href="./index.html#services" data-nav-key="services">事業内容</a>
-    <a href="./index.html#technology" data-nav-key="technology">技術紹介</a>
-    <a href="./index.html#projects" data-nav-key="projects">開発・検証</a>
-    <a href="./index.html#company" data-nav-key="company">会社概要</a>
-    <a href="./index.html#contact" data-nav-key="contact">お問い合わせ</a>
-    <a href="./customer.html" aria-current="page" data-nav-key="customer">お客様向け情報</a>
-  </nav>
-  <a class="customer-back-mobile" href="./index.html#home" id="customer-home-mobile">ホームへ ↗</a>
-  <div class="customer-language" role="group" aria-label="Language">
-    <button type="button" data-lang="ja" aria-pressed="true">JP</button><span>/</span>
-    <button type="button" data-lang="en" aria-pressed="false">EN</button><span>/</span>
-    <button type="button" data-lang="th" aria-pressed="false">TH</button>
-  </div>
-</header>
-<main id="customer-information">
-  <section class="customer-intro" aria-labelledby="customer-title">
-    <p class="customer-kicker">2L² / CUSTOMER INFORMATION</p>
-    <h1 id="customer-title">お客様向け情報</h1>
-    <p class="customer-subtitle" id="customer-subtitle">大切な情報と、よりよい導入のために。</p>
-    <p class="customer-scroll-hint" id="customer-scroll-hint">SCROLL TO DISCOVER</p>
-  </section>
+  <header class="customer-top">
+    <a class="customer-brand" href="./index.html#home" aria-label="2L² ホーム"><img src="./assets/brand-logo.png" alt="2L²" width="37" height="41"></a>
+    <nav class="customer-nav" aria-label="サイトメニュー">
+      <a href="./index.html#home" data-nav-key="home">ホーム</a>
+      <a href="./index.html#services" data-nav-key="services">事業内容</a>
+      <a href="./index.html#technology" data-nav-key="technology">技術紹介</a>
+      <a href="./index.html#projects" data-nav-key="projects">開発・検証</a>
+      <a href="./index.html#company" data-nav-key="company">会社概要</a>
+      <a href="./index.html#contact" data-nav-key="contact">お問い合わせ</a>
+      <a href="./customer.html" aria-current="page" data-nav-key="customer">お客様向け情報</a>
+    </nav>
+    <a class="customer-back-mobile" href="./index.html#home" id="customer-home-mobile">ホームへ ↗</a>
+    <div class="customer-language" role="group" aria-label="Language">
+      <button type="button" data-lang="ja" aria-pressed="true">JP</button><span>/</span>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button><span>/</span>
+      <button type="button" data-lang="th" aria-pressed="false">TH</button>
+    </div>
+  </header>
 
-  <div class="customer-journey" id="customer-journey">
-    <!-- One fixed-depth environment moves through all three chapters.
-         The original animated WebP poses are loaded only once, and blended by scroll. -->
-    <div class="customer-stage" id="customer-stage">
-      <div class="customer-world" aria-hidden="true">
-        <div class="customer-plane p4"></div>
-        <div class="customer-plane p3"></div>
-        <div class="customer-plane p2"></div>
-        <div class="customer-plane p1"></div>
-        <div class="customer-portal"></div>
-        <div class="customer-robot-stage">
-          <img class="customer-robot r0" src="./assets/customer-robot-policy.webp" alt="" draggable="false" decoding="async" fetchpriority="high">
-          <img class="customer-robot r1" src="./assets/customer-robot-security.webp" alt="" draggable="false" decoding="async">
-          <img class="customer-robot r2" src="./assets/customer-robot-process.webp" alt="" draggable="false" decoding="async">
+  <main class="customer-main" id="customer-information">
+    <div class="customer-ambient" aria-hidden="true">
+      <span class="ambient-square sq-outer"></span>
+      <span class="ambient-square sq-inner"></span>
+      <span class="ambient-core"></span>
+    </div>
+
+    <div class="customer-container">
+      <div class="customer-intro">
+        <div class="customer-intro-left">
+          <p class="customer-kicker">2L² / CUSTOMER INFORMATION</p>
+          <h1 id="customer-title">お客様向け情報</h1>
+          <p class="customer-subtitle" id="customer-subtitle">ご覧になりたい項目をお選びください。</p>
         </div>
+        <p class="customer-count" aria-hidden="true"><span>01—03</span> / INFORMATION</p>
       </div>
-      <nav class="customer-points" aria-label="ページ内の項目">
-        <a class="customer-point active" href="#policy" data-point="0" aria-current="step"><span>01 / POLICY</span></a>
-        <a class="customer-point" href="#security" data-point="1"><span>02 / SECURITY</span></a>
-        <a class="customer-point" href="#process" data-point="2"><span>03 / PROCESS</span></a>
-      </nav>
-      <div class="customer-stage-index" aria-hidden="true"><strong id="customer-stage-number">01</strong><span>/ 03</span></div>
-      <span class="customer-progress" id="customer-progress" aria-hidden="true">01 — 03 / SCROLL</span>
-    </div>
 
-    <div class="customer-steps">
-      <section class="customer-step" id="policy" data-step="0" aria-labelledby="policy-title">
-        <div class="customer-step-copy">
-          <p class="customer-step-eyebrow">01 / INFORMATION PROTECTION POLICY</p>
-          <h2 id="policy-title" data-step-title="0">情報保護方針</h2>
-          <p class="customer-step-description" data-step-description="0">情報保護に関する方針をご案内する項目です。</p>
-          <p class="customer-step-note" data-step-note="0">詳細は準備中です。</p>
-          <a class="customer-step-link" href="./privacy.html" data-step-link="0"><span data-step-cta="0">この項目を見る</span><span aria-hidden="true">↗</span></a>
-        </div>
-      </section>
-      <section class="customer-step" id="security" data-step="1" aria-labelledby="security-title">
-        <div class="customer-step-copy">
-          <p class="customer-step-eyebrow">02 / INFORMATION SECURITY</p>
-          <h2 id="security-title" data-step-title="1">情報の安全管理・取り扱い</h2>
-          <p class="customer-step-description" data-step-description="1">情報の安全管理や取り扱いについてご案内する項目です。</p>
-          <p class="customer-step-note" data-step-note="1">詳細は準備中です。</p>
-          <a class="customer-step-link" href="./security.html" data-step-link="1"><span data-step-cta="1">この項目を見る</span><span aria-hidden="true">↗</span></a>
-        </div>
-      </section>
-      <section class="customer-step" id="process" data-step="2" aria-labelledby="process-title">
-        <div class="customer-step-copy">
-          <p class="customer-step-eyebrow">03 / IMPLEMENTATION PROCESS</p>
-          <h2 id="process-title" data-step-title="2">導入までの流れ</h2>
-          <p class="customer-step-description" data-step-description="2">導入までの流れをご案内する項目です。</p>
-          <p class="customer-step-note" data-step-note="2">詳細は準備中です。</p>
-          <a class="customer-step-link" href="./onboarding.html" data-step-link="2"><span data-step-cta="2">この項目を見る</span><span aria-hidden="true">↗</span></a>
-        </div>
-      </section>
+      <nav class="customer-grid" aria-label="お客様向け情報の項目" id="customer-topic-nav">
+        <a class="customer-card" href="./privacy.html" data-topic="0" aria-label="情報保護方針">
+          <span class="customer-card-top"><span class="customer-number">01</span><span class="customer-card-arrow" aria-hidden="true">↗</span></span>
+          <span class="customer-art art-policy" aria-hidden="true"><span class="art-shape"><i></i><i></i><i></i></span></span>
+          <span class="customer-card-bottom">
+            <span class="customer-card-kicker">INFORMATION PROTECTION</span>
+            <strong class="customer-card-title">情報保護方針</strong>
+            <span class="customer-card-description">情報保護に関する方針</span>
+            <span class="customer-card-cta">詳しく見る <span aria-hidden="true">→</span></span>
+          </span>
+        </a>
+        <a class="customer-card" href="./security.html" data-topic="1" aria-label="情報の安全管理・取り扱い">
+          <span class="customer-card-top"><span class="customer-number">02</span><span class="customer-card-arrow" aria-hidden="true">↗</span></span>
+          <span class="customer-art art-security" aria-hidden="true"><span class="art-shape"><i></i><i></i><i></i></span></span>
+          <span class="customer-card-bottom">
+            <span class="customer-card-kicker">SECURITY &amp; HANDLING</span>
+            <strong class="customer-card-title">情報の安全管理・取り扱い</strong>
+            <span class="customer-card-description">情報の安全管理と取り扱い</span>
+            <span class="customer-card-cta">詳しく見る <span aria-hidden="true">→</span></span>
+          </span>
+        </a>
+        <a class="customer-card" href="./onboarding.html" data-topic="2" aria-label="導入までの流れ">
+          <span class="customer-card-top"><span class="customer-number">03</span><span class="customer-card-arrow" aria-hidden="true">↗</span></span>
+          <span class="customer-art art-process" aria-hidden="true"><span class="art-shape"><i></i><i></i><i></i></span></span>
+          <span class="customer-card-bottom">
+            <span class="customer-card-kicker">IMPLEMENTATION PROCESS</span>
+            <strong class="customer-card-title">導入までの流れ</strong>
+            <span class="customer-card-description">ご相談から導入まで</span>
+            <span class="customer-card-cta">詳しく見る <span aria-hidden="true">→</span></span>
+          </span>
+        </a>
+      </nav>
+      <p class="customer-footnote" id="customer-footnote">各項目の詳しい内容は現在準備中です。</p>
     </div>
-  </div>
-  <footer class="customer-tail"><span>2L² — CUSTOMER INFORMATION</span><a href="./index.html#home" id="customer-footer-home">ホームに戻る ↗</a></footer>
-</main>
-</body></html>
+  </main>
+</body>
+</html>
