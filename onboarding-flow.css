@@ -1,39 +1,54 @@
-/* 導入までの流れ — 3-step implementation flow cards.
-   Dark cards with yellow step headers and yellow arrows between them. */
+/* 導入までの流れ — refined, premium 3-step implementation flow.
+   Muted gold accents, glass cards, elegant typography. No bright yellow. */
 
 /* Override the centered flex layout so the flow can grow with content. */
 .onboarding-main{display:block;align-items:stretch;min-height:100svh;overflow:visible;padding-top:clamp(130px,17vh,190px);padding-bottom:clamp(70px,10vh,120px)}
 .onboarding-main::before{background:radial-gradient(ellipse 58% 76% at 88% 40%,#111f29 0%,#080f18 43%,#06090f 83%)}
 /* Subtle dot-grid texture */
-.onboarding-main .privacy-container::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:radial-gradient(rgba(244,180,0,.04) 1px,transparent 1px);background-size:26px 26px;opacity:.6}
+.onboarding-main .privacy-container::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:radial-gradient(rgba(201,173,120,.03) 1px,transparent 1px);background-size:28px 28px;opacity:.5}
 .onboarding-container{max-width:1280px;position:relative}
 .onboarding-container .privacy-eyebrow{margin-bottom:clamp(36px,5vh,60px)}
 
 .onboarding-flow{width:100%}
-.flow-header{display:flex;align-items:center;gap:18px;margin-bottom:clamp(36px,5vh,60px)}
-.flow-header-bar{width:4px;height:clamp(32px,4.5vw,52px);background:#f0eee8;border-radius:2px;flex:none}
-.flow-header h1{font-size:clamp(28px,3.8vw,48px);font-weight:400;letter-spacing:-.05em;line-height:1.3;margin:0;color:#f0eee8}
 
+/* Header — thin gold accent bar, light-weight heading */
+.flow-header{display:flex;align-items:center;gap:20px;margin-bottom:clamp(40px,6vh,72px)}
+.flow-header-bar{width:3px;height:clamp(30px,4vw,48px);background:linear-gradient(180deg,#d4b57e,#c9ad78);border-radius:1px;flex:none;box-shadow:0 0 12px rgba(201,173,120,.2)}
+.flow-header h1{font-size:clamp(26px,3.5vw,44px);font-weight:300;letter-spacing:.02em;line-height:1.3;margin:0;color:#f0eee8}
+
+/* Cards row */
 .flow-cards{display:flex;align-items:stretch;gap:0}
-.flow-card{flex:1 1 0;min-width:0;background:#2c2e30;border:1px solid #f4b400;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 12px 36px rgba(0,0,0,.25)}
-.flow-card-step{background:#f4b400;color:#1a1a1a;font-size:13px;font-weight:700;letter-spacing:.12em;padding:10px 20px;text-align:center}
-.flow-card-body{padding:clamp(20px,2.5vw,30px) clamp(18px,2vw,26px);flex:1}
-.flow-card-title{font-size:clamp(20px,2.2vw,28px);font-weight:500;margin:0 0 8px;color:#f0eee8;letter-spacing:-.02em}
-.flow-card-subtitle{font-size:clamp(13px,1.1vw,16px);color:#f4b400;font-weight:600;margin:0 0 18px}
+
+/* Card — dark glass with whisper-thin gold border and top accent line */
+.flow-card{flex:1 1 0;min-width:0;background:linear-gradient(180deg,rgba(22,28,36,.55),rgba(10,14,20,.7));border:1px solid rgba(201,173,120,.12);border-radius:3px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 50px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.03);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:border-color .5s,box-shadow .5s,transform .5s;position:relative}
+.flow-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(201,173,120,.5),transparent)}
+.flow-card:hover{border-color:rgba(201,173,120,.28);box-shadow:0 28px 64px rgba(0,0,0,.35),0 0 30px rgba(201,173,120,.06),inset 0 1px 0 rgba(255,255,255,.05);transform:translateY(-4px)}
+
+/* Step label — elegant small caps, no solid banner */
+.flow-card-step{background:transparent;color:#c9ad78;font-size:10px;font-weight:500;letter-spacing:.35em;padding:clamp(28px,3vw,38px) clamp(24px,2.5vw,34px) 0;text-align:left}
+
+.flow-card-body{padding:clamp(16px,2vw,24px) clamp(24px,2.5vw,34px) clamp(28px,3vw,38px);flex:1}
+
+.flow-card-title{font-size:clamp(22px,2.4vw,30px);font-weight:400;margin:12px 0 10px;color:#f0eee8;letter-spacing:.01em;line-height:1.4}
+.flow-card-subtitle{font-size:clamp(12px,1vw,14px);color:#c9ad78;font-weight:400;margin:0 0 22px;letter-spacing:.06em;padding-bottom:14px;border-bottom:1px solid rgba(201,173,120,.1)}
+
 .flow-list{list-style:none;padding:0;margin:0}
-.flow-list li{font-size:clamp(12px,1vw,14px);line-height:2.1;color:#c0c4c8;padding-left:14px;position:relative}
-.flow-list li::before{content:"・";position:absolute;left:0;color:#f4b400}
-.flow-arrow{display:flex;align-items:center;justify-content:center;width:clamp(36px,4vw,56px);flex:none;color:#f4b400;font-size:clamp(22px,2.5vw,32px);font-weight:300}
+.flow-list li{font-size:clamp(12px,.95vw,13.5px);line-height:2.2;color:#aab1b8;padding-left:18px;position:relative;letter-spacing:.02em}
+.flow-list li::before{content:"";position:absolute;left:0;top:.95em;width:8px;height:1px;background:rgba(201,173,120,.4)}
+
+/* Arrows — thin, understated gold */
+.flow-arrow{display:flex;align-items:center;justify-content:center;width:clamp(40px,4.5vw,60px);flex:none;color:rgba(201,173,120,.5);font-size:clamp(18px,2vw,24px);font-weight:200}
 
 /* Stack vertically on narrow screens; arrows rotate downward */
 @media(max-width:980px){
   .flow-cards{flex-direction:column;gap:0}
   .flow-card{flex:none}
-  .flow-arrow{width:100%;height:clamp(30px,5vh,44px);transform:rotate(90deg)}
+  .flow-arrow{width:100%;height:clamp(28px,4vh,40px);transform:rotate(90deg)}
 }
 @media(max-width:560px){
-  .flow-header h1{font-size:clamp(24px,6vw,36px)}
-  .flow-card-body{padding:18px 16px}
+  .flow-header h1{font-size:clamp(22px,5.5vw,32px)}
+  .flow-card-body{padding:14px 20px 24px}
+  .flow-card-step{padding:22px 20px 0}
   .flow-card-title{font-size:20px}
 }
 @media(prefers-reduced-motion:reduce){.flow-card{transition:none}}
