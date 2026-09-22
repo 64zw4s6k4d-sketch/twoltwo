@@ -1,6 +1,6 @@
 /* 2L² / Customer Information — Robot character styling & cursor tracking. */
-.robot-section{display:flex;flex-direction:column;align-items:center;gap:10px;margin:0 auto clamp(16px,3vh,32px);max-width:360px}
-.robot-container{width:clamp(180px,28vw,280px);position:relative}
+.robot-section{display:flex;flex-direction:column;align-items:center;gap:6px;margin:0 auto clamp(6px,1.2vh,14px);max-width:200px}
+.robot-container{width:clamp(120px,15vw,165px);position:relative}
 .robot-character{width:100%;height:auto;display:block;filter:drop-shadow(0 16px 36px rgba(0,0,0,.4)) drop-shadow(0 4px 8px rgba(0,0,0,.3))}
 
 /* Cursor tracking transforms (set by robot-tracker.js) */
