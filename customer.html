@@ -1,54 +1,73 @@
 <!doctype html>
-<html lang="ja">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#06090f"><meta name="robots" content="noindex,nofollow">
-<meta name="description" content="2L²のお客様向け情報。情報保護方針、情報の安全管理・取り扱い、導入までの流れ。">
+<html lang="ja"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090e16">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="2L²のお客様向け情報。情報の安全管理・取り扱い、情報保護方針、導入までの流れ。">
 <title>お客様向け情報 | 2L²</title>
 <link rel="icon" type="image/png" href="./assets/favicon.png">
-<link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./privacy.css">
-<script defer src="./privacy.js"></script>
-</head>
-<body class="privacy-page customer-page" data-customer-page="customer">
-<header class="site-header privacy-header" id="site-header">
- <a class="brand" href="./index.html#home" aria-label="2L² — ホームに戻る"><img src="./assets/brand-logo.png" width="40" height="43" alt="2L²"></a>
- <div class="privacy-header-actions">
-  <a class="privacy-back" href="./index.html#home" data-policy-i18n="home">ホームに戻る <span aria-hidden="true">↗</span></a>
-  <div class="language" role="group" aria-label="Language"><button type="button" data-lang="ja" aria-pressed="true">JP</button><span>/</span><button type="button" data-lang="en" aria-pressed="false">EN</button><span>/</span><button type="button" data-lang="th" aria-pressed="false">TH</button></div>
- </div>
+<link rel="stylesheet" href="./styles.css">
+<link rel="stylesheet" href="./customer-swipe.css">
+<script defer src="./customer-swipe.js"></script>
+</head><body class="customer-swipe-page">
+<header class="site-header" id="site-header">
+  <a class="brand" id="customer-header-logo" href="./index.html#home" aria-label="2L² — ホームに戻る"><img src="./assets/brand-logo.png" width="40" height="43" alt="2L²"></a>
+  <div class="customer-header-right">
+    <a href="./index.html#home" class="customer-home-link"><span id="customer-back-text">ホームに戻る</span><i aria-hidden="true">↗</i></a>
+    <div class="customer-language" role="group" aria-label="Language">
+      <button type="button" data-lang="ja" aria-pressed="true" class="active">JP</button><span>/</span>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button><span>/</span>
+      <button type="button" data-lang="th" aria-pressed="false">TH</button>
+    </div>
+  </div>
 </header>
-<main class="privacy-main customer-main" id="main">
- <div class="privacy-frame" aria-hidden="true"><span></span><span></span></div>
- <div class="privacy-container customer-container">
-  <p class="privacy-eyebrow">2L² <span aria-hidden="true">/</span> CUSTOMER INFORMATION</p>
-  <section class="customer-copy" data-policy-lang="ja" lang="ja" aria-labelledby="customer-title-ja">
-   <p class="privacy-status">FOR OUR CUSTOMERS</p><h1 id="customer-title-ja">お客様向け情報</h1>
-   <p class="customer-intro">ご覧になりたい項目をお選びください。</p>
-   <nav class="customer-links" aria-label="お客様向け情報の項目">
-    <a class="customer-link" href="./privacy.html"><span class="customer-link-no">01 / POLICY</span><span class="customer-link-title">情報保護方針</span><span class="customer-link-arrow" aria-hidden="true">↗</span></a>
-    <a class="customer-link" href="./security.html"><span class="customer-link-no">02 / SECURITY</span><span class="customer-link-title">情報の安全管理・取り扱い</span><span class="customer-link-arrow" aria-hidden="true">↗</span></a>
-    <a class="customer-link" href="./onboarding.html"><span class="customer-link-no">03 / PROCESS</span><span class="customer-link-title">導入までの流れ</span><span class="customer-link-arrow" aria-hidden="true">↗</span></a>
-   </nav>
+<main class="customer-swipe-main">
+  <div class="customer-swipe-intro">
+    <p class="customer-kicker">CUSTOMER INFORMATION / 2L²</p>
+    <h1 id="customer-page-title">お客様向け情報</h1>
+    <p class="customer-subtitle" id="customer-subtitle">大切な情報と、よりよい導入のために。</p>
+  </div>
+  <section class="customer-stage" id="customer-stage" data-active="0" tabindex="0" role="region" aria-label="お客様向け情報の3項目。左右の矢印またはスワイプで切り替えられます">
+    <div class="customer-orbit"><i class="customer-orbit-dot"></i></div>
+    <div class="customer-halo"></div>
+    <div class="customer-character-holder">
+      <img class="customer-character" id="customer-character" src="./assets/customer-robot-security.webp" alt="左を向くロボットのアニメーション" draggable="false" width="540" height="390">
+    </div>
+
+    <button type="button" class="customer-tag active" data-topic="security" style="--x:15%;--y:39%" aria-pressed="true">
+      <small>01 / SECURITY</small><strong class="customer-tag-title">情報の安全管理・取り扱い</strong><span class="customer-tag-go" aria-hidden="true">↗</span>
+    </button>
+    <button type="button" class="customer-tag" data-topic="policy" style="--x:84%;--y:35%" aria-pressed="false">
+      <small>02 / POLICY</small><strong class="customer-tag-title">情報保護方針</strong><span class="customer-tag-go" aria-hidden="true">↗</span>
+    </button>
+    <button type="button" class="customer-tag" data-topic="process" style="--x:78%;--y:78%" aria-pressed="false">
+      <small>03 / PROCESS</small><strong class="customer-tag-title">導入までの流れ</strong><span class="customer-tag-go" aria-hidden="true">↗</span>
+    </button>
+    <div class="customer-stage-hint" aria-hidden="true"><i></i><span id="customer-swipe-hint">左右にスワイプして項目を切り替えられます</span><i></i></div>
   </section>
-  <section class="customer-copy" data-policy-lang="en" lang="en" aria-labelledby="customer-title-en" hidden>
-   <p class="privacy-status">FOR OUR CUSTOMERS</p><h1 id="customer-title-en">Customer Information</h1>
-   <p class="customer-intro">Choose a topic to explore.</p>
-   <nav class="customer-links" aria-label="Customer information topics">
-    <a class="customer-link" href="./privacy.html"><span class="customer-link-no">01 / POLICY</span><span class="customer-link-title">Information Protection Policy</span><span class="customer-link-arrow" aria-hidden="true">↗</span></a>
-    <a class="customer-link" href="./security.html"><span class="customer-link-no">02 / SECURITY</span><span class="customer-link-title">Information Security &amp; Handling</span><span class="customer-link-arrow" aria-hidden="true">↗</span></a>
-    <a class="customer-link" href="./onboarding.html"><span class="customer-link-no">03 / PROCESS</span><span class="customer-link-title">Our Implementation Process</span><span class="customer-link-arrow" aria-hidden="true">↗</span></a>
-   </nav>
+  <div class="customer-under">
+    <span class="customer-overline" id="customer-counter" aria-live="polite">01 / 03  —  SECURITY</span>
+    <div class="customer-controls" aria-label="項目切り替え">
+      <button class="customer-arrow" id="customer-prev" type="button" aria-label="前の項目">←</button>
+      <div class="customer-pips" role="group" aria-label="項目">
+        <button class="customer-pip active" type="button" aria-label="情報の安全管理・取り扱い" aria-pressed="true"></button>
+        <button class="customer-pip" type="button" aria-label="情報保護方針" aria-pressed="false"></button>
+        <button class="customer-pip" type="button" aria-label="導入までの流れ" aria-pressed="false"></button>
+      </div>
+      <button class="customer-arrow" id="customer-next" type="button" aria-label="次の項目">→</button>
+    </div>
+  </div>
+  <section class="customer-details" aria-labelledby="customer-topic-title">
+    <div>
+      <p class="customer-eyetag" id="customer-subsection">01 / 03 / SECURITY</p>
+      <h2 id="customer-topic-title">情報の安全管理・取り扱い</h2>
+      <p id="customer-topic-description">情報の管理方法や取り扱いについて、ご案内する項目です。詳細は次のページでご案内します。</p>
+    </div>
+    <aside class="customer-aside">
+      <p class="customer-aside-note" id="customer-content-note">詳しい内容は現在準備中です。正式な記載内容を確認後、各ページに掲載します。</p>
+      <a class="customer-details-link" id="customer-details-link" href="./security.html"><span class="customer-link-word">この項目を見る</span><span aria-hidden="true">↗</span></a>
+    </aside>
   </section>
-  <section class="customer-copy" data-policy-lang="th" lang="th" aria-labelledby="customer-title-th" hidden>
-   <p class="privacy-status">FOR OUR CUSTOMERS</p><h1 id="customer-title-th">ข้อมูลสำหรับลูกค้า</h1>
-   <p class="customer-intro">เลือกหัวข้อที่ต้องการอ่าน</p>
-   <nav class="customer-links" aria-label="หัวข้อข้อมูลสำหรับลูกค้า">
-    <a class="customer-link" href="./privacy.html"><span class="customer-link-no">01 / POLICY</span><span class="customer-link-title">นโยบายคุ้มครองข้อมูล</span><span class="customer-link-arrow" aria-hidden="true">↗</span></a>
-    <a class="customer-link" href="./security.html"><span class="customer-link-no">02 / SECURITY</span><span class="customer-link-title">การรักษาความปลอดภัยและการจัดการข้อมูล</span><span class="customer-link-arrow" aria-hidden="true">↗</span></a>
-    <a class="customer-link" href="./onboarding.html"><span class="customer-link-no">03 / PROCESS</span><span class="customer-link-title">ขั้นตอนการนำไปใช้งาน</span><span class="customer-link-arrow" aria-hidden="true">↗</span></a>
-   </nav>
-  </section>
- </div>
+  <div class="customer-end"><span>2L² / CUSTOMER INFORMATION</span><a href="./index.html#home">BACK TO HOME ↗</a></div>
 </main>
-<footer class="privacy-footer"><a href="./index.html#home" data-policy-i18n="home">ホームに戻る <span aria-hidden="true">↗</span></a></footer>
 </body></html>
