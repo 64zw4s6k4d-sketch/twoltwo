@@ -224,3 +224,6 @@
 @media(max-width:820px){
  .mobile-nav a[href="./privacy.html"]{color:#dfc494}
 }
+
+/* Hide numeric labels inside the traveling background frames. */
+.corner-num{display:none!important}
