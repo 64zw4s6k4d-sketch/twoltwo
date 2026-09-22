@@ -18,6 +18,16 @@
     gsap.ticker.add(time => lenis.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);
     window.addEventListener('load', () => ScrollTrigger.refresh());
+
+    // Smooth anchor links via Lenis
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const id = link.getAttribute('href');
+        if (id === '#' || id.length < 2) return;
+        const target = document.querySelector(id);
+        if (target) { e.preventDefault(); lenis.scrollTo(target, { offset: -80 }); }
+      });
+    });
   }
 
   // Hero entrance
