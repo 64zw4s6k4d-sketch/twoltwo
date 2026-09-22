@@ -101,7 +101,6 @@
       // Give the current leading square the current chapter number, 00→06.
       // Other receding squares remain unnumbered, preventing an old 07/08
       // from appearing next to 00 at the start of the journey.
-      let focusedFrame=frameNodes[6],closestDepth=Infinity;
       frameNodes.forEach((frame,i)=>{
         const depth=((phase + i*690)%5520)-4320;
         const frontFade=clamp((1100-depth)/650,0,1);
@@ -110,12 +109,6 @@
         frame.style.setProperty('--depth',`${depth.toFixed(1)}px`);
         frame.style.setProperty('--frame-opacity',opacity.toFixed(3));
         frame.style.setProperty('--frame-blur',`${clamp((depth-550)/380,0,4)}px`);
-        const distance=Math.abs(depth+180);
-        if(opacity>.13 && distance<closestDepth){focusedFrame=frame;closestDepth=distance;}
-      });
-      frameNodes.forEach(frame=>{
-        const label=frame.querySelector('.corner-num');
-        if(label)label.textContent=frame===focusedFrame?chapterNumber(activeIndex):'';
       });
     }
     if(Math.abs(target-smooth)>.18){smooth+=(target-smooth)*.105;requestAnimationFrame(draw);ticking=true;}else{smooth=target;}
