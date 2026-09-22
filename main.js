@@ -56,6 +56,7 @@
   // no per-section background reset, so the environment feels continuous.
   function draw(){
     ticking=false;
+    smooth=target;
     const total=Math.max(1,document.documentElement.scrollHeight-window.innerHeight);
     const progress=clamp(smooth/total,0,1);
     document.documentElement.style.setProperty('--progress',progress.toFixed(5));
@@ -111,7 +112,6 @@
         frame.style.setProperty('--frame-blur',`${clamp((depth-550)/380,0,4)}px`);
       });
     }
-    if(Math.abs(target-smooth)>.18){smooth+=(target-smooth)*.105;requestAnimationFrame(draw);ticking=true;}else{smooth=target;}
   }
   function schedule(){if(!ticking){ticking=true;requestAnimationFrame(draw);}}
   function onScroll(){target=window.scrollY;if(reducedMotion.matches){smooth=target;}schedule();detectChapter();header.classList.toggle('scrolled',window.scrollY>30);}
