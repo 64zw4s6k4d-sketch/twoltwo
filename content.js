@@ -6,7 +6,7 @@ window.SITE_COPY = {
   common:{scroll:"SCROLL TO EXPLORE"},
   hero:{kicker:"2L² / LOCAL AI",title:"あなたのAIに、<br>誰の許可もいらない",lead:"企業や医療の現場に合わせて、<br>AIの設計から運用までを最適化する。",primary:"私たちの事業",secondary:"お問い合わせ",side:"一つの答えではなく、<br>現場に合う設計を。"},
   philosophy:{title:"必要な場所に、<br>必要な技術を、<br><em>必要な分だけ。</em>",text:"現場に合わせて、技術・機能・コストを最適化。課題理解から運用まで、一貫して支援します。"},
-  services:{kicker:"02 / SERVICES",title:"現場を起点に、<br>AIを設計する。",intro:"業種や業務の違いを理解し、導入可能な技術を一つずつ形にしていきます。",s1title:"ローカルLLM",s1text:"組織の要件に合わせた、ローカル環境でのAI活用を検討・設計。",s2title:"医療文書・情報抽出",s2text:"紙やPDFに含まれる情報の抽出・構造化を研究開発。",s3title:"業務に合わせたAI開発",s3text:"文書検索や業務支援など、利用環境に応じた仕組みを設計。"},
+  services:{kicker:"02 / SERVICES",title:"現場を起点に、<br>AIを設計する。",intro:"業種や業務の違いを理解し、導入可能な技術を一つずつ形にしていきます。",s1title:"Local LLM",s1text:"組織の要件に合わせた、ローカル環境でのAI活用を検討・設計。",s2title:"医療文書・情報抽出",s2text:"紙やPDFに含まれる情報の抽出・構造化を研究開発。",s3title:"業務に合わせたAI開発",s3text:"文書検索や業務支援など、利用環境に応じた仕組みを設計。"},
   technology:{kicker:"03 / TECHNOLOGY",title:"データの近くに、<br>知性を置く。",intro:"現場の運用と情報管理の条件から、最適なAI構成を考えます。",l1:"利用する人・業務",d1:"使う場面から設計",l2:"アプリケーション",d2:"検索・抽出・対話",l3:"AI モデル",d3:"用途に合わせた構成",l4:"ローカル基盤",d4:"運用環境・情報管理"},
   projects:{kicker:"04 / DEVELOPMENT",title:"まず、確かめる。<br>それから、進める。",intro:"PoCを通じて実用性を検証し、課題と成果を明確にしながら開発を進めます。",label:"研究開発・検証中のテーマ",p1:"医療文書のOCR・構造化",p2:"業務文書の検索・活用",p3:"ローカルAIの利用環境",note:"※ 上記は研究開発・検証のテーマであり、商用導入実績や性能を保証するものではありません。"},
   company:{kicker:"05 / COMPANY",overline:"ABOUT 2L²",title:"技術と現場の、<br><span>あいだに立つ。</span>",intro:"2L²は、ローカルAIや医療・業務データの活用に取り組むテクノロジー企業です。",nameLabel:"商号",name:"ツーエルツー合同会社",repLabel:"代表社員",rep:"並里 璃王",locationLabel:"所在地",location:"東京都渋谷区（正式な所在地は公開前に確認）"},
