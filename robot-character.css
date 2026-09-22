@@ -1,0 +1,26 @@
+/* 2L² / Customer Information — Robot character styling & cursor tracking. */
+.robot-section{display:flex;flex-direction:column;align-items:center;gap:10px;margin:0 auto clamp(16px,3vh,32px);max-width:360px}
+.robot-container{width:clamp(180px,28vw,280px);position:relative}
+.robot-character{width:100%;height:auto;display:block;filter:drop-shadow(0 16px 36px rgba(0,0,0,.4))}
+
+/* Cursor tracking transforms (set by robot-tracker.js) */
+.rg-pupil-l,.rg-pupil-r{transform:translate(var(--robot-eye-x,0px),var(--robot-eye-y,0px));transition:transform .12s ease-out}
+.rg-head{transform:rotate(var(--robot-head-rot,0deg));transform-origin:160px 230px;transition:transform .18s ease-out}
+.rg-body{transform:rotate(var(--robot-body-tilt,0deg));transform-origin:160px 335px;transition:transform .25s ease-out}
+.rg-cube{transform:translate(var(--robot-cube-x,0px),var(--robot-cube-y,0px));transition:transform .2s ease-out}
+
+/* Idle animations */
+.rg-ring{animation:rg-ring-pulse 3s ease-in-out infinite}
+@keyframes rg-ring-pulse{0%,100%{opacity:.12}50%{opacity:.22}}
+.rg-cube-float{animation:rg-float 4s ease-in-out infinite}
+@keyframes rg-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.rg-eyes{transform-origin:160px 168px;animation:rg-blink 5s ease-in-out infinite}
+@keyframes rg-blink{0%,92%,100%{transform:scaleY(1)}95%,97%{transform:scaleY(.1)}}
+
+.robot-hint{font-size:11px;letter-spacing:.08em;color:#7a8088;text-align:center;margin:0}
+
+@media(max-width:600px){.robot-container{width:clamp(160px,45vw,220px)}}
+@media(prefers-reduced-motion:reduce){
+  .rg-ring,.rg-cube-float,.rg-eyes{animation:none}
+  .rg-pupil-l,.rg-pupil-r,.rg-head,.rg-body,.rg-cube{transition:none;transform:none}
+}
