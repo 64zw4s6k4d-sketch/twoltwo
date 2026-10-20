@@ -62,19 +62,22 @@
     const futureEnd=(chapters[6]?.offsetTop||vh*6)+vh*.55;
     const ease=t=>t*t*(3-2*t);
     const gate=ease(clamp((window.scrollY-vh*.12)/Math.max(approachStart-vh*.12,1),0,1));
-    const doorVisible=clamp((approachStart+vh*.29-window.scrollY)/(vh*.56),0,1);
+    // Fade the intact front chip away as the visitor scrolls; no door opening.
+    const chipFade=ease(clamp((window.scrollY-vh*.12)/(vh*.95),0,1));
+    const doorVisible=1-chipFade;
     const approach=ease(clamp((window.scrollY-(approachStart-vh*.62))/(vh*.98),0,1));
     const stackExit=clamp((servicesStart-window.scrollY)/(vh*.45),0,1);
     const stackVisible=approach*stackExit;
     const future=ease(clamp((window.scrollY-futureStart)/Math.max(futureEnd-futureStart,1),0,1));
     const set=(name,value)=>document.documentElement.style.setProperty(name,value);
     const rm=reducedMotion.matches;
-    set('--portal-open',rm?'0':gate.toFixed(4));
-    set('--gpu-door-opacity',rm?'1':doorVisible.toFixed(4));
-    set('--door-angle-left',rm?'0deg':(-74*gate).toFixed(2)+'deg');
-    set('--door-angle-right',rm?'0deg':(74*gate).toFixed(2)+'deg');
-    set('--gpu-door-y',rm?'0px':Math.round(-gate*vh*.05)+'px');
-    set('--gpu-door-depth',rm?'0px':Math.round(-160+gate*220)+'px');
+    // Keep both halves joined into one stationary chip. Only opacity changes.
+    set('--portal-open','0');
+    set('--gpu-door-opacity',rm?(window.scrollY<vh*.75?'1':'0'):doorVisible.toFixed(4));
+    set('--door-angle-left','0deg');
+    set('--door-angle-right','0deg');
+    set('--gpu-door-y','0px');
+    set('--gpu-door-depth','-160px');
     set('--gpu-anchor-opacity',rm?'.36':(.66*Math.max(doorVisible,stackVisible)).toFixed(4));
     set('--gpu-frame-depth',rm?'0px':Math.round(-900+gate*930+approach*140)+'px');
     set('--gpu-stack-opacity',rm?'0':stackVisible.toFixed(4));
