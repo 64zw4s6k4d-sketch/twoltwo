@@ -229,3 +229,126 @@
 
 /* Hide numeric labels inside the traveling background frames. */
 .corner-num{display:none!important}
+
+
+/* 2L² responsive typography / desktop, tablet, phone */
+/* Keep headlines in their intentional lines and remove accidental sub-line wrapping.
+   English/Thai still wrap naturally between words. */
+.chapter-content,.section-intro > *,.tech-layout > *,.company-details > *{min-width:0}
+.hero h1,.philosophy .manifesto,.chapter h2{
+  text-wrap:balance;
+  overflow-wrap:break-word;
+  word-break:normal;
+  line-break:strict;
+  letter-spacing:-.045em;
+}
+html[lang="ja"] .hero h1,
+html[lang="ja"] .philosophy .manifesto,
+html[lang="ja"] .services .section-intro h2,
+html[lang="ja"] .technology .tech-copy h2,
+html[lang="ja"] .projects .section-intro h2,
+html[lang="ja"] .company h2,
+html[lang="ja"] .contact h2{
+  white-space:nowrap;
+}
+.hero h1,.philosophy .manifesto,.chapter h2{
+  text-shadow:0 3px 18px rgba(2,5,9,.55);
+}
+.section-intro p,.tech-copy > p,.manifesto-sub,.company-details > p,
+.contact-message,.project-note{
+  line-height:1.95;
+  letter-spacing:.015em;
+  overflow-wrap:break-word;
+}
+.company-details dd[data-i18n="company.location"]{overflow-wrap:anywhere;line-height:1.9}
+.technology .tech-copy h2{margin-bottom:clamp(16px,2.4vw,30px)}
+.services .section-intro,.projects .section-intro{align-items:start}
+.technology .tech-layout,.section-intro{min-width:0}
+.technology .architecture-row strong,.projects .ledger-row strong{
+  overflow-wrap:break-word;
+  word-break:normal;
+  line-break:strict;
+}
+/* Large displays: deliberate scale hierarchy, not oversized titles squeezed into narrow columns. */
+@media(min-width:1201px){
+  .hero h1{max-width:min(44vw,630px);font-size:clamp(42px,4.25vw,66px);line-height:1.38}
+  .hero-lead{max-width:min(42vw,530px)}
+  .philosophy .manifesto{max-width:min(46vw,650px);font-size:clamp(38px,4vw,62px);line-height:1.43}
+  .philosophy .manifesto-sub{max-width:min(44vw,550px)}
+  .services .section-intro h2{font-size:clamp(34px,3.65vw,54px);line-height:1.37}
+  .projects .section-intro h2{font-size:clamp(34px,3.85vw,57px);line-height:1.35}
+  .technology .tech-copy h2{font-size:clamp(34px,3.5vw,50px);line-height:1.44}
+  .company h2{font-size:clamp(48px,5.7vw,88px);line-height:1.34}
+  .contact h2{font-size:clamp(48px,6vw,92px);line-height:1.34}
+}
+/* Tablet / small desktop: switch the long navigation to the existing mobile menu. */
+@media(min-width:821px) and (max-width:1200px){
+  .site-header{height:82px}
+  .desktop-nav{display:none}
+  .menu-toggle{display:block}
+  .mobile-nav{
+    display:flex;position:fixed;z-index:45;inset:82px 0 auto;
+    max-height:calc(100svh - 82px);overflow:auto;
+    flex-direction:column;padding:22px var(--pad) 35px;
+    background:rgba(6,10,16,.98);
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
+    border-bottom:1px solid var(--hair);
+    transform:translateY(-110%);visibility:hidden;opacity:0;
+    transition:transform .4s var(--ease),opacity .3s,visibility .3s;
+  }
+  .mobile-nav.open{transform:translateY(0);visibility:visible;opacity:1}
+  .mobile-nav a{font-size:16px;padding:12px 2px;border-bottom:1px solid rgba(200,177,137,.12)}
+  .hero h1{font-size:clamp(33px,4.3vw,51px);max-width:min(44vw,550px);line-height:1.4}
+  .hero-lead{max-width:min(43vw,490px)}
+  .philosophy .manifesto{font-size:clamp(29px,4vw,47px);max-width:47vw;line-height:1.44}
+  .philosophy .manifesto-sub{max-width:44vw}
+  .services .section-intro h2,.projects .section-intro h2{
+    font-size:clamp(28px,3.25vw,40px);line-height:1.4
+  }
+  .technology .tech-copy h2{font-size:clamp(28px,3.3vw,40px);line-height:1.46}
+  .company h2{font-size:clamp(40px,5vw,60px);line-height:1.36}
+  .contact h2{font-size:clamp(40px,5.5vw,66px);line-height:1.34}
+}
+@media(max-width:820px){
+  .chapter{padding-inline:var(--pad)}
+  .hero .chapter-content,.philosophy .chapter-content{
+    width:100%;max-width:100%;padding-inline:0
+  }
+  .hero h1{
+    max-width:100%;font-size:clamp(32px,6.65vw,52px);
+    line-height:1.4;letter-spacing:-.045em
+  }
+  .hero-lead{max-width:min(100%,33em);font-size:clamp(12px,1.9vw,14px);line-height:1.9}
+  .philosophy .manifesto{
+    max-width:100%;font-size:clamp(28px,6.2vw,46px);
+    line-height:1.42;letter-spacing:-.04em
+  }
+  .philosophy .manifesto-sub{max-width:min(100%,620px);font-size:clamp(12px,1.9vw,14px);line-height:1.95}
+  .services .section-intro,.projects .section-intro{grid-template-columns:minmax(0,1fr);gap:18px}
+  .services .section-intro h2,.projects .section-intro h2{
+    font-size:clamp(25px,5.8vw,42px);line-height:1.4
+  }
+  .technology .tech-copy h2{
+    font-size:clamp(25px,5.85vw,42px);line-height:1.45
+  }
+  .company h2{font-size:clamp(30px,6.9vw,54px);line-height:1.4}
+  .contact h2{font-size:clamp(30px,7vw,58px);line-height:1.4}
+  .section-intro p,.tech-copy > p,.company-details > p,
+  .contact-message,.project-note{font-size:clamp(12px,1.8vw,14px);line-height:1.85}
+  .technology .tech-layout{margin-top:clamp(28px,5vw,46px);gap:30px}
+}
+@media(max-width:390px){
+  .hero h1{font-size:clamp(31px,8.8vw,34px)}
+  .philosophy .manifesto{font-size:clamp(27px,7.9vw,31px)}
+  .services .section-intro h2,.projects .section-intro h2{
+    font-size:clamp(24px,6.25vw,26px)
+  }
+  .technology .tech-copy h2{font-size:clamp(24px,6.25vw,26px)}
+  .company h2,.contact h2{font-size:clamp(29px,7.8vw,32px)}
+}
+@media(max-width:350px){
+  .services .section-intro h2,.projects .section-intro h2{font-size:23px}
+  .technology .tech-copy h2{font-size:23px}
+  .hero h1{font-size:31px}
+}
