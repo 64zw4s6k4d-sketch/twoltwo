@@ -7,7 +7,7 @@
   const frameNodes = $$('.space-frame');
   const header = $('#site-header');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const labels = {ja:['ホーム','設計思想','事業内容','技術紹介','開発・検証','会社概要','お問い合わせ'],en:['HOME','APPROACH','SERVICES','TECHNOLOGY','DEVELOPMENT','COMPANY','CONTACT'],th:['หน้าแรก','แนวทาง','บริการ','เทคโนโลยี','การพัฒนา','บริษัท','ติดต่อเรา']};
+  const labels = {ja:['ホーム','設計思想','事業内容','2L²の強み','導入事例・検証結果','会社概要','お問い合わせ'],en:['HOME','APPROACH','SERVICES','STRENGTHS','CASES & RESULTS','COMPANY','CONTACT'],th:['หน้าแรก','แนวทาง','บริการ','จุดแข็งของ 2L²','กรณีศึกษาและผลการทดสอบ','บริษัท','ติดต่อเรา']};
   let currentLang = 'ja';
   const chapterNumber = (index) => String(index).padStart(2,'0');
   function getCopy(path, lang=currentLang){return path.split('.').reduce((value,part)=>value && value[part], window.SITE_COPY[lang]);}
