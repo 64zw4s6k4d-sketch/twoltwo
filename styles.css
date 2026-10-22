@@ -19,3 +19,30 @@
 .cursor-glow.active{opacity:1;border-color:rgba(240,220,170,.55);box-shadow:0 0 14px rgba(221,193,138,.25)}
 .cursor-glow.hover{border-color:rgba(240,220,170,.7);box-shadow:0 0 20px rgba(221,193,138,.35),inset 0 0 8px rgba(221,193,138,.1)}
 @media(hover:none){.cursor-glow{display:none}}
+
+
+/* 2L² / Strengths + validation layout: 6 capabilities and 4 documented initiatives. */
+.technology .tech-layout{align-items:start;gap:clamp(28px,6vw,100px)}
+.technology .tech-architecture{width:100%;max-width:680px;transform:none}
+.technology .architecture-row{min-height:83px;padding:13px 11px 13px 18px}
+.technology .architecture-row strong{font-size:clamp(15px,1.35vw,20px);line-height:1.5}
+.technology .architecture-row small{font-size:11px;line-height:1.65}
+.projects .ledger-row{grid-template-columns:64px minmax(0,1fr) 160px;align-items:start;gap:18px;padding:20px 0}
+.projects .ledger-copy{min-width:0}
+.projects .ledger-row strong{display:block;font-size:clamp(17px,1.8vw,25px);line-height:1.5}
+.projects .ledger-detail{margin:7px 0 0;color:#aeb5bc;font-size:12px;line-height:1.9;letter-spacing:.01em}
+.projects .ledger-row small{padding-top:5px;line-height:1.6;text-align:right}
+@media(max-width:820px){
+  .technology .tech-layout{grid-template-columns:1fr;gap:32px}
+  .technology .tech-architecture{max-width:100%}
+  .technology .architecture-row{min-height:78px;padding:12px 8px 12px 12px}
+}
+@media(max-width:560px){
+  .technology .architecture-row{grid-template-columns:40px 1fr 18px;gap:9px}
+  .technology .architecture-row strong{font-size:16px}
+  .technology .architecture-row small{font-size:10px}
+  .projects .ledger-row{grid-template-columns:28px minmax(0,1fr);gap:8px;padding:17px 0}
+  .projects .ledger-row strong{font-size:17px}
+  .projects .ledger-detail{font-size:11px;line-height:1.85}
+  .projects .ledger-row small{grid-column:2;justify-self:start;padding:0;text-align:left}
+}
