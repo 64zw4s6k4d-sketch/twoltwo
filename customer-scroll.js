@@ -6,7 +6,7 @@
     ja:{
       title:"お客様向け情報",subtitle:"ご覧になりたい項目をお選びください。",
       footnote:"各項目の詳しい内容は現在準備中です。",home:"ホームへ ↗",cta:"詳しく見る",
-      nav:{home:"ホーム",services:"事業内容",technology:"技術紹介",projects:"開発・検証",company:"会社概要",contact:"お問い合わせ",customer:"お客様向け情報"},
+      nav:{home:"ホーム",services:"事業内容",technology:"2L²の強み",projects:"導入事例・検証結果",company:"会社概要",contact:"お問い合わせ",customer:"お客様向け情報"},
       topics:[
         {title:"情報保護方針",description:"情報保護に関する方針",href:"./privacy.html"},
         {title:"情報の安全管理・取り扱い",description:"情報の安全管理と取り扱い",href:"./security.html"},
@@ -16,7 +16,7 @@
     en:{
       title:"Customer Information",subtitle:"Select the information you need.",
       footnote:"Detailed content for each topic is currently being prepared.",home:"Home ↗",cta:"View details",
-      nav:{home:"Home",services:"Services",technology:"Technology",projects:"Development",company:"Company",contact:"Contact",customer:"Customer Information"},
+      nav:{home:"Home",services:"Services",technology:"Our Strengths",projects:"Cases & Results",company:"Company",contact:"Contact",customer:"Customer Information"},
       topics:[
         {title:"Information Protection Policy",description:"Our approach to information protection",href:"./privacy.html?lang=en"},
         {title:"Information Security & Handling",description:"Security management and handling of information",href:"./security.html?lang=en"},
@@ -26,7 +26,7 @@
     th:{
       title:"ข้อมูลสำหรับลูกค้า",subtitle:"เลือกข้อมูลที่ต้องการอ่าน",
       footnote:"เนื้อหารายละเอียดของแต่ละหัวข้ออยู่ระหว่างการจัดเตรียม",home:"หน้าแรก ↗",cta:"ดูรายละเอียด",
-      nav:{home:"หน้าแรก",services:"บริการ",technology:"เทคโนโลยี",projects:"การพัฒนา",company:"บริษัท",contact:"ติดต่อเรา",customer:"ข้อมูลสำหรับลูกค้า"},
+      nav:{home:"หน้าแรก",services:"บริการ",technology:"จุดแข็งของ 2L²",projects:"กรณีศึกษาและผลการทดสอบ",company:"บริษัท",contact:"ติดต่อเรา",customer:"ข้อมูลสำหรับลูกค้า"},
       topics:[
         {title:"นโยบายคุ้มครองข้อมูล",description:"แนวทางการคุ้มครองข้อมูล",href:"./privacy.html?lang=th"},
         {title:"การรักษาความปลอดภัยและการจัดการข้อมูล",description:"การรักษาความปลอดภัยและการจัดการข้อมูล",href:"./security.html?lang=th"},
