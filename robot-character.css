@@ -24,3 +24,124 @@
   .rg-ring,.rg-cube-float,.rg-eyes{animation:none}
   .rg-pupil-l,.rg-pupil-r,.rg-head,.rg-body,.rg-cube{transition:none;transform:none}
 }
+
+
+/* 2L² / Interactive robot: speech, blush, anger, responsive placement */
+.robot-interact{
+  display:block;appearance:none;-webkit-appearance:none;
+  padding:0;margin:0;border:0;border-radius:18px;background:transparent;
+  cursor:pointer;color:inherit;font:inherit;
+  transform:translateZ(0);
+  transition:filter .25s ease,scale .25s ease;
+}
+.robot-interact:hover{filter:brightness(1.14)}
+.robot-interact:focus-visible{outline:2px solid #F5D89B;outline-offset:5px}
+.robot-interact:active{scale:.96}
+.robot-section[data-mood="shy"] .robot-interact{filter:drop-shadow(0 0 14px rgba(242,138,146,.25))}
+.robot-section[data-mood="angry"] .robot-interact{filter:drop-shadow(0 0 16px rgba(236,167,40,.34))}
+.robot-section[data-mood="shy"] .rg-head{transform:rotate(calc(var(--robot-head-rot,0deg) - 7deg))}
+.robot-section[data-mood="angry"] .rg-head{transform:rotate(calc(var(--robot-head-rot,0deg) + 5deg))}
+.rg-face-shy,.rg-face-angry,.rg-mouth-neutral,.rg-eyes{
+  transition:opacity .22s ease;
+}
+.rg-face-shy,.rg-face-angry{opacity:0;pointer-events:none}
+.rg-mouth-talking{opacity:0;transform-origin:160px 202px;pointer-events:none}
+.robot-section[data-mood="shy"] .rg-face-shy,
+.robot-section[data-mood="angry"] .rg-face-angry{opacity:1}
+.robot-section[data-mood="shy"] .rg-eyes,
+.robot-section[data-mood="angry"] .rg-eyes,
+.robot-section[data-mood="shy"] .rg-mouth-neutral,
+.robot-section[data-mood="angry"] .rg-mouth-neutral{opacity:0}
+.robot-section.is-speaking[data-mood="neutral"] .rg-mouth-neutral{opacity:0}
+.robot-section.is-speaking[data-mood="neutral"] .rg-mouth-talking{
+  opacity:1;animation:rg-speaking .3s ease-in-out infinite alternate;
+}
+.robot-section.is-speaking[data-mood="shy"] .rg-mouth-shy,
+.robot-section.is-speaking[data-mood="angry"] .rg-mouth-angry{
+  transform-box:fill-box;transform-origin:center;
+  animation:rg-speaking-curve .26s ease-in-out infinite alternate;
+}
+@keyframes rg-speaking{from{transform:scaleY(.45)}to{transform:scaleY(1.2)}}
+@keyframes rg-speaking-curve{from{transform:scaleY(.7)}to{transform:scaleY(1.22)}}
+
+/* A restrained, gold-edged speech panel that remains readable over the scene. */
+.robot-speech{
+  position:absolute;top:22px;right:calc(100% + 12px);
+  width:clamp(195px,19vw,255px);min-height:75px;
+  padding:14px 18px 14px 17px;
+  border:1px solid rgba(226,187,119,.52);
+  border-radius:15px 15px 5px 15px;
+  background:linear-gradient(145deg,rgba(27,36,45,.97),rgba(10,17,25,.97));
+  box-shadow:0 14px 35px rgba(0,0,0,.29),inset 0 1px 0 rgba(255,231,186,.09);
+  color:#f4e5c9;font-size:clamp(11px,1vw,13px);
+  line-height:1.85;letter-spacing:.015em;
+  text-align:left;overflow-wrap:break-word;
+  pointer-events:none;isolation:isolate;
+}
+.robot-speech::after{
+  content:"";position:absolute;right:-7px;top:27px;
+  width:12px;height:12px;transform:rotate(45deg);
+  border-top:1px solid rgba(226,187,119,.52);
+  border-right:1px solid rgba(226,187,119,.52);
+  background:rgba(18,26,35,.97);
+}
+.robot-speech-text{position:relative;z-index:1}
+.robot-speech-caret{
+  display:inline-block;vertical-align:-2px;
+  width:4px;height:13px;margin-left:4px;
+  border-right:1px solid #d4aa6b;
+  opacity:0;
+}
+.robot-section.is-speaking .robot-speech-caret{
+  animation:rg-caret .7s steps(1,end) infinite;
+}
+@keyframes rg-caret{0%,49%{opacity:.85}50%,100%{opacity:0}}
+.robot-section[data-mood="shy"] .robot-speech{
+  border-color:rgba(236,157,170,.65);
+  box-shadow:0 14px 35px rgba(0,0,0,.3),0 0 20px rgba(232,126,139,.08);
+}
+.robot-section[data-mood="angry"] .robot-speech{border-color:rgba(255,179,66,.85)}
+.sr-only{
+  position:absolute!important;width:1px!important;height:1px!important;
+  padding:0!important;margin:-1px!important;overflow:hidden!important;
+  clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;
+}
+@media(max-width:1100px) and (min-width:861px){
+  .robot-speech{width:190px;font-size:11px;right:calc(100% + 6px);top:17px}
+}
+@media(max-width:860px){
+  .customer-page .robot-section{
+    position:relative;top:auto;right:auto;
+    display:flex;flex-direction:row-reverse;
+    align-items:center;justify-content:center;
+    gap:clamp(8px,3vw,19px);max-width:100%;
+    margin:0 auto clamp(12px,2vh,20px);
+    pointer-events:auto;
+  }
+  .customer-page .robot-container{
+    flex:0 0 auto;
+    width:clamp(88px,19vw,135px);
+    max-width:34%;
+  }
+  .customer-page .robot-speech{
+    position:relative;top:auto;right:auto;
+    flex:1 1 230px;max-width:350px;width:auto;
+    min-width:0;min-height:68px;
+    padding:12px 16px;
+    font-size:clamp(11px,2.1vw,13px);
+  }
+  .customer-page .robot-speech::after{top:25px}
+}
+@media(max-width:420px){
+  .customer-page .robot-container{width:clamp(79px,25vw,106px)}
+  .customer-page .robot-speech{font-size:11px;line-height:1.7;padding:10px 12px;min-height:58px}
+}
+@media(prefers-reduced-motion:reduce){
+  .robot-interact,.rg-face-shy,.rg-face-angry,.rg-mouth-neutral,.rg-eyes{
+    animation:none!important;transition:none!important;
+  }
+  .robot-section.is-speaking .rg-mouth-talking,
+  .robot-section.is-speaking .rg-mouth-shy,
+  .robot-section.is-speaking .rg-mouth-angry,
+  .robot-section.is-speaking .robot-speech-caret{animation:none!important}
+}
