@@ -145,3 +145,18 @@
   .robot-section.is-speaking .rg-mouth-angry,
   .robot-section.is-speaking .robot-speech-caret{animation:none!important}
 }
+
+
+/* Third-tap reaction: unimpressed deadpan face (😑), persistent until idle reset. */
+.rg-face-unimpressed{opacity:0;pointer-events:none;transition:opacity .22s ease}
+.robot-section[data-mood="unimpressed"] .rg-face-unimpressed{opacity:1}
+.robot-section[data-mood="unimpressed"] .rg-eyes,
+.robot-section[data-mood="unimpressed"] .rg-mouth-neutral{opacity:0}
+.robot-section[data-mood="unimpressed"] .rg-head{transform:rotate(0deg)}
+.robot-section[data-mood="unimpressed"] .robot-speech{
+  border-color:rgba(195,190,181,.54);
+  color:#e2ddd2;
+}
+@media(prefers-reduced-motion:reduce){
+  .rg-face-unimpressed{transition:none!important}
+}
