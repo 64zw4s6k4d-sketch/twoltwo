@@ -39,6 +39,7 @@
     const copy=COPY[lang];
     if(!copy)return;
     document.documentElement.lang=lang;
+    window.dispatchEvent(new CustomEvent("customer-language-change",{detail:{lang}}));
     document.title=copy.title+" | 2L²";
     $("#customer-title").textContent=copy.title;
     $("#customer-subtitle").textContent=copy.subtitle;
