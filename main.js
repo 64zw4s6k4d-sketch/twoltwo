@@ -25,7 +25,21 @@
     document.title = (lang==='ja'?'2L²｜ローカルAI':lang==='th'?'2L² | โลคัล AI':'2L² | Local AI');
     updateNavigation();
   }
-  $$('.language button').forEach(button=>button.addEventListener('click',()=>applyLanguage(button.dataset.lang)));
+  $('.language button').forEach(button=>button.addEventListener('click',()=>applyLanguage(button.dataset.lang)));
+  // Allow older shared section links to open the corresponding native details panel.
+  // Titles themselves remain clickable and keyboard-accessible without JavaScript.
+  function revealLinkedService() {
+    const id=window.location.hash.slice(1);
+    if(!id)return;
+    const target=document.getElementById(id);
+    const details=target?.closest('.service-item');
+    if(!details)return;
+    details.open=true;
+    // Browser initial fragment scrolling can happen before a closed panel expands.
+    window.requestAnimationFrame(()=>target.scrollIntoView({block:'start',behavior:'auto'}));
+  }
+  window.addEventListener('hashchange',revealLinkedService);
+  revealLinkedService();
   const menuToggle=$('#menu-toggle'),mobileNav=$('#mobile-nav');
   const closeMenu=()=>{mobileNav.classList.remove('open');menuToggle.setAttribute('aria-expanded','false');menuToggle.setAttribute('aria-label','Open menu');};
   menuToggle.addEventListener('click',()=>{const open=mobileNav.classList.toggle('open');menuToggle.setAttribute('aria-expanded',String(open));menuToggle.setAttribute('aria-label',open?'Close menu':'Open menu');});
