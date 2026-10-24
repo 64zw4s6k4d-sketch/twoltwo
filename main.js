@@ -111,6 +111,14 @@
     if(!snapDisabled&&!reducedMotion.matches){
       snapTimer=setTimeout(()=>{
         const vh=window.innerHeight;
+        // The Local LLM illustrated walkthrough is intentionally long.
+        // Do not snap while the visitor is reading within that chapter.
+        const servicesChapter=$('#services');
+        if(servicesChapter && servicesChapter.offsetHeight > vh*1.8){
+          const position=window.scrollY+vh*.5;
+          const start=servicesChapter.offsetTop;
+          if(position>=start && position<=start+servicesChapter.offsetHeight)return;
+        }
         let bestTarget=null,bestDist=Infinity;
         chapters.forEach(ch=>{
           let target;
