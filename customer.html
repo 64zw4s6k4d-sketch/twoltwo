@@ -52,8 +52,12 @@
         <p class="customer-count" aria-hidden="true"><span>01—03</span> / INFORMATION</p>
       </div>
 
-      <div class="robot-section">
-        <div class="robot-container">
+      <div class="robot-section" data-mood="neutral">
+        <div class="robot-speech" id="robot-speech" aria-hidden="true">
+          <span class="robot-speech-text" id="robot-speech-text">こんにちは！ぼくを押してみてね。</span><span class="robot-speech-caret" aria-hidden="true"></span>
+        </div>
+        <span class="robot-announcement sr-only" id="robot-announcement" role="status" aria-live="polite" aria-atomic="true">こんにちは！ぼくを押してみてね。</span>
+        <button type="button" class="robot-container robot-interact" id="robot-interact" aria-label="ロボットくんに話しかける" aria-describedby="robot-announcement">
           <svg class="robot-character" viewBox="0 0 320 420" fill="none" aria-hidden="true">
             <defs>
               <linearGradient id="rg-gold" x1="0" y1="0" x2="0" y2="1">
@@ -120,12 +124,25 @@
                 <circle cx="192" cy="168" r="11" fill="#FFB300" opacity="0.15"/>
                 <circle class="rg-pupil-r" cx="192" cy="168" r="7" fill="url(#rg-eye-grad)" filter="url(#rg-glow)"/>
               </g>
-              <path d="M138 198 Q160 210 182 198" fill="none" stroke="#FFB300" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+              <path class="rg-mouth-neutral" d="M138 198 Q160 210 182 198" fill="none" stroke="#FFB300" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+              <ellipse class="rg-mouth-talking" cx="160" cy="202" rx="7" ry="6" fill="#E8A72B" opacity="0"/>
+              <g class="rg-face-shy">
+                <ellipse cx="111" cy="191" rx="13" ry="7" fill="#F28A92" opacity="0.42"/>
+                <ellipse cx="209" cy="191" rx="13" ry="7" fill="#F28A92" opacity="0.42"/>
+                <path d="M116 172 Q128 162 140 172 M180 172 Q192 162 204 172" stroke="#FFD36C" stroke-width="3.3" stroke-linecap="round" fill="none"/>
+                <path class="rg-mouth-shy" d="M151 201 Q160 207 169 201" stroke="#FFD36C" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+              </g>
+              <g class="rg-face-angry">
+                <path d="M113 152 L140 162 M207 152 L180 162" stroke="#FFC04A" stroke-width="4" stroke-linecap="round"/>
+                <ellipse cx="128" cy="170" rx="5" ry="7" fill="#FFC04A"/>
+                <ellipse cx="192" cy="170" rx="5" ry="7" fill="#FFC04A"/>
+                <path class="rg-mouth-angry" d="M143 207 Q160 191 177 207" stroke="#FFC04A" stroke-width="3" stroke-linecap="round" fill="none"/>
+              </g>
               <line x1="115" y1="188" x2="120" y2="188" stroke="#FFB300" stroke-width="1" opacity="0.4"/>
               <line x1="200" y1="188" x2="205" y2="188" stroke="#FFB300" stroke-width="1" opacity="0.4"/>
             </g>
           </svg>
-        </div>
+        </button>
       </div>
 
       <nav class="customer-grid" aria-label="お客様向け情報の項目" id="customer-topic-nav">
