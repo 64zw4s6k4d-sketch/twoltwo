@@ -1,5 +1,5 @@
 /* 2L² / Customer Information — expressive robot interaction and cursor tracking.
-   A first click makes the robot shy; a second click makes it playfully angry.
+   First click: shy; second: playfully angry; third and later: unimpressed.
    Speech is visual (animated dialogue and mouth); no audio is played. */
 (() => {
   'use strict';
@@ -16,22 +16,25 @@
       hello: 'こんにちは！ぼくが案内するよ。気軽にタップしてね。',
       shy: 'えっ、ぼくを呼んだの？……ちょっと照れちゃうな。',
       angry: 'も〜っ！2回も押したら、ぷんぷんだよ！',
+      unimpressed: '……もう慣れたよ。何回押しても、その顔にはならないよ。',
       honest: '知らないことは、知らないって正直に伝えるよ。',
-      label: 'ロボットくんに話しかける。1回で照れ顔、2回で怒り顔'
+      label: 'ロボットくんに話しかける。1回で照れ顔、2回で怒り顔、3回目から無表情'
     },
     en: {
       hello: 'Hello! I can show you around. Give me a tap!',
       shy: 'Oh, you called me? Now I am blushing!',
       angry: 'Hey! Twice?! Now I am a little grumpy!',
+      unimpressed: '...I am used to this now. Really.',
       honest: 'If I do not know, I will say so honestly.',
-      label: 'Talk to the robot: tap once to make it blush, twice for an angry face'
+      label: 'Talk to the robot: tap once to blush, twice to look angry, three times to look unimpressed'
     },
     th: {
       hello: 'สวัสดี! ให้ฉันพาชมนะ ลองแตะดูสิ',
       shy: 'เอ๊ะ เรียกฉันเหรอ? เขินเลยนะ!',
       angry: 'โธ่! กดตั้งสองครั้ง ฉันงอนแล้วนะ!',
+      unimpressed: '...ชินแล้วล่ะ จะกดอีกกี่ครั้งก็เถอะ',
       honest: 'ถ้าไม่รู้ ฉันจะบอกตรง ๆ ว่าไม่รู้',
-      label: 'คุยกับหุ่นยนต์ แตะครั้งแรกให้เขิน แตะครั้งที่สองให้งอน'
+      label: 'คุยกับหุ่นยนต์ แตะครั้งแรกให้เขิน ครั้งที่สองให้งอน และครั้งที่สามให้ทำหน้านิ่ง'
     }
   };
 
@@ -101,12 +104,14 @@
 
   button.addEventListener('click', () => {
     window.clearTimeout(resetTimer);
-    clickCount += 1;
+    clickCount = Math.min(clickCount + 1, 3);
     if (clickCount === 1) {
       talkAs('shy');
-    } else {
+    } else if (clickCount === 2) {
       talkAs('angry');
-      clickCount = 0;
+    } else {
+      // From the third click onward, keep the same deadpan expression.
+      talkAs('unimpressed');
     }
     resetIdleTimer();
     resetTimer = window.setTimeout(() => {
