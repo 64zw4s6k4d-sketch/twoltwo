@@ -84,6 +84,13 @@ async function homepage(browser,label,width,height,mobile=false){
      check(all.includes(expected),'label incorrect for '+code+': '+all);
    }
   });
+  await runCase(label+' contact email works',async()=>{
+   const email=page.locator('#email-link');
+   check(await email.isVisible(),'Contact email link must be visible');
+   const href=await email.getAttribute('href');
+   check(href?.startsWith('mailto:namisatorio@twoltwo.com?'), 'Unexpected contact destination '+href);
+   check(!(await page.locator('#contact-unavailable').isVisible()), 'Unconfigured-contact warning is still displayed');
+  });
   await runCase(label+' Local LLM inline expand and auto-collapse',async()=>{
    const local=page.locator('#service-item-local-llm-details');
    await local.locator('summary').click();
