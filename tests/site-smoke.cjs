@@ -35,7 +35,16 @@ async function viewportChecks(page,label){
     const titles=Array.from(document.querySelectorAll('.chapter h1,.chapter h2,.llm-story h4,.virtual-showcase-title'))
       .filter(el=>el.getClientRects().length)
       .map(el=>({text:(el.textContent||'').trim().slice(0,70),width:Math.round(el.getBoundingClientRect().width),scroll:el.scrollWidth}));
-    return {inner:window.innerWidth,scroll:max,overflow:max-window.innerWidth,headlines:titles.filter(t=>t.scroll>t.width+4)};
+    const overflowers=Array.from(document.querySelectorAll('body *')).map(el=>{
+      const r=el.getBoundingClientRect();
+      return {node:el.tagName.toLowerCase(),cls:String(el.className?.baseVal??el.className??'').slice(0,80),right:Math.round(r.right),left:Math.round(r.left),width:Math.round(r.width)};
+    }).filter(x=>x.right>window.innerWidth+10||x.left<-10).slice(0,22);
+    const controls=['.language button[data-lang="en"]','#menu-toggle'].map(sel=>{
+      const el=document.querySelector(sel);if(!el)return {sel,missing:true};
+      const r=el.getBoundingClientRect();const x=r.left+r.width/2,y=r.top+r.height/2,at=document.elementFromPoint(x,y);
+      return {sel,rect:{x:r.x,y:r.y,w:r.width,h:r.height},topAtPoint:at?.outerHTML?.slice(0,130)};
+    });
+    return {inner:window.innerWidth,scroll:max,overflow:max-window.innerWidth,headlines:titles.filter(t=>t.scroll>t.width+4),overflowers,controls};
   });
   check(issues.overflow<=5,label+' horizontal page overflow '+JSON.stringify(issues));
   // Titles can wrap to two or three lines, but their own scrollable width should not clip.
