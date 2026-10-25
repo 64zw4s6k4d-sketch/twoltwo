@@ -249,7 +249,7 @@ body.contact-page{
   text-shadow:none;
   overflow-wrap:anywhere
 }
-.contact-page .contact-submit > .contact-submit-end{
+.contact-page .contact-submit > span.contact-submit-end:last-child{
   position:relative;z-index:1;
   flex:0 0 clamp(65px,6vw,84px);
   width:clamp(65px,6vw,84px);
@@ -315,7 +315,7 @@ body.contact-page{
     letter-spacing:.015em;
     line-height:1.6
   }
-  .contact-page .contact-submit > .contact-submit-end{
+  .contact-page .contact-submit > span.contact-submit-end:last-child{
     flex-basis:54px;width:54px;
     min-height:82px
   }
