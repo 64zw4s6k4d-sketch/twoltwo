@@ -97,6 +97,15 @@ async function homepage(browser,label,width,height,mobile=false){
    await page.locator('#contact-form-open').click();
    await page.waitForURL('**/contact-form.html?lang=ja');
    check(await page.locator('#contact-form').isVisible(),'Dedicated contact form did not appear');
+   check(await page.locator('.contact-panel-index').count()===0,'01 / INQUIRY must not appear above contact form');
+   const luxury=await page.locator('#contact-submit').evaluate(button=>{
+      const style=getComputedStyle(button);
+      const arrow=getComputedStyle(button.querySelector('span:last-child'));
+      return {background:style.backgroundImage,color:style.color,height:button.getBoundingClientRect().height,arrowBorderRadius:arrow.borderRadius,arrowBorderWidth:arrow.borderTopWidth};
+   });
+   check(luxury.background.includes('gradient'),'Premium submit button needs a shaded background');
+   check(luxury.height>=65,'Premium submit button is too small: '+JSON.stringify(luxury));
+   check(luxury.arrowBorderRadius==='50%'&&luxury.arrowBorderWidth!=='0px','Gold circular arrow is missing: '+JSON.stringify(luxury));
    check(await page.locator('#contact-form-back').count()===0 || await page.locator('.contact-form-back').isVisible(),'Contact return control missing');
    await viewportChecks(page,label+' dedicated contact form');
    await page.screenshot({path:path.join(shots,label+'-contact.png')});
