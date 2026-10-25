@@ -1,5 +1,5 @@
 /* 2L² 文章編集用ファイル。表示文字列は以下を書き換えてください。<br> は改行です。 */
-window.SITE_CONFIG = { contactEmail: "" }; // 受信確認済みの会社メールを入れるまで問い合わせボタンは無効。
+window.SITE_CONFIG = { contactEmail: "namisatorio@twoltwo.com" }; // 受信確認済みの会社メールを入れるまで問い合わせボタンは無効。
 window.SITE_COPY = {
  ja: {
   nav:{home:"ホーム",services:"事業内容",technology:"2L²の強み",projects:"導入事例・検証結果",company:"会社概要",contact:"お問い合わせ",customer:"お客様向け情報"},
