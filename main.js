@@ -49,7 +49,7 @@
   revealLinkedService();
   // Clicking a strengths entry must not invoke the browser's default hash
   // jump before the collapsed panel has been opened and laid out.
-  $('.architecture-row-link').forEach(link=>{
+  document.querySelectorAll('.architecture-row-link').forEach(link=>{
     link.addEventListener('click',event=>{
       const ref=link.getAttribute('href');
       if(!ref?.startsWith('#'))return;
