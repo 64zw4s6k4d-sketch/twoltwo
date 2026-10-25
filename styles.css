@@ -711,3 +711,15 @@
 @media(prefers-reduced-motion:reduce){
  .virtual-cycle-arrows{animation:none}
 }
+
+
+/* 2L² / Keep decorative lighting out of horizontal document overflow */
+html,body{overflow-x:clip}
+.light-thread{
+  position:fixed;
+  pointer-events:none;
+  z-index:0;
+}
+@supports not (overflow:clip){
+  html,body{overflow-x:hidden}
+}
