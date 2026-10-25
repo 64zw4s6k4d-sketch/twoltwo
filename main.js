@@ -80,8 +80,8 @@
     if(collapseUnlock)clearTimeout(collapseUnlock);
     snapDisabled=true;
     const next=followingSection(panel);
-    // The next accordion becomes ready to read without another click.
-    if(next.open)next.open.open=true;
+    // Keep the next accordion closed: visitors open it only by clicking.
+    // Preserve the existing automatic scroll alignment to its heading.
     panel.open=false;
 
     // All geometry is measured AFTER collapsing the long section. Place the
