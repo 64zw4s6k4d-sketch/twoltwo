@@ -943,3 +943,80 @@ html,body{overflow-x:clip}
 @media(prefers-reduced-motion:reduce){
   .contact-submit,.contact-field input,.contact-field select,.contact-field textarea{transition:none!important}
 }
+
+
+/* 2L² / Contact landing button (opens the dedicated inquiry page) */
+.contact-landing .chapter-content{
+  padding-top:clamp(125px,18vh,230px);
+  padding-bottom:clamp(75px,12vh,145px);
+  width:100%;
+}
+.contact-landing-body{
+  width:min(100%,880px);
+  margin:clamp(55px,8vh,110px) auto clamp(45px,9vh,120px);
+  min-width:0;
+}
+.contact-landing .contact-prelude{
+  margin-bottom:17px;
+  color:#d3b580;
+  font-size:12px;letter-spacing:.16em
+}
+.contact-landing h2{
+  margin:0;
+  font-size:clamp(40px,5.7vw,86px);
+  line-height:1.35;letter-spacing:-.055em;
+  white-space:normal!important;
+  overflow-wrap:break-word;text-wrap:balance
+}
+.contact-landing .contact-message{
+  width:min(100%,630px);
+  margin:26px 0 clamp(32px,5vw,53px);
+  color:#b8c0c7;font-size:clamp(13px,1.2vw,15px);
+  line-height:2.05
+}
+.contact-form-entry{
+  display:flex;align-items:center;justify-content:space-between;
+  width:min(100%,550px);min-height:64px;
+  padding:16px 24px;gap:20px;
+  border:1px solid rgba(229,191,125,.85);
+  border-radius:5px;
+  background:linear-gradient(110deg,#e3c797,#b99b68);
+  color:#10161c;
+  font-size:clamp(14px,1.33vw,17px);
+  font-weight:650;letter-spacing:.035em;line-height:1.6;
+  box-shadow:0 12px 45px rgba(14,10,4,.24);
+  transition:filter .22s ease,transform .22s ease
+}
+.contact-form-entry span:last-child{font-size:25px;font-weight:400;line-height:1}
+.contact-form-entry:hover{filter:brightness(1.09);transform:translateY(-2px)}
+.contact-form-entry:focus-visible{outline:2px solid #f8e5b9;outline-offset:5px}
+.contact-landing-direct{
+  margin-top:26px;
+  padding-top:20px;
+  border-top:1px solid rgba(216,187,136,.24);
+  width:min(100%,550px)
+}
+.contact-landing-direct p{
+  margin:0 0 6px;
+  color:#9eaab4;font-size:11px;line-height:1.8
+}
+.contact-landing-email{
+  color:#dbc093;font-size:13px;
+  letter-spacing:.01em;text-decoration:underline;
+  text-decoration-color:rgba(218,180,110,.42);
+  text-underline-offset:5px;
+  overflow-wrap:anywhere
+}
+.contact-landing [hidden]{display:none!important}
+@media(max-width:820px){
+  .contact-landing .chapter-content{padding-top:clamp(95px,12vh,150px)}
+  .contact-landing-body{margin:clamp(45px,7vh,76px) 0 clamp(45px,7vh,80px)}
+  .contact-landing h2{font-size:clamp(35px,6.3vw,58px)}
+}
+@media(max-width:560px){
+  .contact-landing .chapter-content{padding-top:95px}
+  .contact-landing h2{font-size:clamp(29px,8.2vw,43px)}
+  .contact-landing .contact-message{font-size:12px;margin:20px 0 31px}
+  .contact-form-entry{min-height:59px;padding:13px 17px;font-size:14px}
+}
+@media(prefers-reduced-motion:reduce){.contact-form-entry{transition:none}}
