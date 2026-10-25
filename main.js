@@ -32,17 +32,18 @@
     updateNavigation();
   }
   $$('.language button').forEach(button=>button.addEventListener('click',()=>applyLanguage(button.dataset.lang)));
-  // Allow older shared section links to open the corresponding native details panel.
-  // Titles themselves remain clickable and keyboard-accessible without JavaScript.
+  // Deep links to any inline demonstration open that panel; external pages
+  // and ordinary navigation links are unaffected.
   function revealLinkedService() {
-    const id=window.location.hash.slice(1);
+    const id=decodeURIComponent(window.location.hash.slice(1));
     if(!id)return;
     const target=document.getElementById(id);
-    const details=target?.closest('.service-item');
-    if(!details)return;
+    const details=target?.matches('details')?target:target?.closest('details');
+    if(!details || !details.querySelector(':scope > summary'))return;
     details.open=true;
-    // Browser initial fragment scrolling can happen before a closed panel expands.
-    window.requestAnimationFrame(()=>target.scrollIntoView({block:'start',behavior:'auto'}));
+    const heading=details.querySelector(':scope > summary');
+    // Correct the initial fragment scroll after expanding a previously closed panel.
+    window.requestAnimationFrame(()=>heading.scrollIntoView({block:'start',behavior:'auto'}));
   }
   window.addEventListener('hashchange',revealLinkedService);
   revealLinkedService();
