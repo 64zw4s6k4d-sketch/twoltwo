@@ -177,3 +177,152 @@ body.contact-page{
     transition:none!important;
   }
 }
+
+
+/* 2L² | Atelier finish for the contact action */
+.contact-page .contact-submit{
+  position:relative;
+  min-height:90px;
+  width:100%;
+  gap:0;
+  padding:0;
+  border:1px solid rgba(192,166,119,.72);
+  border-radius:1px;
+  background:linear-gradient(111deg,#10171d 0%,#1a2025 48%,#111820 100%);
+  box-shadow:inset 0 1px 0 rgba(243,222,182,.07),0 19px 45px rgba(0,0,0,.19);
+  color:#eee2ce;
+  font-weight:450;
+  letter-spacing:0;
+  transform:none;
+  filter:none;
+  transition:border-color .3s ease,background .3s ease,box-shadow .3s ease
+}
+.contact-page .contact-submit::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:27%;
+  width:2px;
+  height:46%;
+  inset:auto auto auto 0;
+  top:27%;
+  background:#c8ad7e;
+  transform:none;
+  transition:none;
+  z-index:1;
+  pointer-events:none
+}
+.contact-page .contact-submit::after{
+  content:"";
+  position:absolute;
+  inset:5px;
+  border:1px solid rgba(203,179,133,.10);
+  border-radius:0;
+  z-index:0;
+  pointer-events:none
+}
+.contact-page .contact-submit > .contact-submit-copy{
+  position:relative;z-index:1;
+  flex:1 1 auto;
+  min-width:0;
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+  gap:10px;
+  padding:18px 25px 18px clamp(24px,3vw,32px);
+  text-align:left;
+}
+.contact-page .contact-submit .contact-submit-signature{
+  display:block;
+  color:#bba47b;
+  font-family:ui-monospace,"SFMono-Regular",Consolas,monospace;
+  font-size:10px;
+  font-weight:540;
+  line-height:1.3;
+  letter-spacing:.21em
+}
+.contact-page .contact-submit .contact-submit-label{
+  display:block;
+  color:#f0e8dc;
+  font-size:clamp(13px,1.12vw,15px);
+  font-weight:530;
+  line-height:1.6;
+  letter-spacing:.038em;
+  text-shadow:none;
+  overflow-wrap:anywhere
+}
+.contact-page .contact-submit > .contact-submit-end{
+  position:relative;z-index:1;
+  flex:0 0 clamp(65px,6vw,84px);
+  width:clamp(65px,6vw,84px);
+  height:auto;min-height:88px;
+  display:grid;place-items:center;
+  border:0;
+  border-left:1px solid rgba(192,166,119,.38);
+  border-radius:0;
+  background:rgba(196,164,109,.025);
+  color:#d6bb8b;
+  box-shadow:none;
+  transition:background .3s ease,color .3s ease;
+}
+.contact-page .contact-submit-end svg{
+  display:block;
+  width:30px;height:30px;
+  transition:transform .3s cubic-bezier(.22,1,.36,1)
+}
+@media(hover:hover){
+  .contact-page .contact-submit:hover{
+    border-color:#dcc498;
+    background:linear-gradient(111deg,#161d23,#20262a 48%,#151e25);
+    box-shadow:inset 0 1px 0 rgba(243,222,182,.08),0 22px 52px rgba(0,0,0,.24);
+    transform:none;
+    filter:none
+  }
+  .contact-page .contact-submit:hover::before{transform:none}
+  .contact-page .contact-submit:hover > .contact-submit-end{
+    transform:none;
+    border-color:rgba(218,194,148,.55);
+    background:rgba(195,158,94,.1);
+    color:#f2dcb2
+  }
+  .contact-page .contact-submit:hover .contact-submit-end svg{transform:translateX(4px)}
+}
+.contact-page .contact-submit:active{
+  transform:none;
+  border-color:#d3b585;
+  background:#171f25;
+  box-shadow:inset 0 2px 12px rgba(0,0,0,.28)
+}
+.contact-page .contact-submit:focus-visible{
+  outline:2px solid #eddbb4;
+  outline-offset:5px;
+  border-color:#eddbb4
+}
+@media(max-width:560px){
+  .contact-page .contact-submit{
+    min-height:84px;
+    gap:0;
+    padding:0
+  }
+  .contact-page .contact-submit > .contact-submit-copy{
+    gap:8px;
+    padding:17px 10px 17px 18px
+  }
+  .contact-page .contact-submit .contact-submit-signature{
+    font-size:9px;
+    letter-spacing:.17em
+  }
+  .contact-page .contact-submit .contact-submit-label{
+    font-size:12px;
+    letter-spacing:.015em;
+    line-height:1.6
+  }
+  .contact-page .contact-submit > .contact-submit-end{
+    flex-basis:54px;width:54px;
+    min-height:82px
+  }
+  .contact-page .contact-submit-end svg{width:23px;height:23px}
+}
+@media(prefers-reduced-motion:reduce){
+  .contact-page .contact-submit,
+  .contact-page .contact-submit-end,
+  .contact-page .contact-submit-end svg{transition:none!important}
+}
