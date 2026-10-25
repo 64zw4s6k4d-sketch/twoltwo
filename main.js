@@ -51,6 +51,44 @@
   }
   const clamp=(x,min,max)=>Math.max(min,Math.min(max,x));
   let activeIndex=0, lastWidth=window.innerWidth,snapTimer=null,snapDisabled=false;
+  const localService=$('#service-item-local-llm-details');
+  const finalLocalSlide=localService?.querySelector('.llm-story-agents');
+  const followingService=$('#service-item-virtual-test-details');
+  let finalSlideSeen=false,previousScrollY=window.scrollY;
+  localService?.addEventListener('toggle',()=>{
+    // Re-arm the reading threshold whenever a visitor opens the Local LLM panel.
+    finalSlideSeen=false;
+  });
+  function closeReadServiceOnScroll(){
+    const currentY=window.scrollY;
+    const scrollingDown=currentY>previousScrollY+0.5;
+    previousScrollY=currentY;
+    if(!localService?.open||!finalLocalSlide)return;
+    const slideRect=finalLocalSlide.getBoundingClientRect();
+    const quarter=window.innerHeight*0.25;
+    // The final slide must first enter the visible reading area.
+    if(slideRect.top<window.innerHeight*0.78 && slideRect.bottom>quarter){
+      finalSlideSeen=true;
+    }
+    if(!scrollingDown||!finalSlideSeen||slideRect.bottom>quarter)return;
+    // Keep the following service heading at the same viewport position
+    // while collapsing the long Local LLM panel. This prevents a large
+    // layout jump that would otherwise interrupt continuous scrolling.
+    const nextHeading=followingService?.querySelector('summary');
+    const beforeTop=nextHeading?.getBoundingClientRect().top;
+    clearTimeout(snapTimer);
+    snapDisabled=true;
+    localService.open=false;
+    finalSlideSeen=false;
+    if(Number.isFinite(beforeTop)&&nextHeading){
+      const afterTop=nextHeading.getBoundingClientRect().top;
+      const shift=afterTop-beforeTop;
+      if(Math.abs(shift)>1){
+        window.scrollTo(0,Math.max(0,window.scrollY+shift));
+      }
+    }
+    window.setTimeout(()=>{snapDisabled=false;},720);
+  }
   function updateNavigation(){
     const chapter=chapters[activeIndex], id=chapter?.id||'home';
     $$('.desktop-nav a').forEach(a=>{const selected=a.dataset.nav===id;a.classList.toggle('active',selected);if(selected)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});
@@ -64,6 +102,7 @@
     if(index!==activeIndex){activeIndex=index;updateNavigation();}
   }
   function onScroll(){
+    closeReadServiceOnScroll();
     const total=Math.max(1,document.documentElement.scrollHeight-window.innerHeight);
     const progress=clamp(window.scrollY/total,0,1);
     document.documentElement.style.setProperty('--progress',progress.toFixed(5));
