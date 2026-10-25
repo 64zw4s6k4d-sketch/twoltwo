@@ -63,6 +63,20 @@ async function homepage(browser,label,width,height,mobile=false){
    await page.screenshot({path:path.join(shots,label+'-home.png')});
   });
   await runCase(label+' 3-language navigation',async()=>{
+   if(mobile){
+     const headerDebug=await page.evaluate(()=>{
+       const els=['.language button[data-lang="en"]','#menu-toggle'].map(sel=>{
+         const el=document.querySelector(sel);const r=el.getBoundingClientRect();
+         const x=r.x+r.width/2,y=r.y+r.height/2;
+         const top=document.elementFromPoint(x,y);
+         const header=getComputedStyle(document.querySelector('#site-header'));
+         const self=getComputedStyle(el);
+         return {sel,rect:{x:r.x,y:r.y,w:r.width,h:r.height},inViewport:x>=0&&x<innerWidth&&y>=0&&y<innerHeight,top:top?.outerHTML?.slice(0,180),pointer:self.pointerEvents,headerPointer:header.pointerEvents,headerZ:header.zIndex};
+       });
+       return {innerWidth,scrollWidth:document.documentElement.scrollWidth,els};
+     });
+     console.log('MOBILE HIT TEST '+label+' '+JSON.stringify(headerDebug));
+   }
    for(const [code,expected] of [['en','Our Strengths'],['th','จุดแข็งของ 2L²'],['ja','2L²の強み']]){
      await page.locator('.language button[data-lang="'+code+'"]').click();
      check(await page.locator('html').getAttribute('lang')===code,'language '+code+' did not activate');
