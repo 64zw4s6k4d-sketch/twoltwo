@@ -113,7 +113,7 @@ async function homepage(browser,label,width,height,mobile=false){
    }
    check(closed || !(await local.evaluate(el=>el.open)), 'Local LLM did not collapse after final slide');
    const virtual=page.locator('#service-item-virtual-test-details');
-   check(await virtual.evaluate(el=>el.open),'Virtual lab must automatically expand after Local LLM');
+   check(!(await virtual.evaluate(el=>el.open)),'Virtual lab should stay closed until clicked');
    await page.waitForTimeout(120);
    const handoff=await page.evaluate(()=>{
      const rect=document.querySelector('#service-item-virtual-test-details summary').getBoundingClientRect();
@@ -259,9 +259,11 @@ async function homepage(browser,label,width,height,mobile=false){
           const el=document.querySelector('#service-item-virtual-test-details');
           return {opened:el.open, top:el.querySelector('summary').getBoundingClientRect().top,header:document.querySelector('#site-header').getBoundingClientRect().bottom};
         });
-        check(afterLocal.opened && afterLocal.top>=afterLocal.header-12 && afterLocal.top<h*.42,
+        check(!afterLocal.opened && afterLocal.top>=afterLocal.header-12 && afterLocal.top<h*.42,
           'Local-to-virtual smooth handoff position incorrect: '+JSON.stringify(afterLocal));
         const virtual=page.locator('#service-item-virtual-test-details');
+        await virtual.locator('summary').click();
+        check(await virtual.evaluate(el=>el.open),'Virtual lab did not open on click');
         await page.locator('.virtual-showcase').scrollIntoViewIfNeeded();
         let finished=false;
         for(let i=0;i<90;i++){
