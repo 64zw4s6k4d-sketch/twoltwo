@@ -25,7 +25,7 @@
     document.title = (lang==='ja'?'2L²｜ローカルAI':lang==='th'?'2L² | โลคัล AI':'2L² | Local AI');
     updateNavigation();
   }
-  $('.language button').forEach(button=>button.addEventListener('click',()=>applyLanguage(button.dataset.lang)));
+  $$('.language button').forEach(button=>button.addEventListener('click',()=>applyLanguage(button.dataset.lang)));
   // Allow older shared section links to open the corresponding native details panel.
   // Titles themselves remain clickable and keyboard-accessible without JavaScript.
   function revealLinkedService() {
