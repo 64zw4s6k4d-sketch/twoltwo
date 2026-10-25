@@ -52,7 +52,17 @@
         <div class="contact-field"><label for="contact-phone"><span data-i18n="contact.fieldPhone">電話番号</span><small data-i18n="contact.optional">任意</small></label><input id="contact-phone" name="phone" type="tel" autocomplete="tel" maxlength="40"  data-i18n-placeholder="contact.placeholderPhone" placeholder="例）03-1234-5678"></div>
         <div class="contact-field contact-field-full"><label for="contact-category"><span data-i18n="contact.fieldCategory">お問い合わせ種別</span><small class="contact-required" data-i18n="contact.required">必須</small></label><select id="contact-category" name="category" required><option value="" disabled selected data-i18n="contact.optionChoose">選択してください</option><option value="local"  data-i18n="contact.optionLocal">Local LLMの導入・運用</option><option value="virtual"  data-i18n="contact.optionVirtual">仮想テスト環境について</option><option value="poc"  data-i18n="contact.optionPoc">実証実験（PoC）・お見積り</option><option value="partner"  data-i18n="contact.optionPartner">共同研究・業務提携</option><option value="other"  data-i18n="contact.optionOther">その他</option></select></div>
         <div class="contact-field contact-field-full"><label for="contact-message"><span data-i18n="contact.fieldMessage">お問い合わせ内容</span><small class="contact-required" data-i18n="contact.required">必須</small></label><textarea id="contact-message" name="message" rows="6" required maxlength="1300" data-i18n-placeholder="contact.placeholderMessage" placeholder="ご相談内容や現在の課題、ご希望の導入時期などをご記入ください。"></textarea><div class="contact-count"><output id="contact-message-count" for="contact-message">0</output><span>/ 1300</span></div></div>
-        <div class="contact-form-bottom"><button type="submit" class="contact-submit" id="contact-submit"><span data-i18n="contact.compose">メールアプリで送信内容を確認</span><span aria-hidden="true">↗</span></button>
+        <div class="contact-form-bottom"><button type="submit" class="contact-submit" id="contact-submit">
+            <span class="contact-submit-copy">
+              <span class="contact-submit-signature" aria-hidden="true">2L² / CONTACT</span>
+              <span class="contact-submit-label" data-i18n="contact.compose">メールアプリで送信内容を確認</span>
+            </span>
+            <span class="contact-submit-end" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="square" stroke-linejoin="miter">
+                <path d="M6 16h20M18 8l8 8-8 8"/>
+              </svg>
+            </span>
+          </button>
           <a id="contact-mailto-open" class="contact-reopen" href="#" data-i18n="contact.reopen" hidden>作成したメールをもう一度開く</a>
           <p id="contact-form-status" class="contact-form-status" role="status" aria-live="polite" hidden></p>
         </div>
