@@ -47,6 +47,26 @@
   }
   window.addEventListener('hashchange',revealLinkedService);
   revealLinkedService();
+  // Clicking a strengths entry must not invoke the browser's default hash
+  // jump before the collapsed panel has been opened and laid out.
+  $('.architecture-row-link').forEach(link=>{
+    link.addEventListener('click',event=>{
+      const ref=link.getAttribute('href');
+      if(!ref?.startsWith('#'))return;
+      const proof=document.getElementById(ref.slice(1));
+      if(!proof?.matches('details'))return;
+      event.preventDefault();
+      proof.open=true;
+      // Preserve native back-button navigation while avoiding a second
+      // viewport jump from the fragment's default action.
+      if(window.location.hash!==ref)window.history.pushState(null,'',ref);
+      window.requestAnimationFrame(()=>{
+        proof.querySelector(':scope > summary')?.scrollIntoView({
+          block:'start',behavior:'instant'
+        });
+      });
+    });
+  });
   const menuToggle=$('#menu-toggle'),mobileNav=$('#mobile-nav');
   const closeMenu=()=>{mobileNav.classList.remove('open');menuToggle.setAttribute('aria-expanded','false');menuToggle.setAttribute('aria-label','Open menu');};
   menuToggle.addEventListener('click',()=>{const open=mobileNav.classList.toggle('open');menuToggle.setAttribute('aria-expanded',String(open));menuToggle.setAttribute('aria-label',open?'Close menu':'Open menu');});
