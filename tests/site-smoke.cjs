@@ -213,7 +213,10 @@ async function homepage(browser,label,width,height,mobile=false){
    check(await virtual.evaluate(el=>el.open),'Virtual Test Environment did not open');
    check(await virtual.locator('.virtual-scenario').count()===7,'Expected 7 business scenes');
    check(await virtual.locator('.virtual-cycle-label').count()===4,'Expected practice/failure/improve/retry cycle');
-   check(await virtual.locator('.virtual-cycle-monogram').textContent()==='2L²','Virtual cycle should use custom 2L² mark');
+   const shieldLogo=virtual.locator('.virtual-cycle-logo');
+   check(await shieldLogo.count()===1,'Virtual cycle should use official 2L² image, not text');
+   await shieldLogo.scrollIntoViewIfNeeded();
+   check(await shieldLogo.evaluate(image=>image.complete&&image.naturalWidth>0),'Virtual center 2L² logo did not load');
    const processSheet=await virtual.locator('.virtual-lab').evaluate(el=>{
       const st=getComputedStyle(el);
       return {background:st.backgroundImage,radius:st.borderRadius,shadow:st.boxShadow};
@@ -246,6 +249,51 @@ async function homepage(browser,label,width,height,mobile=false){
    check(await virtual.evaluate(el=>el.open),'Virtual panel cannot be reopened');
    await virtual.locator('summary').click();
    check(!(await virtual.evaluate(el=>el.open)),'Virtual panel cannot be closed manually');
+  });
+  await runCase(label+' access-control and RAG evidence panels',async()=>{
+   // Clicking the architecture entry must reach and open the appropriate proof.
+   await page.locator('.architecture-row-link[href="#access-control-details"]').click();
+   const access=page.locator('#access-control-details');
+   check(await access.evaluate(el=>el.open),'Access proof failed to open from the strengths link');
+   check(await access.locator('.access-person').count()===10,'Missing illustrated department members');
+   const perms=await access.locator('.access-matrix tbody tr').allTextContents();
+   check(perms.length===2 && perms[0].includes('×') && perms[1].includes('○'),'Access matrix does not preserve example permissions: '+perms);
+   check(await access.locator('.access-core img').evaluate(el=>el.complete&&el.naturalWidth>0),'Shared-system logo failed to load');
+   await viewportChecks(page,label+' permissions expanded');
+   await page.screenshot({path:path.join(shots,label+'-access.png')});
+   // Keep all benchmark numbers and display them as actual accessible HTML, not as a raster.
+   await page.locator('.architecture-row-link[href="#rag-results-details"]').click();
+   const rag=page.locator('#rag-results-details');
+   check(await rag.evaluate(el=>el.open),'RAG proof failed to open from the strengths link');
+   const evidence=await rag.innerText();
+   for(const value of ['561','439','0.1163','0.2988','0.1103','0.3656','0.1258','0.2150','0.0743','0.1626','0.1485','0.2256']){
+      check(evidence.includes(value),'Missing benchmark value: '+value);
+   }
+   check(await rag.locator('.rag-chart-group').count()===4,'Four chart categories required');
+   check(await rag.locator('.rag-bar-rect').count()===8,'Four baseline/RAG bar pairs required');
+   const colors=await rag.locator('.rag-chart-group').first().evaluate(el=>{
+     const a=getComputedStyle(el.querySelector('.rag-bar-plain')).backgroundColor;
+     const b=getComputedStyle(el.querySelector('.rag-bar-gold')).backgroundColor;
+     return [a,b];
+   });
+   check(colors[0]!==colors[1],'Chart series colors cannot be identical');
+   await rag.locator('.rag-chart').scrollIntoViewIfNeeded();
+   await viewportChecks(page,label+' RAG chart expanded');
+   await page.screenshot({path:path.join(shots,label+'-rag.png')});
+   await rag.locator('summary').click();
+   check(!(await rag.evaluate(el=>el.open)),'RAG proof did not close manually');
+  });
+  await runCase(label+' strengths panels 3-language translation',async()=>{
+    await page.locator('#access-control-details > summary').click();
+    for(const [lang,word] of [['en','Role-Based'],['th','เทคโนโลยี'],['ja','権限制御技術']]){
+      await page.locator('.language button[data-lang="'+lang+'"]').click();
+      const title=await page.locator('#access-control-details .proof-opening h3').textContent();
+      check(title.includes(word),'Access-control title untranslated for '+lang+': '+title);
+      const evidence=await page.locator('#rag-results-details .proof-summary-info h3').textContent();
+      check(evidence.trim().length>10,'RAG evidence summary not translated for '+lang);
+    }
+    check(await page.locator('#access-control-details').evaluate(el=>el.open),'Language changes should not close access diagram');
+    await page.locator('#access-control-details > summary').click();
   });
   if(mobile){
    await runCase(label+' responsive menu',async()=>{
@@ -302,10 +350,10 @@ async function homepage(browser,label,width,height,mobile=false){
       const page=await ctx.newPage();
       try{
         await page.goto(base+'index.html',{waitUntil:'load'});
-        for(const id of ['service-item-local-llm-details','service-item-virtual-test-details']){
+        for(const id of ['service-item-local-llm-details','service-item-virtual-test-details','access-control-details','rag-results-details']){
           const panel=page.locator('#'+id);
           if(!(await panel.evaluate(el=>el.open)))await panel.locator('summary').click();
-          const content=panel.locator('.service-detail-panel');
+          const content=panel.locator('.service-detail-panel, .technology-proof-body');
           // Stop a little before the 25% line. The section should remain open.
           await content.evaluate(el=>{
             const desired=innerHeight*.25+35;
@@ -381,6 +429,12 @@ async function homepage(browser,label,width,height,mobile=false){
      await page.goto(base+'index.html#virtual-test-details',{waitUntil:'load'});
      await sleep(150);
      check(await page.locator('#service-item-virtual-test-details').evaluate(el=>el.open),'Virtual hash target is closed');
+     // Newly authored evidence sections also support direct fragment URLs.
+     for(const id of ['access-control-details','rag-results-details']){
+       await page.goto(base+'index.html#'+id,{waitUntil:'load'});
+       await sleep(150);
+       check(await page.locator('#'+id).evaluate(el=>el.open),'Proof hash target did not expand: '+id);
+     }
      obs.verify();
     }finally{await context.close()}
    });
