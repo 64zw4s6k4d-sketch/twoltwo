@@ -149,11 +149,22 @@ async function homepage(browser,label,width,height,mobile=false){
    await sleep(7800);
    check(await mood.getAttribute('data-mood')==='neutral','robot did not reset after 7.6s');
   });
+  await runCase(label+' customer page language switch',async()=>{
+   await page.goto(base+'customer.html',{waitUntil:'load'});
+   for(const code of ['en','th','ja']){
+     await page.locator('.customer-language button[data-lang="'+code+'"]').click();
+     check(await page.locator('html').getAttribute('lang')===code,'Customer language did not switch to '+code);
+   }
+  });
   await runCase(label+' linked subpages',async()=>{
    for(const uri of ['onboarding.html','privacy.html','security.html']){
      const response=await page.goto(base+uri,{waitUntil:'load'});
      check(response?.ok(),uri+' did not load');
      check((await page.locator('body').innerText()).length>60,uri+' appears blank');
+     for(const code of ['en','th','ja']){
+       await page.locator('.language button[data-lang="'+code+'"]').click();
+       check(await page.locator('html').getAttribute('lang')===code,uri+' language did not switch to '+code);
+     }
    }
   });
   await runCase(label+' no browser exceptions / asset errors',async()=>observed.verify());
