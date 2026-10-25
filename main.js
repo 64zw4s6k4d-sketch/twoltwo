@@ -64,6 +64,13 @@
   let previousScrollY=window.scrollY;
   let adjustingCollapse=false;
   let collapseUnlock=null;
+  const readInlinePanels=new WeakSet();
+  autoCollapsePanels.forEach(panel=>{
+    panel.addEventListener('toggle',()=>{
+      // Closing or reopening starts a fresh reading session.
+      if(!panel.open)readInlinePanels.delete(panel);
+    });
+  });
 
   function expandedBody(panel){
     return panel.querySelector(':scope > .service-detail-panel')
@@ -118,10 +125,14 @@
       const content=expandedBody(panel);
       if(!content)continue;
       const rect=content.getBoundingClientRect();
+      // A panel opened via a deep link must be visibly read before it can
+      // auto-collapse. Jumping to a distant anchor is not reading the content.
+      if(rect.top<window.innerHeight*.82 && rect.bottom>quarter){
+        readInlinePanels.add(panel);
+      }
       // Close only AFTER the entire expanded content (including the last
       // slide and its notes) has moved above the 25%-from-top guide.
-      // Earlier slides may pass the guide without hiding unread slides.
-      if(rect.bottom<=quarter){
+      if(readInlinePanels.has(panel) && rect.bottom<=quarter){
         closeFinishedPanel(panel);
         return;
       }
