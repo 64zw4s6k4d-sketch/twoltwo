@@ -208,6 +208,50 @@ async function homepage(browser,label,width,height,mobile=false){
    await homepage(browser,'tablet-820',820,1000,false);
    await homepage(browser,'mobile-390',390,844,true);
    await homepage(browser,'mobile-320',320,700,true);
+   for(const [name,w,h,mobile] of [['desktop',1440,900,false],['mobile',390,844,true]]){
+    await runCase(name+' smooth scroll handoffs with animations enabled',async()=>{
+      const ctx=await browser.newContext({viewport:{width:w,height:h},hasTouch:mobile,isMobile:mobile,reducedMotion:'no-preference'});
+      const page=await ctx.newPage();
+      const errs=observe(page,name+' motion');
+      try{
+        await page.goto(base+'index.html',{waitUntil:'load'});
+        const local=page.locator('#service-item-local-llm-details');
+        await local.locator('summary').click();
+        await page.locator('.llm-story-agents').scrollIntoViewIfNeeded();
+        let started=false;
+        for(let i=0;i<90;i++){
+          if(!(await local.evaluate(el=>el.open))){started=true;break;}
+          await page.evaluate(()=>window.scrollBy({top:Math.max(70,innerHeight*.17),behavior:'instant'}));
+          await sleep(30);
+        }
+        check(started,'Local panel failed to hand off with smooth motion');
+        await sleep(220);
+        const afterLocal=await page.evaluate(()=>{
+          const el=document.querySelector('#service-item-virtual-test-details');
+          return {opened:el.open, top:el.querySelector('summary').getBoundingClientRect().top,header:document.querySelector('#site-header').getBoundingClientRect().bottom};
+        });
+        check(afterLocal.opened && afterLocal.top>=afterLocal.header-12 && afterLocal.top<h*.42,
+          'Local-to-virtual smooth handoff position incorrect: '+JSON.stringify(afterLocal));
+        const virtual=page.locator('#service-item-virtual-test-details');
+        await page.locator('.virtual-showcase').scrollIntoViewIfNeeded();
+        let finished=false;
+        for(let i=0;i<90;i++){
+          if(!(await virtual.evaluate(el=>el.open))){finished=true;break;}
+          await page.evaluate(()=>window.scrollBy({top:Math.max(70,innerHeight*.17),behavior:'instant'}));
+          await sleep(30);
+        }
+        check(finished,'Virtual panel failed to hand off smoothly to strengths');
+        await sleep(220);
+        const afterVirtual=await page.evaluate(()=>{
+          const el=document.querySelector('#technology .section-topline');
+          return {top:el.getBoundingClientRect().top,header:document.querySelector('#site-header').getBoundingClientRect().bottom};
+        });
+        check(afterVirtual.top>=afterVirtual.header-12 && afterVirtual.top<h*.42,
+          'Virtual-to-strengths smooth handoff position incorrect: '+JSON.stringify(afterVirtual));
+        errs.verify();
+      }finally{await ctx.close()}
+    });
+   }
    await runCase('Deep links open appropriate service panel',async()=>{
     const context=await browser.newContext({viewport:{width:1366,height:800},reducedMotion:'reduce'});
     const page=await context.newPage();const obs=observe(page,'deep-link');
