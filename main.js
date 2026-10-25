@@ -25,6 +25,8 @@
       const value=getCopy(node.dataset.i18nPlaceholder);
       if(typeof value==='string')node.setAttribute('placeholder',value);
     });
+    const formOpen=$('#contact-form-open');
+    if(formOpen)formOpen.href='./contact-form.html?lang='+encodeURIComponent(lang);
     document.querySelectorAll('.language button').forEach(button=>{const selected=button.dataset.lang===lang;button.classList.toggle('active',selected);button.setAttribute('aria-pressed',String(selected));});
     document.title = (lang==='ja'?'2L²｜ローカルAI':lang==='th'?'2L² | โลคัล AI':'2L² | Local AI');
     updateNavigation();
@@ -249,5 +251,6 @@
   window.addEventListener('scroll',onScroll,{passive:true});
   window.addEventListener('resize',()=>{if(window.innerWidth!==lastWidth){lastWidth=window.innerWidth;closeMenu();}onScroll();},{passive:true});
   reducedMotion.addEventListener?.('change',onScroll);
-  applyLanguage('ja');onScroll();
+  const requestedLang=new URLSearchParams(window.location.search).get('lang');
+  applyLanguage(['ja','en','th'].includes(requestedLang)?requestedLang:'ja');onScroll();
 })();
