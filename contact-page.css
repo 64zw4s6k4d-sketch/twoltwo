@@ -1,0 +1,68 @@
+/* 2L² standalone inquiry page, visually aligned with the one-world homepage. */
+body.contact-page{
+  min-height:100vh;
+  background:
+    radial-gradient(ellipse 66% 60% at 90% 23%,rgba(145,105,53,.13),transparent 75%),
+    radial-gradient(ellipse 55% 60% at 2% 96%,rgba(91,103,114,.11),transparent 76%),
+    #060910;
+  color:#eee9df;
+  overflow-x:clip;
+}
+.contact-page .site-header{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  background:rgba(6,10,16,.92);
+  border-bottom:1px solid rgba(224,197,146,.14);
+  backdrop-filter:blur(21px);-webkit-backdrop-filter:blur(21px);
+}
+.contact-form-header-actions{
+  display:flex;align-items:center;justify-content:end;
+  gap:clamp(15px,3vw,40px);min-width:0;
+}
+.contact-form-back{
+  display:inline-flex;align-items:center;min-height:42px;gap:8px;
+  padding:9px 13px;border:1px solid rgba(211,178,120,.38);
+  border-radius:4px;color:#e7c899;font-size:12px;
+  line-height:1.5;letter-spacing:.035em;
+  transition:border-color .2s ease,background .2s ease;
+}
+.contact-form-back::before{content:"↖";font-size:15px}
+.contact-form-back:hover,.contact-form-back:focus-visible{
+  border-color:rgba(243,209,147,.82);background:rgba(232,195,126,.075)
+}
+.contact-page main{
+  width:100%;min-height:100svh;position:relative;z-index:1;
+}
+.contact-page .chapter.contact{
+  display:flex;min-height:100svh;
+  padding-top:0;
+}
+.contact-page .contact>.chapter-content{
+  padding-top:clamp(118px,13vh,165px);
+  padding-bottom:clamp(40px,7vh,85px);
+}
+.contact-page .contact-body{
+  margin-top:clamp(32px,4.8vw,66px);
+}
+.contact-page .contact-panel{
+  box-shadow:0 25px 90px rgba(0,0,0,.23),inset 0 1px 0 rgba(245,217,171,.07)
+}
+.contact-page .contact .contact-prelude{margin-bottom:18px}
+.contact-page .site-footer{position:relative}
+.contact-page .site-footer a:last-child{margin-left:auto}
+.contact-page a:focus-visible{outline:2px solid #ead29a;outline-offset:4px}
+@media(max-width:820px){
+  .contact-page .site-header{height:74px}
+  .contact-page .contact>.chapter-content{padding-top:clamp(105px,13vh,135px)}
+  .contact-form-back{min-height:37px;font-size:11px;padding:7px 10px}
+  .contact-form-header-actions{gap:clamp(10px,2vw,20px)}
+}
+@media(max-width:480px){
+  .contact-page .contact>.chapter-content{padding-top:104px}
+  .contact-page .site-header{padding-inline:15px}
+  .contact-form-back{font-size:10px;padding:6px 7px}
+  .contact-form-header-actions{gap:9px}
+  .contact-page .language{gap:6px}
+}
+@media(prefers-reduced-motion:reduce){
+  .contact-form-back{transition:none}
+}
