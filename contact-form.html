@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ja"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#060910">
+<meta name="description" content="2L²へのお問い合わせ。Local LLM、実証実験（PoC）、仮想テスト環境、共同開発のご相談はこちらから。">
+<link rel="icon" type="image/png" href="./assets/favicon.png">
+<title>お問い合わせフォーム | 2L²</title>
+<link rel="stylesheet" href="./styles.css">
+<link rel="stylesheet" href="./journey.css">
+<link rel="stylesheet" href="./contact-page.css">
+<script defer src="./content.js"></script>
+<script defer src="./contact-page.js"></script>
+<script defer src="./contact.js"></script>
+</head>
+<body class="contact-page">
+  <header class="site-header contact-form-header" id="site-header">
+    <a class="brand" href="./index.html#contact" aria-label="2L² — ホームへ戻る">
+      <img src="./assets/brand-logo.png" alt="2L²" width="40" height="43">
+    </a>
+    <nav class="contact-form-header-actions" aria-label="Contact page navigation">
+      <a class="contact-form-back" href="./index.html#contact" data-i18n="contact.back">ホームページに戻る</a>
+      <div class="language" role="group" aria-label="Language">
+        <button type="button" data-lang="ja" aria-pressed="true">JP</button><span>/</span>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button><span>/</span>
+        <button type="button" data-lang="th" aria-pressed="false">TH</button>
+      </div>
+    </nav>
+  </header>
+  <main id="main">
+    <section class="chapter contact" id="contact" data-chapter="06">
+<div class="chapter-content">
+  <div class="section-topline"><span class="eyebrow" data-i18n="contact.kicker">06 / CONTACT</span><span class="fine-line"></span><span class="section-index">06</span></div>
+  <div class="contact-body">
+    <div class="contact-intro">
+      <p class="contact-prelude" data-i18n="contact.prelude">お問い合わせ</p>
+      <h2 data-i18n="contact.title" data-html="true">まずは、<br>お気軽にご相談を。</h2>
+      <p class="contact-message" data-i18n="contact.text">Local LLMの導入、実証実験（PoC）、仮想テスト環境、共同開発など。構想段階のご相談も歓迎しています。</p>
+      <div class="contact-direct">
+        <p class="contact-direct-label" data-i18n="contact.directTitle">メールでのご連絡</p>
+        <p class="contact-direct-lead" data-i18n="contact.directLead">メールアプリが起動しない場合は、こちらのアドレスへ直接ご連絡ください。</p>
+        <a class="contact-link" id="email-link" href="mailto:namisatorio@twoltwo.com"><span data-i18n="contact.cta">直接メールで問い合わせる</span><span aria-hidden="true">↗</span></a>
+        <span class="contact-email-address">namisatorio@twoltwo.com</span>
+        <p class="contact-unavailable" id="contact-unavailable" data-i18n="contact.unavailable">現在、メールのご案内を準備しています。</p> 
+      </div>
+    </div>
+    <div class="contact-panel">
+      <div class="contact-panel-head"><span class="contact-panel-index">01 / INQUIRY</span><h3 data-i18n="contact.formTitle">お問い合わせフォーム</h3><p data-i18n="contact.formLead">必要事項をご入力ください。内容をメールアプリに引き継ぎ、送信前にご確認いただけます。</p></div>
+      <form id="contact-form" class="contact-form" autocomplete="on" novalidate>
+        <div class="contact-field"><label for="contact-company"><span data-i18n="contact.fieldCompany">会社・団体名</span><small data-i18n="contact.optional">任意</small></label><input id="contact-company" name="company" type="text" autocomplete="organization" maxlength="120"  data-i18n-placeholder="contact.placeholderCompany" placeholder="例）株式会社〇〇"></div>
+        <div class="contact-field"><label for="contact-name"><span data-i18n="contact.fieldName">お名前</span><small class="contact-required" data-i18n="contact.required">必須</small></label><input id="contact-name" name="name" type="text" autocomplete="name" maxlength="100" required data-i18n-placeholder="contact.placeholderName" placeholder="例）山田 太郎"></div>
+        <div class="contact-field"><label for="contact-email"><span data-i18n="contact.fieldEmail">メールアドレス</span><small class="contact-required" data-i18n="contact.required">必須</small></label><input id="contact-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" required data-i18n-placeholder="contact.placeholderEmail" placeholder="example@company.co.jp"></div>
+        <div class="contact-field"><label for="contact-phone"><span data-i18n="contact.fieldPhone">電話番号</span><small data-i18n="contact.optional">任意</small></label><input id="contact-phone" name="phone" type="tel" autocomplete="tel" maxlength="40"  data-i18n-placeholder="contact.placeholderPhone" placeholder="例）03-1234-5678"></div>
+        <div class="contact-field contact-field-full"><label for="contact-category"><span data-i18n="contact.fieldCategory">お問い合わせ種別</span><small class="contact-required" data-i18n="contact.required">必須</small></label><select id="contact-category" name="category" required><option value="" disabled selected data-i18n="contact.optionChoose">選択してください</option><option value="local"  data-i18n="contact.optionLocal">Local LLMの導入・運用</option><option value="virtual"  data-i18n="contact.optionVirtual">仮想テスト環境について</option><option value="poc"  data-i18n="contact.optionPoc">実証実験（PoC）・お見積り</option><option value="partner"  data-i18n="contact.optionPartner">共同研究・業務提携</option><option value="other"  data-i18n="contact.optionOther">その他</option></select></div>
+        <div class="contact-field contact-field-full"><label for="contact-message"><span data-i18n="contact.fieldMessage">お問い合わせ内容</span><small class="contact-required" data-i18n="contact.required">必須</small></label><textarea id="contact-message" name="message" rows="6" required maxlength="1300" data-i18n-placeholder="contact.placeholderMessage" placeholder="ご相談内容や現在の課題、ご希望の導入時期などをご記入ください。"></textarea><div class="contact-count"><output id="contact-message-count" for="contact-message">0</output><span>/ 1300</span></div></div>
+        <div class="contact-form-bottom"><button type="submit" class="contact-submit" id="contact-submit"><span data-i18n="contact.compose">メールアプリで送信内容を確認</span><span aria-hidden="true">↗</span></button>
+          <a id="contact-mailto-open" class="contact-reopen" href="#" data-i18n="contact.reopen" hidden>作成したメールをもう一度開く</a>
+          <p id="contact-form-status" class="contact-form-status" role="status" aria-live="polite" hidden></p>
+        </div>
+      </form>
+      <div class="contact-form-notice"><span class="contact-notice-icon" aria-hidden="true">i</span><div><strong data-i18n="contact.noteTitle">送信について</strong><p data-i18n="contact.note">このフォームはメール本文を作成します。ボタンを押した後、起動したメールアプリで送信操作を完了してください。当サイトから自動送信されるものではありません。</p><p class="contact-sensitive-note" data-i18n="contact.privacyNote">患者情報・健康情報・パスワードなどの機微情報は入力しないでください。資料の添付が必要な場合はメールアプリから行えます。</p></div></div>
+    </div>
+  </div>
+</div>
+<footer class="site-footer"><a href="./customer.html" target="_blank" rel="noopener noreferrer" data-i18n="nav.customer">お客様向け情報</a><a href="./index.html#contact" data-i18n="contact.back">ホームページに戻る</a></footer>
+</section>
+  </main>
+</body></html>
