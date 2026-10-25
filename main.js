@@ -21,7 +21,11 @@
         node.innerHTML=value;
       }else node.textContent=value;
     });
-    $$('.language button').forEach(button=>{const selected=button.dataset.lang===lang;button.classList.toggle('active',selected);button.setAttribute('aria-pressed',String(selected));});
+    $('[data-i18n-placeholder]').forEach(node=>{
+      const value=getCopy(node.dataset.i18nPlaceholder);
+      if(typeof value==='string')node.setAttribute('placeholder',value);
+    });
+    $('.language button').forEach(button=>{const selected=button.dataset.lang===lang;button.classList.toggle('active',selected);button.setAttribute('aria-pressed',String(selected));});
     document.title = (lang==='ja'?'2L²｜ローカルAI':lang==='th'?'2L² | โลคัล AI':'2L² | Local AI');
     updateNavigation();
   }
