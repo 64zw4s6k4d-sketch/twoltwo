@@ -100,12 +100,23 @@ async function homepage(browser,label,width,height,mobile=false){
    check(await page.locator('.contact-panel-index').count()===0,'01 / INQUIRY must not appear above contact form');
    const luxury=await page.locator('#contact-submit').evaluate(button=>{
       const style=getComputedStyle(button);
-      const arrow=getComputedStyle(button.querySelector('span:last-child'));
-      return {background:style.backgroundImage,color:style.color,height:button.getBoundingClientRect().height,arrowBorderRadius:arrow.borderRadius,arrowBorderWidth:arrow.borderTopWidth};
+      const copy=button.querySelector('.contact-submit-copy');
+      const meta=copy.querySelector('.contact-submit-signature');
+      const arrow=button.querySelector('.contact-submit-end');
+      const arrowStyle=getComputedStyle(arrow);
+      return {
+        background:style.backgroundImage,color:style.color,
+        height:button.getBoundingClientRect().height,
+        signature:meta?.textContent?.trim(),copyLabel:copy?.querySelector('.contact-submit-label')?.textContent?.trim(),
+        arrowBorder:arrowStyle.borderLeftWidth,arrowShape:!!arrow?.querySelector('svg path'),
+        arrowWidth:arrow.getBoundingClientRect().width
+      };
    });
-   check(luxury.background.includes('gradient'),'Premium submit button needs a shaded background');
-   check(luxury.height>=65,'Premium submit button is too small: '+JSON.stringify(luxury));
-   check(luxury.arrowBorderRadius==='50%'&&luxury.arrowBorderWidth!=='0px','Gold circular arrow is missing: '+JSON.stringify(luxury));
+   check(luxury.background.includes('gradient'),'Premium action needs subtly graded matte-metal finish');
+   check(luxury.height>=80,'Premium action is not spacious enough: '+JSON.stringify(luxury));
+   check(luxury.signature==='2L² / CONTACT','Custom typographic seal missing: '+JSON.stringify(luxury));
+   check(luxury.arrowBorder!=='0px'&&luxury.arrowShape&&luxury.arrowWidth>=48,
+      'Precision arrow panel is missing: '+JSON.stringify(luxury));
    check(await page.locator('#contact-form-back').count()===0 || await page.locator('.contact-form-back').isVisible(),'Contact return control missing');
    await viewportChecks(page,label+' dedicated contact form');
    await page.screenshot({path:path.join(shots,label+'-contact.png')});
@@ -159,6 +170,13 @@ async function homepage(browser,label,width,height,mobile=false){
    await local.locator('summary').click();
    check(await local.evaluate(el=>el.open),'Local LLM did not open');
    check(await local.locator('.llm-story').count()===3,'Expected 3 Local LLM diagrams');
+   check(await local.locator('.llm-system-mark').count()===3,'Expected restrained system identifiers instead of robot icons');
+   const llmSheet=await local.locator('.llm-story').first().evaluate(el=>{
+     const st=getComputedStyle(el);
+     return {background:st.backgroundImage,shadow:st.boxShadow,radius:st.borderRadius};
+   });
+   check(llmSheet.background==='none' && llmSheet.shadow==='none'&& llmSheet.radius==='0px',
+      'LLM walkthrough should look like editorial technical sheets: '+JSON.stringify(llmSheet));
    await page.locator('.llm-story-agents').scrollIntoViewIfNeeded();
    await page.screenshot({path:path.join(shots,label+'-local-last.png')});
    // Move along the last diagram in small increments as a real user would.
@@ -195,6 +213,13 @@ async function homepage(browser,label,width,height,mobile=false){
    check(await virtual.evaluate(el=>el.open),'Virtual Test Environment did not open');
    check(await virtual.locator('.virtual-scenario').count()===7,'Expected 7 business scenes');
    check(await virtual.locator('.virtual-cycle-label').count()===4,'Expected practice/failure/improve/retry cycle');
+   check(await virtual.locator('.virtual-cycle-monogram').textContent()==='2L²','Virtual cycle should use custom 2L² mark');
+   const processSheet=await virtual.locator('.virtual-lab').evaluate(el=>{
+      const st=getComputedStyle(el);
+      return {background:st.backgroundImage,radius:st.borderRadius,shadow:st.boxShadow};
+   });
+   check(processSheet.background==='none'&&processSheet.shadow==='none',
+      'Virtual process map still has ornamental gradients: '+JSON.stringify(processSheet));
    await virtual.locator('.virtual-lab').scrollIntoViewIfNeeded();
    await viewportChecks(page,label+' virtual expanded');
    await page.screenshot({path:path.join(shots,label+'-virtual.png')});
