@@ -254,7 +254,11 @@ async function homepage(browser,label,width,height,mobile=false){
    // Clicking the architecture entry must reach and open the appropriate proof.
    await page.locator('.architecture-row-link[href="#access-control-details"]').click();
    const access=page.locator('#access-control-details');
-   check(await access.evaluate(el=>el.open),'Access proof failed to open from the strengths link');
+   const accessState=await page.evaluate(()=>{
+     const el=document.querySelector('#access-control-details'),summary=el?.querySelector('summary');
+     return {open:el?.open,hash:location.hash,scrollY,headingTop:summary?.getBoundingClientRect().top,contentBottom:el?.querySelector('.technology-proof-body')?.getBoundingClientRect().bottom};
+   });
+   check(accessState.open,'Access proof failed to open from the strengths link: '+JSON.stringify(accessState));
    check(await access.locator('.access-person').count()===10,'Missing illustrated department members');
    const perms=await access.locator('.access-matrix tbody tr').allTextContents();
    check(perms.length===2 && perms[0].includes('×') && perms[1].includes('○'),'Access matrix does not preserve example permissions: '+perms);
@@ -264,7 +268,11 @@ async function homepage(browser,label,width,height,mobile=false){
    // Keep all benchmark numbers and display them as actual accessible HTML, not as a raster.
    await page.locator('.architecture-row-link[href="#rag-results-details"]').click();
    const rag=page.locator('#rag-results-details');
-   check(await rag.evaluate(el=>el.open),'RAG proof failed to open from the strengths link');
+   const ragState=await page.evaluate(()=>{
+     const el=document.querySelector('#rag-results-details');
+     return {open:el?.open,hash:location.hash,scrollY};
+   });
+   check(ragState.open,'RAG proof failed to open from the strengths link: '+JSON.stringify(ragState));
    const evidence=await rag.innerText();
    for(const value of ['561','439','0.1163','0.2988','0.1103','0.3656','0.1258','0.2150','0.0743','0.1626','0.1485','0.2256']){
       check(evidence.includes(value),'Missing benchmark value: '+value);
@@ -284,7 +292,12 @@ async function homepage(browser,label,width,height,mobile=false){
    check(!(await rag.evaluate(el=>el.open)),'RAG proof did not close manually');
   });
   await runCase(label+' strengths panels 3-language translation',async()=>{
-    await page.locator('#access-control-details > summary').click();
+    // Start at the beginning of the disclosure rather than at its end:
+    // scrolling past its end is supposed to auto-close it by design.
+    await page.goto(base+'index.html#access-control-details',{waitUntil:'load'});
+    const access=page.locator('#access-control-details');
+    if(!(await access.evaluate(el=>el.open)))await access.locator('summary').click();
+    await access.locator('summary').scrollIntoViewIfNeeded();
     for(const [lang,word] of [['en','Role-Based'],['th','เทคโนโลยี'],['ja','権限制御技術']]){
       await page.locator('.language button[data-lang="'+lang+'"]').click();
       const title=await page.locator('#access-control-details .proof-opening h3').textContent();
@@ -292,8 +305,10 @@ async function homepage(browser,label,width,height,mobile=false){
       const evidence=await page.locator('#rag-results-details .proof-summary-info h3').textContent();
       check(evidence.trim().length>10,'RAG evidence summary not translated for '+lang);
     }
-    check(await page.locator('#access-control-details').evaluate(el=>el.open),'Language changes should not close access diagram');
-    await page.locator('#access-control-details > summary').click();
+    // At this point the contents have not been scrolled past the
+    // 25%-from-top reading threshold; switching language must retain them.
+    check(await access.evaluate(el=>el.open),'Language changes should not close access diagram');
+    await access.locator('summary').click();
   });
   if(mobile){
    await runCase(label+' responsive menu',async()=>{
