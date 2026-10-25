@@ -91,6 +91,41 @@ async function homepage(browser,label,width,height,mobile=false){
    check(href?.startsWith('mailto:namisatorio@twoltwo.com?'), 'Unexpected contact destination '+href);
    check(!(await page.locator('#contact-unavailable').isVisible()), 'Unconfigured-contact warning is still displayed');
   });
+  await runCase(label+' contact form validation and draft creation',async()=>{
+   const form=page.locator('#contact-form');
+   check(await form.isVisible(),'Contact form is not visible');
+   await page.locator('#contact').scrollIntoViewIfNeeded();
+   await viewportChecks(page,label+' contact initial');
+   await page.screenshot({path:path.join(shots,label+'-contact.png')});
+   // Required fields must block an empty form.
+   await page.locator('#contact-submit').click();
+   const invalid=await page.locator('#contact-form-status').textContent();
+   check(invalid.includes('必須項目'),'Missing required-fields warning');
+   check(!(await page.locator('#contact-mailto-open').isVisible()),'Blank form generated a draft');
+   // A valid draft contains every field, but the user still has to send it.
+   await page.locator('#contact-company').fill('株式会社テスト');
+   await page.locator('#contact-name').fill('テスト 太郎');
+   await page.locator('#contact-email').fill('test@example.com');
+   await page.locator('#contact-phone').fill('03-9999-1234');
+   await page.locator('#contact-category').selectOption('poc');
+   await page.locator('#contact-message').fill('独自RAGのPoCについて相談したいです。');
+   await page.evaluate(()=>{
+     const link=document.getElementById('contact-mailto-open');
+     link.addEventListener('click',e=>{e.preventDefault();window.__mailIntentClicked=true;});
+   });
+   await page.locator('#contact-submit').click();
+   check(await page.locator('#contact-mailto-open').isVisible(),'Prepared-mail fallback not visible');
+   const href=await page.locator('#contact-mailto-open').getAttribute('href');
+   check(href.startsWith('mailto:namisatorio@twoltwo.com?subject='),'Incorrect contact recipient');
+   const url=new URL(href);
+   const body=new URLSearchParams(href.split('?')[1]).get('body');
+   check(body.includes('株式会社テスト')&&body.includes('テスト 太郎')&&body.includes('test@example.com')&&body.includes('03-9999-1234')&&body.includes('独自RAGのPoCについて相談したいです。'),'Draft missing contact fields');
+   check(await page.evaluate(()=>window.__mailIntentClicked===true),'Mail application opening was not triggered');
+   check((await page.locator('#contact-form-status').textContent()).includes('送信は完了していません'),'UI inaccurately implies a successful send');
+   // Edits invalidate a previously prepared email, avoiding a stale draft.
+   await page.locator('#contact-message').fill('変更後の本文');
+   check(!(await page.locator('#contact-mailto-open').isVisible()),'Stale draft link was not cleared');
+  });
   await runCase(label+' Local LLM inline expand and auto-collapse',async()=>{
    const local=page.locator('#service-item-local-llm-details');
    await local.locator('summary').click();
