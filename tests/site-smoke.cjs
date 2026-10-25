@@ -91,12 +91,19 @@ async function homepage(browser,label,width,height,mobile=false){
    check(href?.startsWith('mailto:namisatorio@twoltwo.com?'), 'Unexpected contact destination '+href);
    check(!(await page.locator('#contact-unavailable').isVisible()), 'Unconfigured-contact warning is still displayed');
   });
+  await runCase(label+' opens contact form on a separate page',async()=>{
+   check(await page.locator('#contact-form-open').isVisible(),'Homepage contact CTA missing');
+   check(await page.locator('#contact-form').count()===0,'Contact fields should not be embedded in homepage');
+   await page.locator('#contact-form-open').click();
+   await page.waitForURL('**/contact-form.html?lang=ja');
+   check(await page.locator('#contact-form').isVisible(),'Dedicated contact form did not appear');
+   check(await page.locator('#contact-form-back').count()===0 || await page.locator('.contact-form-back').isVisible(),'Contact return control missing');
+   await viewportChecks(page,label+' dedicated contact form');
+   await page.screenshot({path:path.join(shots,label+'-contact.png')});
+  });
   await runCase(label+' contact form validation and draft creation',async()=>{
    const form=page.locator('#contact-form');
    check(await form.isVisible(),'Contact form is not visible');
-   await page.locator('#contact').scrollIntoViewIfNeeded();
-   await viewportChecks(page,label+' contact initial');
-   await page.screenshot({path:path.join(shots,label+'-contact.png')});
    // Required fields must block an empty form.
    await page.locator('#contact-submit').click();
    const invalid=await page.locator('#contact-form-status').textContent();
@@ -117,14 +124,26 @@ async function homepage(browser,label,width,height,mobile=false){
    check(await page.locator('#contact-mailto-open').isVisible(),'Prepared-mail fallback not visible');
    const href=await page.locator('#contact-mailto-open').getAttribute('href');
    check(href.startsWith('mailto:namisatorio@twoltwo.com?subject='),'Incorrect contact recipient');
-   const url=new URL(href);
    const body=new URLSearchParams(href.split('?')[1]).get('body');
    check(body.includes('株式会社テスト')&&body.includes('テスト 太郎')&&body.includes('test@example.com')&&body.includes('03-9999-1234')&&body.includes('独自RAGのPoCについて相談したいです。'),'Draft missing contact fields');
    check(await page.evaluate(()=>window.__mailIntentClicked===true),'Mail application opening was not triggered');
    check((await page.locator('#contact-form-status').textContent()).includes('送信は完了していません'),'UI inaccurately implies a successful send');
-   // Edits invalidate a previously prepared email, avoiding a stale draft.
+   // Editing must clear the draft link.
    await page.locator('#contact-message').fill('変更後の本文');
    check(!(await page.locator('#contact-mailto-open').isVisible()),'Stale draft link was not cleared');
+  });
+  await runCase(label+' contact page languages and return navigation',async()=>{
+    for(const code of ['en','th','ja']){
+      await page.locator('.contact-form-header .language button[data-lang="'+code+'"]').click();
+      check(await page.locator('html').getAttribute('lang')===code,'Form page language failed: '+code);
+      check(await page.locator('#contact-company').getAttribute('placeholder')!==null,'Translated placeholder missing');
+      check((await page.locator('.contact-form-back').getAttribute('href')).includes('lang='+code),'Return URL lost locale');
+    }
+    await page.locator('.contact-form-back').click();
+    await page.waitForURL('**/index.html?lang=ja#contact');
+    check(await page.locator('#contact-form').count()===0,'Contact form visible after returning to homepage');
+    check(await page.locator('#contact-form-open').isVisible(),'Homepage CTA not restored after returning');
+    await viewportChecks(page,label+' homepage after contact return');
   });
   await runCase(label+' Local LLM inline expand and auto-collapse',async()=>{
    const local=page.locator('#service-item-local-llm-details');
