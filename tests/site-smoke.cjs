@@ -111,22 +111,53 @@ async function homepage(browser,label,width,height,mobile=false){
      await page.evaluate(()=>window.scrollBy(0,Math.max(55,innerHeight*.20)));
      await sleep(28);
    }
-   check(closed || !(await local.evaluate(el=>el.open)), 'Local LLM did not collapse after last slide passed top-quarter threshold');
+   check(closed || !(await local.evaluate(el=>el.open)), 'Local LLM did not collapse after final slide');
+   const virtual=page.locator('#service-item-virtual-test-details');
+   check(await virtual.evaluate(el=>el.open),'Virtual lab must automatically expand after Local LLM');
+   await page.waitForTimeout(120);
+   const handoff=await page.evaluate(()=>{
+     const rect=document.querySelector('#service-item-virtual-test-details summary').getBoundingClientRect();
+     const header=document.querySelector('#site-header').getBoundingClientRect();
+     return {top:rect.top,headerBottom:header.bottom,viewport:innerHeight};
+   });
+   check(handoff.top>=handoff.headerBottom-12 && handoff.top<handoff.viewport*.44,
+     'Local-to-virtual handoff did not settle on next title: '+JSON.stringify(handoff));
    // Opening a panel again by hand must still work.
    await local.locator('summary').click();check(await local.evaluate(el=>el.open),'Local LLM cannot be reopened');
    await local.locator('summary').click();check(!(await local.evaluate(el=>el.open)),'Local LLM cannot be closed manually');
   });
-  await runCase(label+' Virtual Test Environment expand',async()=>{
+  await runCase(label+' Virtual Test Environment auto-handoff to strengths',async()=>{
    const virtual=page.locator('#service-item-virtual-test-details');
-   await virtual.locator('summary').click();
+   if(!(await virtual.evaluate(el=>el.open)))await virtual.locator('summary').click();
    check(await virtual.evaluate(el=>el.open),'Virtual Test Environment did not open');
    check(await virtual.locator('.virtual-scenario').count()===7,'Expected 7 business scenes');
    check(await virtual.locator('.virtual-cycle-label').count()===4,'Expected practice/failure/improve/retry cycle');
    await virtual.locator('.virtual-lab').scrollIntoViewIfNeeded();
    await viewportChecks(page,label+' virtual expanded');
    await page.screenshot({path:path.join(shots,label+'-virtual.png')});
+   // The virtual showcase includes a takeaway/disclosure after the central
+   // graphic. Do not close until that entire demonstration has been viewed.
+   let autoClosed=false;
+   for(let i=0;i<65;i++){
+     if(!(await virtual.evaluate(el=>el.open))){autoClosed=true;break;}
+     await page.evaluate(()=>window.scrollBy(0,Math.max(55,innerHeight*.20)));
+     await sleep(30);
+   }
+   check(autoClosed || !(await virtual.evaluate(el=>el.open)),
+      'Virtual Test Environment did not auto-close after its final content');
+   await page.waitForTimeout(120);
+   const strengthPosition=await page.evaluate(()=>{
+     const rect=document.querySelector('#technology .section-topline').getBoundingClientRect();
+     const header=document.querySelector('#site-header').getBoundingClientRect();
+     return {top:rect.top,headerBottom:header.bottom,viewport:innerHeight};
+   });
+   check(strengthPosition.top>=strengthPosition.headerBottom-14 && strengthPosition.top<strengthPosition.viewport*.45,
+      'Virtual-to-strengths handoff did not settle correctly: '+JSON.stringify(strengthPosition));
+   // A reader can always reopen the virtual explanation manually.
    await virtual.locator('summary').click();
-   check(!(await virtual.evaluate(el=>el.open)),'Virtual panel did not close');
+   check(await virtual.evaluate(el=>el.open),'Virtual panel cannot be reopened');
+   await virtual.locator('summary').click();
+   check(!(await virtual.evaluate(el=>el.open)),'Virtual panel cannot be closed manually');
   });
   if(mobile){
    await runCase(label+' responsive menu',async()=>{
