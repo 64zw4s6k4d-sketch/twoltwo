@@ -51,116 +51,71 @@
   }
   const clamp=(x,min,max)=>Math.max(min,Math.min(max,x));
   let activeIndex=0, lastWidth=window.innerWidth,snapTimer=null,snapDisabled=false;
-  const localService=$('#service-item-local-llm-details');
-  const virtualService=$('#service-item-virtual-test-details');
-  const serviceTransitions=[
-    {
-      panel:localService,
-      last:localService?.querySelector('.llm-story-agents'),
-      target:virtualService?.querySelector('summary'),
-      nextPanel:virtualService,
-      seen:false
-    },
-    {
-      panel:virtualService,
-      // Include the final takeaway and disclosure before advancing to strengths.
-      last:virtualService?.querySelector('.virtual-showcase'),
-      target:$('#technology .section-topline'),
-      nextPanel:null,
-      seen:false
-    }
-  ];
+  // Apply the same read-and-collapse rule to every inline <details> panel.
+  // Ordinary links to customer.html, onboarding.html, etc. are not affected.
+  const autoCollapsePanels=$$('details').filter(panel=>panel.querySelector(':scope > summary') && panel.dataset.autoCollapse!=='false');
   let previousScrollY=window.scrollY;
-  let advancingService=false;
+  let adjustingCollapse=false;
+  let collapseUnlock=null;
 
-  serviceTransitions.forEach(step=>{
-    step.panel?.addEventListener('toggle',()=>{step.seen=false;});
-  });
-
-  // A read chapter should hand off to the next chapter, not abruptly
-  // collapse hundreds of pixels while it is still in view.
-  function advanceFromService(step){
-    if(advancingService||!step.panel?.open||!step.target)return;
-    advancingService=true;
-    snapDisabled=true;
-    clearTimeout(snapTimer);
-    step.seen=false;
-
-    // Show the next demonstration automatically. The user can still close or
-    // reopen either demonstration using its original summary heading.
-    if(step.nextPanel)step.nextPanel.open=true;
-
-    const target=step.target;
-    const headerHeight=header?.getBoundingClientRect().height||82;
-    const targetTop=Math.max(headerHeight+22,Math.min(window.innerHeight*.16,155));
-    const destination=()=>Math.max(0,window.scrollY+target.getBoundingClientRect().top-targetTop);
-    let canceled=false,finished=false,stableFrames=0;
-    const started=performance.now();
-    const cancelEvents=['wheel','touchstart','pointerdown','keydown'];
-    const cancel=()=>{
-      // Never force-close if the visitor actively interrupts the hand-off.
-      canceled=true;
-      finish();
-    };
-    function removeCancelListeners(){
-      cancelEvents.forEach(name=>window.removeEventListener(name,cancel));
-    }
-    function settleTarget(){
-      // Use an *instant* correction: CSS html {scroll-behavior:smooth}
-      // otherwise turns the old compensating scrollTo into an extra animation.
-      window.scrollTo({top:destination(),behavior:'instant'});
-    }
-    function finish(){
-      if(finished)return;
-      finished=true;
-      removeCancelListeners();
-      if(!canceled){
-        // The next heading is already on screen when the previous panel closes.
-        // Align before painting so closing the panel does not visibly jump.
-        step.panel.open=false;
-        settleTarget();
-        requestAnimationFrame(()=>{
-          settleTarget();
-          advancingService=false;
-          previousScrollY=window.scrollY;
-          window.setTimeout(()=>{snapDisabled=false;},450);
-        });
-      }else{
-        advancingService=false;
-        window.setTimeout(()=>{snapDisabled=false;},450);
-      }
-    }
-    function watchScroll(timestamp){
-      if(finished)return;
-      if(Math.abs(target.getBoundingClientRect().top-targetTop)<5)stableFrames++;
-      else stableFrames=0;
-      if(stableFrames>=3 || timestamp-started>1400){
-        finish();
-      }else{
-        requestAnimationFrame(watchScroll);
-      }
-    }
-    cancelEvents.forEach(name=>window.addEventListener(name,cancel,{passive:true}));
-    window.scrollTo({
-      top:destination(),
-      behavior:reducedMotion.matches?'instant':'smooth'
-    });
-    requestAnimationFrame(watchScroll);
+  function expandedBody(panel){
+    return panel.querySelector(':scope > .service-detail-panel')
+      || Array.from(panel.children).find(el=>el.tagName!=='SUMMARY');
   }
 
-  function advanceFinishedServicesOnScroll(){
+  function followingSection(panel){
+    // Adjacent accordion rows hand off to the next row. If this is the last
+    // row, hand off to the heading of the next page section instead.
+    const nextPanel=panel.nextElementSibling?.matches('details')?panel.nextElementSibling:null;
+    if(nextPanel)return {element:nextPanel.querySelector(':scope > summary'),open:nextPanel};
+    const chapter=panel.closest('.chapter');
+    const nextChapter=chapter?.nextElementSibling;
+    return {element:nextChapter?.querySelector('.section-topline, h2, h1')||null,open:null};
+  }
+
+  function closeFinishedPanel(panel){
+    if(adjustingCollapse||!panel.open)return;
+    adjustingCollapse=true;
+    clearTimeout(snapTimer);
+    if(collapseUnlock)clearTimeout(collapseUnlock);
+    snapDisabled=true;
+    const next=followingSection(panel);
+    // The next accordion becomes ready to read without another click.
+    if(next.open)next.open.open=true;
+    panel.open=false;
+
+    // All geometry is measured AFTER collapsing the long section. Place the
+    // next heading near the upper quarter of the viewport in one operation:
+    // no delayed closing, no giant animated scroll or visible layout jump.
+    if(next.element){
+      const headerBottom=header?.getBoundingClientRect().bottom||82;
+      const desiredTop=Math.max(headerBottom+18,Math.min(window.innerHeight*.22,190));
+      const move=next.element.getBoundingClientRect().top-desiredTop;
+      if(Math.abs(move)>1){
+        window.scrollTo({top:Math.max(0,window.scrollY+move),behavior:'instant'});
+      }
+    }
+    previousScrollY=window.scrollY;
+    adjustingCollapse=false;
+    collapseUnlock=window.setTimeout(()=>{snapDisabled=false;collapseUnlock=null;},650);
+  }
+
+  function collapseReadPanelsOnScroll(){
     const currentY=window.scrollY;
     const scrollingDown=currentY>previousScrollY+0.5;
     previousScrollY=currentY;
-    if(!scrollingDown||advancingService)return;
-    for(const step of serviceTransitions){
-      if(!step.panel?.open||!step.last)continue;
-      const rect=step.last.getBoundingClientRect();
-      const threshold=window.innerHeight*.25;
-      // Require that this particular slide has actually been viewed.
-      if(rect.top<window.innerHeight*.78 && rect.bottom>threshold)step.seen=true;
-      if(step.seen && rect.bottom<=threshold){
-        advanceFromService(step);
+    if(!scrollingDown||adjustingCollapse)return;
+    const quarter=window.innerHeight*.25;
+    for(const panel of autoCollapsePanels){
+      if(!panel.open)continue;
+      const content=expandedBody(panel);
+      if(!content)continue;
+      const rect=content.getBoundingClientRect();
+      // Close only AFTER the entire expanded content (including the last
+      // slide and its notes) has moved above the 25%-from-top guide.
+      // Earlier slides may pass the guide without hiding unread slides.
+      if(rect.bottom<=quarter){
+        closeFinishedPanel(panel);
         return;
       }
     }
@@ -178,7 +133,7 @@
     if(index!==activeIndex){activeIndex=index;updateNavigation();}
   }
   function onScroll(){
-    advanceFinishedServicesOnScroll();
+    collapseReadPanelsOnScroll();
     const total=Math.max(1,document.documentElement.scrollHeight-window.innerHeight);
     const progress=clamp(window.scrollY/total,0,1);
     document.documentElement.style.setProperty('--progress',progress.toFixed(5));
