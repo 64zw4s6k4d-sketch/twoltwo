@@ -209,6 +209,35 @@ async function homepage(browser,label,width,height,mobile=false){
    await homepage(browser,'mobile-390',390,844,true);
    await homepage(browser,'mobile-320',320,700,true);
    for(const [name,w,h,mobile] of [['desktop',1440,900,false],['mobile',390,844,true]]){
+    await runCase(name+' close only after expanded content passes viewport quarter',async()=>{
+      const ctx=await browser.newContext({viewport:{width:w,height:h},hasTouch:mobile,isMobile:mobile,reducedMotion:'reduce'});
+      const page=await ctx.newPage();
+      try{
+        await page.goto(base+'index.html',{waitUntil:'load'});
+        for(const id of ['service-item-local-llm-details','service-item-virtual-test-details']){
+          const panel=page.locator('#'+id);
+          if(!(await panel.evaluate(el=>el.open)))await panel.locator('summary').click();
+          const content=panel.locator('.service-detail-panel');
+          // Stop a little before the 25% line. The section should remain open.
+          await content.evaluate(el=>{
+            const desired=innerHeight*.25+35;
+            const bottom=el.getBoundingClientRect().bottom;
+            window.scrollTo({top:window.scrollY+bottom-desired,behavior:'instant'});
+          });
+          await sleep(90);
+          check(await panel.evaluate(el=>el.open),id+' closed before the last content was read');
+          await page.evaluate(()=>window.scrollBy({top:-18,behavior:'instant'}));
+          await sleep(60);
+          check(await panel.evaluate(el=>el.open),id+' closed while scrolling upward');
+          // Scroll past the quarter guide: closing must happen promptly.
+          await page.evaluate(()=>window.scrollBy({top:85,behavior:'instant'}));
+          await page.waitForFunction(identifier=>!document.getElementById(identifier).open,id,{timeout:1900});
+          check(!(await panel.evaluate(el=>el.open)),id+' remained open past the quarter');
+        }
+      }finally{await ctx.close()}
+    });
+   }
+   for(const [name,w,h,mobile] of [['desktop',1440,900,false],['mobile',390,844,true]]){
     await runCase(name+' smooth scroll handoffs with animations enabled',async()=>{
       const ctx=await browser.newContext({viewport:{width:w,height:h},hasTouch:mobile,isMobile:mobile,reducedMotion:'no-preference'});
       const page=await ctx.newPage();
