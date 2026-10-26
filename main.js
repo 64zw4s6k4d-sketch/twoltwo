@@ -31,7 +31,7 @@
       th:{strengthsAction:'ดูจุดแข็งของ 2L²',casesAction:'ดูกรณีศึกษาและผลการทดสอบ',process:'ขั้นตอนการนำไปใช้'}
     };
     $('[data-site-i18n]').forEach(el=>{const text=pageLinks[lang]?.[el.dataset.siteI18n];if(text)el.textContent=text});
-    $('a[href$=".html?lang=ja"]').forEach(a=>{
+    $('a.info-entry[href*=".html"]').forEach(a=>{
        const base=a.getAttribute('href').split('?')[0];
        a.href=base+'?lang='+encodeURIComponent(lang);
     });
