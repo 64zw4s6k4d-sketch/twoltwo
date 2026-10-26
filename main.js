@@ -30,12 +30,12 @@
       en:{strengthsAction:'Explore our strengths',casesAction:'View cases and validation',process:'Implementation process'},
       th:{strengthsAction:'ดูจุดแข็งของ 2L²',casesAction:'ดูกรณีศึกษาและผลการทดสอบ',process:'ขั้นตอนการนำไปใช้'}
     };
-    $('[data-site-i18n]').forEach(el=>{const text=pageLinks[lang]?.[el.dataset.siteI18n];if(text)el.textContent=text});
-    $('a.info-entry[href*=".html"]').forEach(a=>{
+    document.querySelectorAll('[data-site-i18n]').forEach(el=>{const text=pageLinks[lang]?.[el.dataset.siteI18n];if(text)el.textContent=text});
+    document.querySelectorAll('a.info-entry[href*=".html"]').forEach(a=>{
        const base=a.getAttribute('href').split('?')[0];
        a.href=base+'?lang='+encodeURIComponent(lang);
     });
-    $('.desktop-nav a[href*=".html"],#mobile-nav a[href*=".html"]').forEach(a=>{
+    document.querySelectorAll('.desktop-nav a[href*=".html"],#mobile-nav a[href*=".html"]').forEach(a=>{
        const base=a.getAttribute('href').split('?')[0];
        a.href=base+'?lang='+encodeURIComponent(lang);
     });
