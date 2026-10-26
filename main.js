@@ -25,6 +25,20 @@
       const value=getCopy(node.dataset.i18nPlaceholder);
       if(typeof value==='string')node.setAttribute('placeholder',value);
     });
+    const pageLinks={
+      ja:{strengthsAction:'2L²の強みを詳しく見る',casesAction:'導入事例・検証結果を詳しく見る',process:'導入までの流れ'},
+      en:{strengthsAction:'Explore our strengths',casesAction:'View cases and validation',process:'Implementation process'},
+      th:{strengthsAction:'ดูจุดแข็งของ 2L²',casesAction:'ดูกรณีศึกษาและผลการทดสอบ',process:'ขั้นตอนการนำไปใช้'}
+    };
+    $('[data-site-i18n]').forEach(el=>{const text=pageLinks[lang]?.[el.dataset.siteI18n];if(text)el.textContent=text});
+    $('a[href$=".html?lang=ja"]').forEach(a=>{
+       const base=a.getAttribute('href').split('?')[0];
+       a.href=base+'?lang='+encodeURIComponent(lang);
+    });
+    $('.desktop-nav a[href*=".html"],#mobile-nav a[href*=".html"]').forEach(a=>{
+       const base=a.getAttribute('href').split('?')[0];
+       a.href=base+'?lang='+encodeURIComponent(lang);
+    });
     const formOpen=$('#contact-form-open');
     if(formOpen)formOpen.href='./contact-form.html?lang='+encodeURIComponent(lang);
     document.querySelectorAll('.language button').forEach(button=>{const selected=button.dataset.lang===lang;button.classList.toggle('active',selected);button.setAttribute('aria-pressed',String(selected));});
