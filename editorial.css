@@ -684,3 +684,27 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid #8A
 @media(prefers-reduced-motion:reduce){
  *,*::before,*::after{scroll-behavior:auto!important;transition-duration:0s!important;animation-duration:0s!important}
 }
+
+
+/* Content must reflow in Japanese at every device width. Earlier legacy
+ * typography enforced white-space:nowrap; this takes precedence over it. */
+html[lang] .chapter h2,
+html[lang] .technology .tech-copy h2,
+html[lang] .services .section-intro h2,
+html[lang] .projects .section-intro h2,
+html[lang] .company h2,
+html[lang] .contact h2,
+html[lang] .hero h1,
+html[lang] .philosophy .manifesto{
+ white-space:normal!important;
+ overflow-wrap:anywhere!important;
+ word-break:normal;
+ text-wrap:wrap!important;
+ max-width:100%;
+}
+@media(max-width:560px){
+ html[lang] .services .section-intro h2,
+ html[lang] .projects .section-intro h2,
+ html[lang] .technology .tech-copy h2,
+ html[lang] .company h2{font-size:clamp(28px,7vw,40px)!important}
+}
