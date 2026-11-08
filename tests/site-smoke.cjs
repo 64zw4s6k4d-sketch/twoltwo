@@ -337,6 +337,10 @@ async function homepage(browser,label,width,height,mobile=false){
     await page.locator('#projects .info-entry[href^="./cases.html"]').click();
     await page.waitForURL('**/cases.html?lang=ja');
     check(await page.locator('.ledger-row').count()===3,'Withdrawn evaluation should be removed and cases renumbered');
+    const listing=await page.locator('.ledger-row').allTextContents();
+    check(listing[1].includes('仮想テスト環境'),'Case 02 must retain the virtual testing concept');
+    check(listing[2].includes('海外企業'),'Case 03 must describe overseas collaboration exploration');
+    check(!listing[1].includes('海外企業'),'Case 02 has wrongly reused case 03 translation');
     const card=page.locator('#case-list');
     check((await card.locator('strong').textContent()).includes('医薬品承認申請資料（CTD）'),'Case 01 title was not replaced with CTD development');
     check((await card.innerText()).includes('医療文書作成の専門企業'),'CTD development collaborator description missing');
