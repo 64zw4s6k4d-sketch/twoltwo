@@ -1,0 +1,193 @@
+/* 2L² | Original-background restoration, homepage only.
+   Restores the navy / gold spatial atmosphere. No chip, GPU or semiconductor art.
+   Loaded after editorial.css so the other pages remain unchanged. */
+body.classic-home {
+  --ink:#06090f; --navy:#0a111a; --paper:#f0eee8;
+  --gold:#c9ad78; --muted:#b2bac2; --hair:rgba(219,203,174,.19);
+  color-scheme:dark;
+  min-height:100vh;
+  color:#f0eee8!important;
+  background:#06090f!important;
+}
+body.classic-home::selection{background:#c9ad78;color:#070b11}
+
+/* Reintroduce the original architectural space rather than substituting hardware imagery. */
+.classic-home .atmosphere {
+  display:block;position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  background:radial-gradient(ellipse 85% 62% at 77% 44%,#14202a 0%,#090f17 54%,#06090e 90%);
+}
+.classic-home .atmosphere-noise {
+  position:absolute;inset:0;opacity:.16;mix-blend-mode:screen;
+  background-image:repeating-linear-gradient(90deg,transparent 0px,transparent 3px,rgba(225,210,178,.022) 4px,transparent 6px);
+}
+.classic-home .ambient{position:absolute;border-radius:50%;filter:blur(70px)}
+.classic-home .ambient-a {
+  width:50vw;height:50vw;min-width:350px;min-height:350px;right:-20vw;top:8%;
+  background:radial-gradient(circle,rgba(181,142,79,.135),transparent 67%);
+}
+.classic-home .ambient-b {
+  width:55vw;height:70vh;left:-36vw;bottom:-45vh;
+  background:radial-gradient(circle,rgba(37,69,94,.3),transparent 72%);
+}
+.classic-home .scene-3d {
+  position:absolute;inset:0;perspective:1250px;perspective-origin:68% 47%;
+  transform-style:preserve-3d;animation:home-scene-drift 27s ease-in-out infinite alternate;
+}
+.classic-home .space-frame{
+  position:absolute;left:66%;top:49%;width:min(50vw,700px);height:min(62vh,610px);
+  border:1px solid rgba(216,189,129,.34);
+  box-shadow:0 0 38px rgba(189,141,62,.035),inset 0 0 40px rgba(194,149,88,.045);
+  transform:translate3d(-50%,-50%,var(--frame-depth)) rotateY(-21deg) rotateX(9deg);
+  opacity:var(--frame-alpha,.5);
+}
+.classic-home .space-frame::before,.classic-home .space-frame::after{
+  content:"";position:absolute;width:25px;height:25px;
+  border-color:rgba(239,206,141,.75);opacity:.65;
+}
+.classic-home .space-frame::before{left:-2px;top:-2px;border-left:2px solid;border-top:2px solid}
+.classic-home .space-frame::after{right:-2px;bottom:-2px;border-right:2px solid;border-bottom:2px solid}
+.classic-home .space-frame:nth-of-type(2){--frame-depth:-850px;--frame-alpha:.28}
+.classic-home .space-frame:nth-of-type(3){--frame-depth:-690px;--frame-alpha:.3}
+.classic-home .space-frame:nth-of-type(4){--frame-depth:-520px;--frame-alpha:.34}
+.classic-home .space-frame:nth-of-type(5){--frame-depth:-355px;--frame-alpha:.4}
+.classic-home .space-frame:nth-of-type(6){--frame-depth:-195px;--frame-alpha:.47}
+.classic-home .space-frame:nth-of-type(7){--frame-depth:-50px;--frame-alpha:.48}
+.classic-home .space-frame:nth-of-type(8){--frame-depth:100px;--frame-alpha:.3}
+.classic-home .space-frame:nth-of-type(9){--frame-depth:270px;--frame-alpha:.19}
+.classic-home .floor{
+  position:absolute;left:22%;top:62%;width:90vw;height:100vh;opacity:.7;
+  transform:rotateX(75deg) translateZ(-480px);
+  background:repeating-linear-gradient(90deg,transparent 0,transparent 78px,rgba(203,169,111,.075) 79px,transparent 80px),repeating-linear-gradient(0deg,transparent 0,transparent 92px,rgba(203,169,111,.07) 93px,transparent 94px);
+  mask-image:linear-gradient(0deg,transparent 8%,#000 60%,transparent 98%);
+}
+.classic-home .light-thread{
+  position:absolute;right:13%;top:-30%;height:160%;width:1px;
+  background:linear-gradient(180deg,transparent,rgba(222,188,123,.04) 20%,rgba(241,213,159,.55) 48%,rgba(225,176,99,.12) 65%,transparent);
+  transform:rotate(25deg);
+  box-shadow:0 0 42px 3px rgba(221,168,96,.075);
+}
+.classic-home .scene-shade{
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(5,8,13,.94),rgba(5,8,13,.74) 32%,rgba(6,9,14,.15) 75%,rgba(5,8,13,.25)),linear-gradient(0deg,rgba(5,8,13,.5),transparent 26%,transparent 78%,rgba(6,9,14,.43));
+}
+@keyframes home-scene-drift {
+  from{transform:translate3d(-1%,0,0) rotateY(-2deg)}
+  to{transform:translate3d(2%,-1%,0) rotateY(2deg)}
+}
+.classic-home main{position:relative;z-index:1}
+.classic-home .chapter,
+.classic-home .hero,.classic-home .philosophy,.classic-home .services,
+.classic-home .technology,.classic-home .projects,.classic-home .company,.classic-home .contact{
+  background:transparent!important;isolation:isolate;
+  border-bottom:1px solid rgba(214,196,159,.09);
+}
+.classic-home .hero{min-height:95svh!important;display:flex!important;align-items:center;padding-top:clamp(150px,14vw,215px)!important}
+.classic-home .philosophy,.classic-home .company{background:rgba(6,11,17,.22)!important}
+.classic-home .chapter-content{position:relative}
+.classic-home .site-header,.classic-home .site-header.scrolled{
+  background:rgba(6,10,16,.83)!important;
+  border-color:rgba(225,211,181,.14)!important;
+  backdrop-filter:blur(19px);
+}
+.classic-home .desktop-nav a{color:#c8ced1;font-size:clamp(12px,1vw,14px);letter-spacing:0}
+.classic-home .desktop-nav a:hover,.classic-home .desktop-nav a.active{color:#f0d39d}
+.classic-home .desktop-nav a:after{background:#c9ad78}
+.classic-home .language button{color:#b2b9c1;font-size:12px}
+.classic-home .language button.active{color:#f0d39d}
+.classic-home .language span{color:#69747e}
+.classic-home .mobile-nav{background:#0a111a;border-color:rgba(225,211,181,.17)}
+.classic-home .mobile-nav a{color:#e4e7e8;border-color:rgba(225,211,181,.13)}
+.classic-home .menu-toggle{border-color:rgba(225,211,181,.3)}
+.classic-home .menu-toggle span{background:#ecdfca}
+.classic-home #progress{background:#c9ad78}
+
+/* Show the actual work, not a grid of micro-labels and decorative statistics. */
+.classic-home .hero .eyebrow,
+.classic-home .section-topline,
+.classic-home .company-overline,
+.classic-home .info-entry-eyebrow,
+.classic-home .service-lines .entry-id,
+.classic-home .chapter-rail{display:none!important}
+.classic-home .hero h1,html[lang="ja"] .classic-home .hero h1{
+  color:#f2eee6!important;font-size:clamp(41px,5.25vw,76px)!important;
+  font-weight:580!important;line-height:1.34!important;letter-spacing:-.052em!important;
+  max-width:1100px!important;margin:0 0 32px!important;text-shadow:none;
+}
+.classic-home .hero-lead,.classic-home .hero .hero-lead{
+  color:#d0d5d8!important;font-size:clamp(16px,1.32vw,19px)!important;
+  line-height:1.95!important;max-width:820px!important;
+}
+.classic-home .hero-actions{margin-top:42px}
+.classic-home .hero-actions .action{font-size:15px;min-height:56px;padding:13px 23px}
+.classic-home .hero-actions .action-solid{
+  background:#bca073!important;border:1px solid #c9ad78!important;
+  color:#10151a!important;box-shadow:none!important;
+}
+.classic-home .hero-actions .action-solid:hover{background:#e0c494!important;color:#10151a!important}
+.classic-home .hero-actions .action-line{border:1px solid #9f8e71!important;color:#eee3d1!important;background:rgba(13,20,28,.5)!important}
+.classic-home .hero-actions .action-line:hover{background:rgba(189,159,111,.17)!important;color:#fff!important}
+.classic-home .hero-actions .action-text{color:#d9bf90!important;background:transparent!important}
+.classic-home .hero-actions .action-text:hover{color:#fff!important}
+.classic-home .chapter h2,.classic-home .technology-landing .section-intro h2,
+.classic-home .projects-landing .section-intro h2,.classic-home .company h2,
+.classic-home .contact h2{
+  color:#f1ede6!important;font-size:clamp(35px,4vw,60px)!important;
+  letter-spacing:-.045em!important;font-weight:550;
+}
+.classic-home .company h2 span,.classic-home .philosophy .manifesto em{color:#d5b47e!important}
+.classic-home .philosophy .manifesto{color:#f1ede6!important;font-weight:540;font-size:clamp(36px,4.2vw,62px)}
+.classic-home .section-intro p,.classic-home .tech-copy>p,.classic-home .company-details>p,
+.classic-home .manifesto-sub,.classic-home .contact-message,.classic-home .contact-landing .contact-message{
+  color:#bec6c9!important;font-size:clamp(16px,1.27vw,18px)!important;
+  line-height:1.95!important;max-width:760px!important
+}
+.classic-home .services .service-item>summary.service-line,
+.classic-home .services .service-item+.service-item>summary.service-line{
+  border-top:1px solid rgba(210,190,151,.32)!important;
+  color:#f1ede6!important;
+  padding:clamp(25px,3vw,42px) 10px!important;
+}
+.classic-home .services .service-item:last-child>summary.service-line{border-bottom:1px solid rgba(210,190,151,.32)!important}
+.classic-home .services .service-item>summary.service-line:hover,
+.classic-home .services .service-item[open]>summary.service-line{background:rgba(201,173,120,.08)!important}
+.classic-home .services .service-line h3{color:#f4f0e8!important;font-size:clamp(23px,2.45vw,35px)}
+.classic-home .services .service-line p{color:#c3cace!important;font-size:clamp(15px,1.14vw,17px)!important}
+.classic-home .services .service-summary-hint{color:#e0c38e!important;font-size:14px!important}
+.classic-home .services .entry-symbol{color:#d5b47e}
+.classic-home .technology-landing .info-entry-primary,.classic-home .projects-landing .info-entry-primary{
+  background:rgba(17,26,35,.9)!important;border:1px solid rgba(213,180,122,.5)!important;
+  color:#f4f0e8!important;
+}
+.classic-home .technology-landing .info-entry-primary:hover,.classic-home .projects-landing .info-entry-primary:hover{
+  background:#22303a!important;border-color:#e6c58c!important;
+}
+.classic-home .info-entry-primary .info-entry-title{font-size:clamp(18px,1.6vw,23px);color:#f4f0e8!important}
+.classic-home .info-entry-primary .info-entry-end{border-color:rgba(231,207,166,.24)!important}
+.classic-home .project-note{font-size:14px;color:#b7bfc4}
+.classic-home .company-details dl{border-top-color:rgba(213,193,156,.25)}
+.classic-home .company-details dl>div{border-bottom-color:rgba(213,193,156,.25)}
+.classic-home .company-details dt{color:#d2b682;font-size:15px}
+.classic-home .company-details dd{color:#e2e7e7;font-size:16px}
+.classic-home .contact-landing-direct p{color:#c1c8c9!important;font-size:16px}
+.classic-home .contact-landing-email{color:#e2c18a!important;font-size:17px}
+.classic-home .contact-form-entry{background:#c1a779!important;color:#0e141a!important;border-color:#c1a779!important;font-size:16px}
+.classic-home .contact-form-entry:hover{background:#e4cb9b!important;color:#0e141a!important}
+.classic-home .contact-prelude{color:#d2b682;font-size:16px}
+.classic-home .site-footer{background:transparent!important;color:#b5bec4!important;border-color:rgba(213,193,156,.25)!important;font-size:14px}
+.classic-home .site-footer a:hover{color:#e2c18a!important}
+.classic-home .llm-small-label,.classic-home .virtual-cycle-label{font-size:14px!important;letter-spacing:0!important}
+@media(max-width:760px){
+  .classic-home .space-frame{left:76%;width:80vw;height:41vh}
+  .classic-home .scene-shade{background:linear-gradient(90deg,rgba(5,8,13,.92),rgba(5,8,13,.68) 70%,rgba(5,8,13,.45))}
+  .classic-home .hero{min-height:87svh!important;padding-top:135px!important}
+  .classic-home .hero h1,html[lang="ja"] .classic-home .hero h1{font-size:clamp(34px,7.5vw,50px)!important;letter-spacing:-.04em!important}
+  .classic-home .hero-lead,.classic-home .hero .hero-lead{font-size:16px!important}
+  .classic-home .section-intro p,.classic-home .tech-copy>p,.classic-home .company-details>p,
+  .classic-home .manifesto-sub,.classic-home .contact-message{font-size:16px!important}
+  .classic-home .hero-actions .action{width:100%;justify-content:space-between}
+  .classic-home .hero-actions .action-text{width:auto}
+  .classic-home .chapter h2,.classic-home .technology-landing .section-intro h2,
+  .classic-home .projects-landing .section-intro h2,.classic-home .company h2,
+  .classic-home .contact h2{font-size:clamp(30px,7vw,44px)!important}
+}
+@media(prefers-reduced-motion:reduce){.classic-home .scene-3d{animation:none}}
