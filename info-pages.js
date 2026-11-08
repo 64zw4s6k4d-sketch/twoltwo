@@ -8,6 +8,37 @@
  };
  const btns=Array.from(document.querySelectorAll('.language button[data-lang]'));
  const selected=new URLSearchParams(location.search).get('lang');
+ const ctdPanel=document.getElementById('case-ctd');
+ const ctdTrigger=document.getElementById('case-ctd-toggle');
+ const ctdClose=document.getElementById('case-ctd-close');
+ function syncCaseButton(lang=document.documentElement.lang){
+   if(!ctdPanel||!ctdTrigger)return;
+   const open=!ctdPanel.hidden;
+   ctdTrigger.setAttribute('aria-expanded',String(open));
+   const label=ctdTrigger.querySelector('[data-i18n]');
+   if(label){
+     label.dataset.i18n=open?'projects.caseClose':'projects.caseOpen';
+     const translated=translate(label.dataset.i18n,lang);
+     if(typeof translated==='string')label.textContent=translated;
+   }
+   const marker=ctdTrigger.querySelector('.case-detail-trigger-icon');
+   if(marker)marker.textContent=open?'−':'＋';
+ }
+ function toggleCase(open,{updateHash=false,scroll=true}={}){
+   if(!ctdPanel||!ctdTrigger)return;
+   ctdPanel.hidden=!open;
+   syncCaseButton();
+   if(updateHash)window.history.pushState(null,'',open?'#case-ctd':'#case-list');
+   if(scroll){
+     const target=open?ctdPanel:document.getElementById('case-list');
+     requestAnimationFrame(()=>target?.scrollIntoView({
+       block:'start',behavior:'smooth'
+     }));
+   }
+ }
+ ctdTrigger?.addEventListener('click',()=>toggleCase(ctdPanel.hidden,{updateHash:true}));
+ ctdClose?.addEventListener('click',()=>toggleCase(false,{updateHash:true}));
+
  function translate(path,lang){return path.split('.').reduce((x,key)=>x?.[key],window.SITE_COPY?.[lang]);}
  function setLang(lang){
    if(!names[lang])return;
@@ -28,6 +59,7 @@
      url.searchParams.set('lang',lang);
      node.href=url.pathname.split('/').at(-1)+url.search+url.hash;
    }
+   syncCaseButton(lang);
    const type=document.body.dataset.informationPage;
    document.title=(type==='cases'?translate('nav.projects',lang):translate('nav.technology',lang))+' | 2L²';
  }
@@ -36,6 +68,14 @@
  setLang(init);
  function reveal(){
    const id=decodeURIComponent(location.hash.slice(1));
+   if(ctdPanel && id==='case-ctd'){
+     toggleCase(true,{scroll:false});
+     requestAnimationFrame(()=>ctdPanel.scrollIntoView({block:'start',behavior:'instant'}));
+     return;
+   }
+   if(ctdPanel && id==='case-list'){
+     toggleCase(false,{scroll:false});
+   }
    const el=document.getElementById(id);
    if(!el)return;
    const panel=el.matches('details')?el:el.closest('details');
@@ -55,6 +95,7 @@
    });
  });
  window.addEventListener('hashchange',reveal);
+ window.addEventListener('popstate',reveal);
  reveal();
  // The details can be closed after being read, but never from the jump that opens them.
  const panels=[...document.querySelectorAll('details.technology-proof')];
