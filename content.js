@@ -1,4 +1,4 @@
-/* 2L² source copy / concept status must remain explicit in all languages. */
+/* 2L² / multilingual content reviewed after visual QA. */
 window.SITE_CONFIG={
   "contactEmail": "namisatorio@twoltwo.com"
 };
@@ -119,7 +119,7 @@ window.SITE_COPY={
     },
     "technology": {
       "kicker": "03 / OUR STRENGTHS",
-      "title": "社内情報を活用するAIを、<br>業務に合わせて設計。",
+      "title": "社内情報を活用し、<br>業務に合うAIを開発。",
       "intro": "社内文書を検索するRAG、利用者ごとのアクセス制御、ローカルLLMによる回答作成など、必要な機能を業務とセキュリティ要件に合わせて設計・開発します。",
       "l1": "権限制御",
       "d1": "部署や役割ごとに、閲覧できる情報や操作を管理",
@@ -378,7 +378,7 @@ window.SITE_COPY={
     },
     "technology": {
       "kicker": "03 / OUR STRENGTHS",
-      "title": "Build AI around your internal information<br>and access requirements.",
+      "title": "AI software built around<br>internal information and workflows.",
       "intro": "We develop the components a workflow needs, including internal RAG search, role-based access controls and local LLM drafting, based on the organization's security requirements.",
       "l1": "Access Control",
       "d1": "Manage document and operation permissions by role",
@@ -637,7 +637,7 @@ window.SITE_COPY={
     },
     "technology": {
       "kicker": "03 / OUR STRENGTHS",
-      "title": "พัฒนาระบบ AI ที่เหมาะกับ<br>ข้อมูลและสิทธิ์การเข้าถึง",
+      "title": "พัฒนาระบบ AI<br>ตามข้อมูลและงานขององค์กร",
       "intro": "เราพัฒนา RAG สำหรับค้นเอกสาร การควบคุมสิทธิ์ และการร่างคำตอบด้วย Local LLM ตามลักษณะงานและความปลอดภัยขององค์กร",
       "l1": "การควบคุมสิทธิ์",
       "d1": "กำหนดสิทธิ์เข้าถึงเอกสารและการใช้งานตามบทบาท",
