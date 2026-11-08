@@ -1,4 +1,4 @@
-/* 2L² / ONE WORLD — scroll-driven scene, navigation, and cursor glow. */
+/* 2L² navigation, accessible localization and service disclosure behavior. */
 (() => {
   'use strict';
   const $ = (selector) => document.querySelector(selector);
@@ -31,6 +31,10 @@
       th:{strengthsAction:'ดูจุดแข็งของ 2L²',casesAction:'ดูกรณีศึกษาและผลการทดสอบ',viewPage:'เปิดหน้ารายละเอียด'}
     };
     document.querySelectorAll('[data-site-i18n]').forEach(el=>{const text=pageLinks[lang]?.[el.dataset.siteI18n];if(text)el.textContent=text});
+    document.querySelectorAll('.hero-actions a[href*=".html"]').forEach(a=>{
+      const path=a.getAttribute('href').split('?')[0];
+      a.href=path+'?lang='+encodeURIComponent(lang);
+    });
     document.querySelectorAll('a.info-entry[href*=".html"]').forEach(a=>{
        const base=a.getAttribute('href').split('?')[0];
        a.href=base+'?lang='+encodeURIComponent(lang);
@@ -196,113 +200,14 @@
     if(index!==activeIndex){activeIndex=index;updateNavigation();}
   }
   function onScroll(){
+    // Keep the existing read-to-collapse behavior on long service diagrams.
     collapseReadPanelsOnScroll();
-    const total=Math.max(1,document.documentElement.scrollHeight-window.innerHeight);
-    const progress=clamp(window.scrollY/total,0,1);
-    document.documentElement.style.setProperty('--progress',progress.toFixed(5));
-    $('#progress').style.transform=`scaleX(${progress})`;
-    // Scroll-driven scene variables (CSS-only, no libraries)
-    const vh=Math.max(window.innerHeight,1);
-    const approachStart=chapters[1]?.offsetTop||vh;
-    const servicesStart=chapters[2]?.offsetTop||vh*2;
-    const futureStart=(chapters[5]?.offsetTop||vh*5)-vh*.5;
-    const futureEnd=(chapters[6]?.offsetTop||vh*6)+vh*.55;
-    const ease=t=>t*t*(3-2*t);
-    const gate=ease(clamp((window.scrollY-vh*.12)/Math.max(approachStart-vh*.12,1),0,1));
-    // Fade the intact front chip away as the visitor scrolls; no door opening.
-    const chipFade=ease(clamp((window.scrollY-vh*.12)/(vh*.95),0,1));
-    const doorVisible=1-chipFade;
-    const approach=ease(clamp((window.scrollY-(approachStart-vh*.62))/(vh*.98),0,1));
-    const stackExit=clamp((servicesStart-window.scrollY)/(vh*.45),0,1);
-    const stackVisible=approach*stackExit;
-    const future=ease(clamp((window.scrollY-futureStart)/Math.max(futureEnd-futureStart,1),0,1));
-    const set=(name,value)=>document.documentElement.style.setProperty(name,value);
-    const rm=reducedMotion.matches;
-    // Keep both halves joined into one stationary chip. Only opacity changes.
-    set('--portal-open','0');
-    set('--gpu-door-opacity',rm?(window.scrollY<vh*.75?'1':'0'):doorVisible.toFixed(4));
-    set('--door-angle-left','0deg');
-    set('--door-angle-right','0deg');
-    set('--gpu-door-y','0px');
-    set('--gpu-door-depth','-160px');
-    set('--gpu-anchor-opacity',rm?'.36':(.66*Math.max(doorVisible,stackVisible)).toFixed(4));
-    set('--gpu-frame-depth',rm?'0px':Math.round(-900+gate*930+approach*140)+'px');
-    set('--gpu-stack-opacity',rm?'0':stackVisible.toFixed(4));
-    set('--gpu-stack-y',rm?'0px':Math.round((1-approach)*vh*.045+(1-stackExit)*vh*.07)+'px');
-    set('--gpu-stack-depth',rm?'0px':Math.round(-1150+approach*1300-(1-stackExit)*1100)+'px');
-    set('--future-light',rm?'0':future.toFixed(4));
-    set('--future-glow',Math.round(13+future*88)+'px');
-    set('--future-alpha',(.045+future*.56).toFixed(4));
-    set('--future-border-alpha',(.44+future*.53).toFixed(4));
-    set('--future-core-alpha',(.015+future*.14).toFixed(4));
-    if(!rm){
-      const pace=window.scrollY/Math.max(680,window.innerHeight*.92);
-      const phase=pace*740;
-      set('--scene-x',`${Math.sin(pace*.58)*Math.min(window.innerWidth*.06,72)}px`);
-      set('--scene-turn',`${Math.sin(pace*.44)*3.9}deg`);
-      set('--scene-pitch',`${Math.sin(pace*.33)*1.8}deg`);
-      frameNodes.forEach((frame,i)=>{
-        const depth=((phase+i*690)%5520)-4320;
-        const frontFade=clamp((1100-depth)/650,0,1);
-        const farFade=clamp((depth+4270)/650,0,1);
-        const opacity=frontFade*farFade*(i%3===0?.74:.48);
-        frame.style.setProperty('--depth',`${depth.toFixed(1)}px`);
-        frame.style.setProperty('--frame-opacity',opacity.toFixed(3));
-        frame.style.setProperty('--frame-blur',`${clamp((depth-550)/380,0,4)}px`);
-      });
-    }
+    const height=Math.max(1,document.documentElement.scrollHeight-window.innerHeight);
+    const progress=clamp(window.scrollY/height,0,1);
+    const bar=$('#progress');
+    if(bar)bar.style.transform=`scaleX(${progress})`;
     detectChapter();
     header.classList.toggle('scrolled',window.scrollY>30);
-    // Gentle snap — after scrolling stops, settle to the nearest chapter center
-    clearTimeout(snapTimer);
-    if(!snapDisabled&&!reducedMotion.matches){
-      snapTimer=setTimeout(()=>{
-        const vh=window.innerHeight;
-        // The Local LLM illustrated walkthrough is intentionally long.
-        // Do not snap while the visitor is reading within that chapter.
-        const servicesChapter=$('#services');
-        if(servicesChapter && servicesChapter.offsetHeight > vh*1.8){
-          const position=window.scrollY+vh*.5;
-          const start=servicesChapter.offsetTop;
-          if(position>=start && position<=start+servicesChapter.offsetHeight)return;
-        }
-        let bestTarget=null,bestDist=Infinity;
-        chapters.forEach(ch=>{
-          let target;
-          if(ch.classList.contains('hero')){target=0;}
-          else if(ch.id==='philosophy'){target=ch.offsetTop+vh*.29;}
-          else{target=ch.offsetTop+ch.offsetHeight/2-vh/2;}
-          const dist=Math.abs(window.scrollY-target);
-          if(dist<bestDist){bestDist=dist;bestTarget=target;}
-        });
-        if(bestTarget!==null&&bestDist>8&&bestDist<120){
-          window.scrollTo({top:Math.max(0,bestTarget),behavior:'smooth'});
-        }
-      },200);
-    }
-  }
-  // Cursor glow — golden ring that glows while the pointer moves
-  if(window.matchMedia('(hover:hover)').matches){
-    const glow=document.createElement('div');
-    glow.className='cursor-glow';
-    document.body.appendChild(glow);
-    let mx=window.innerWidth/2,my=window.innerHeight/2,gx=mx,gy=my,moveTimer=null;
-    document.addEventListener('mousemove',e=>{
-      mx=e.clientX;my=e.clientY;
-      glow.classList.add('active');
-      clearTimeout(moveTimer);
-      moveTimer=setTimeout(()=>glow.classList.remove('active'),400);
-    });
-    document.querySelectorAll('a,button,.service-line,.architecture-row,.ledger-row').forEach(el=>{
-      el.addEventListener('mouseenter',()=>glow.classList.add('hover'));
-      el.addEventListener('mouseleave',()=>glow.classList.remove('hover'));
-    });
-    (function animate(){
-      gx+=(mx-gx)*.2;
-      gy+=(my-gy)*.2;
-      glow.style.transform=`translate(${gx}px,${gy}px) translate(-50%,-50%)`;
-      requestAnimationFrame(animate);
-    })();
   }
   window.addEventListener('hashchange',()=>{snapDisabled=true;setTimeout(()=>snapDisabled=false,1500);});
   window.addEventListener('scroll',onScroll,{passive:true});
