@@ -256,7 +256,17 @@ async function homepage(browser,label,width,height,mobile=false){
     check(await page.locator('#projects .info-entry').count()===1,'Projects landing must offer only one destination, without onboarding');
     check(await page.locator('#projects a[href*="onboarding.html"]').count()===0,'Onboarding button must be removed from the projects section');
     const caseCTA=page.locator('#cases-page-link');
-    check(await caseCTA.isVisible(),'Dedicated cases navigation CTA missing');
+    const strengthsCTA=page.locator('#strengths-page-link');
+    check(await caseCTA.isVisible() && await strengthsCTA.isVisible(),'Dedicated destination CTAs missing');
+    for(const button of [caseCTA,strengthsCTA]){
+      const metal=await button.evaluate(el=>({
+        height:el.getBoundingClientRect().height,
+        border:getComputedStyle(el).borderTopColor,
+        arrow:getComputedStyle(el.querySelector('.info-entry-end')).backgroundColor,
+        circle:getComputedStyle(el.querySelector('.info-entry-end'),'::before').borderTopWidth
+      }));
+      check(metal.height>=95 && metal.circle!=='0px','Premium editorial CTA missing: '+JSON.stringify(metal));
+    }
     check((await caseCTA.getAttribute('href')).startsWith('./cases.html?lang=ja'),'Cases CTA points to wrong page');
     check(await caseCTA.locator('.info-entry-end svg').count()===1,'Large arrow CTA is missing');
     const buttonMeasure=await caseCTA.evaluate(el=>({
@@ -312,11 +322,15 @@ async function homepage(browser,label,width,height,mobile=false){
     check((await card.locator('strong').textContent()).includes('医薬品承認申請資料（CTD）'),'Case 01 title was not replaced with CTD development');
     check((await card.innerText()).includes('Maxwell International'),'Case 01 collaboration not present');
     const detailLink=card.locator('.case-detail-trigger');
+    const details=page.locator('#case-ctd');
     check(await detailLink.isVisible(),'CTD detail navigation missing');
+    check(!(await details.isVisible()),'CTD detail should be collapsed before its button is clicked');
+    check(await detailLink.getAttribute('aria-expanded')==='false','Initial CTD toggle accessibility state wrong');
     await detailLink.click();
     await page.waitForURL('**/cases.html?lang=ja#case-ctd');
-    const details=page.locator('#case-ctd');
     check(await details.isVisible(),'CTD detail did not open');
+    check(await detailLink.getAttribute('aria-expanded')==='true','Open CTD button must announce expanded state');
+    check((await detailLink.textContent()).includes('閉じる'),'CTD toggle label must change on opening');
     const narrative=await details.innerText();
     for(const phrase of ['背景と課題','2L²の取り組み','機密情報への配慮','業務特化型の開発','研究データを、業務で活用できるAIへ']){
       check(narrative.includes(phrase),'Case 01 is missing material from uploaded CTD case record: '+phrase);
@@ -327,7 +341,16 @@ async function homepage(browser,label,width,height,mobile=false){
     await viewportChecks(page,label+' CTD detail');
     await page.screenshot({path:path.join(shots,label+'-ctd.png')});
     await details.locator('.case-back-link').click();
+    check(!(await details.isVisible()),'CTD text remains open after closing');
+    check(await detailLink.getAttribute('aria-expanded')==='false','CTD toggle did not reset accessibility state');
+    check((await detailLink.textContent()).includes('詳しく'),'CTD toggle label did not reset');
     check(await card.isVisible(),'Return to case list is unavailable');
+    // The same button must work repeatedly, including by keyboard.
+    await detailLink.focus();
+    await page.keyboard.press('Enter');
+    check(await details.isVisible(),'CTD details did not reopen with keyboard');
+    await detailLink.click();
+    check(!(await details.isVisible()),'CTD details did not close on repeated button click');
     await viewportChecks(page,label+' cases standalone');
     await page.screenshot({path:path.join(shots,label+'-cases.png')});
     for(const lang of ['en','th','ja']){
@@ -490,6 +513,9 @@ async function homepage(browser,label,width,height,mobile=false){
        await sleep(150);
        check(await page.locator('#'+id).evaluate(el=>el.open),'Proof hash target did not expand: '+id);
      }
+     await page.goto(base+'cases.html?lang=ja#case-ctd',{waitUntil:'load'});
+     check(await page.locator('#case-ctd').isVisible(),'Direct link should reveal CTD details');
+     check(await page.locator('#case-ctd-toggle').getAttribute('aria-expanded')==='true','Direct CTD link toggle state incorrect');
      obs.verify();
     }finally{await context.close()}
    });
