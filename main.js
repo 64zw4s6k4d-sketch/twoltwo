@@ -26,9 +26,9 @@
       if(typeof value==='string')node.setAttribute('placeholder',value);
     });
     const pageLinks={
-      ja:{strengthsAction:'2L²の強みを詳しく見る',casesAction:'導入事例・検証結果を詳しく見る',process:'導入までの流れ'},
-      en:{strengthsAction:'Explore our strengths',casesAction:'View cases and validation',process:'Implementation process'},
-      th:{strengthsAction:'ดูจุดแข็งของ 2L²',casesAction:'ดูกรณีศึกษาและผลการทดสอบ',process:'ขั้นตอนการนำไปใช้'}
+      ja:{strengthsAction:'2L²の強みを詳しく見る',casesAction:'導入事例・検証結果を見る',viewPage:'別ページで詳細を見る'},
+      en:{strengthsAction:'Explore our strengths',casesAction:'Explore cases and validation results',viewPage:'OPEN DEDICATED PAGE'},
+      th:{strengthsAction:'ดูจุดแข็งของ 2L²',casesAction:'ดูกรณีศึกษาและผลการทดสอบ',viewPage:'เปิดหน้ารายละเอียด'}
     };
     document.querySelectorAll('[data-site-i18n]').forEach(el=>{const text=pageLinks[lang]?.[el.dataset.siteI18n];if(text)el.textContent=text});
     document.querySelectorAll('a.info-entry[href*=".html"]').forEach(a=>{
