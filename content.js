@@ -1,4 +1,4 @@
-/* 2L² multilingual website copy. Technical examples are illustrative; no unvalidated performance claims. */
+/* 2L² source copy / concept status must remain explicit in all languages. */
 window.SITE_CONFIG={
   "contactEmail": "namisatorio@twoltwo.com"
 };
@@ -95,12 +95,12 @@ window.SITE_COPY={
       "threeHR": "人事担当（Bさん）",
       "threeHRAsk": "「相談相手が休みでも、仕事を進めておきたい」",
       "threeHRAI": "部署共通のAI",
-      "threeHRNote": "事前共有した方針や手順をもとに作業案を用意。あとは確認作業をするだけで、業務を進められます。",
+      "threeHRNote": "部署内で共有された方針や手順を参照して、確認用の作業案を示す仕組みを検討しています。",
       "threeFoundation": "企業の共通AI基盤",
       "threeChip1": "社内資料・データ",
       "threeChip2": "社員別の権限制御",
       "threeChip3": "ローカルAI",
-      "threeChip4": "夜間・定期自動実行",
+      "threeChip4": "定期処理（対応は要件次第）",
       "threeBottom": "一人ひとりに合わせた働き方を支えながら、情報と権限は企業が管理する構想です。",
       "virtualWorld": "仮想環境",
       "virtualS1": "受付・患者対応",
@@ -115,7 +115,7 @@ window.SITE_COPY={
       "virtualLoop3": "改善",
       "virtualLoop4": "再挑戦",
       "virtualAgent": "AIエージェント",
-      "virtualTakeaway": "AIに「仕事の経験」を与える、新しい訓練基盤。"
+      "virtualTakeaway": "想定業務と失敗時の対応を、導入前に検証するための構想です。"
     },
     "technology": {
       "kicker": "03 / OUR STRENGTHS",
@@ -354,12 +354,12 @@ window.SITE_COPY={
       "threeHR": "HR representative (B)",
       "threeHRAsk": "“Can I make progress even when the person I need is off?”",
       "threeHRAI": "Team-shared AI",
-      "threeHRNote": "Uses previously shared policies and workflows to prepare a draft, so only a final review is needed to move work forward.",
+      "threeHRNote": "A proposal for drafting work based on approved team procedures, subject to staff review and project-specific validation.",
       "threeFoundation": "Shared company AI platform",
       "threeChip1": "Internal files & data",
       "threeChip2": "Role-based access",
       "threeChip3": "Local AI",
-      "threeChip4": "Scheduled automation",
+      "threeChip4": "Recurring jobs (if required)",
       "threeBottom": "A proposed way to tailor AI to people while keeping information and access under company control.",
       "virtualWorld": "Virtual environment",
       "virtualS1": "Reception & patient support",
@@ -374,7 +374,7 @@ window.SITE_COPY={
       "virtualLoop3": "Improve",
       "virtualLoop4": "Retry",
       "virtualAgent": "AI agent",
-      "virtualTakeaway": "A new training foundation built around work experience for AI."
+      "virtualTakeaway": "A proposed way to evaluate representative tasks and failure cases before deployment."
     },
     "technology": {
       "kicker": "03 / OUR STRENGTHS",
@@ -613,12 +613,12 @@ window.SITE_COPY={
       "threeHR": "พนักงาน HR (B)",
       "threeHRAsk": "“แม้คนที่ต้องปรึกษาลาหยุด ฉันก็อยากทำงานต่อได้”",
       "threeHRAI": "AI ประจำทีม",
-      "threeHRNote": "อ้างอิงแนวทางและขั้นตอนที่แชร์ไว้เพื่อเตรียมงานล่วงหน้า จากนั้นเพียงตรวจสอบเนื้อหาก็สามารถดำเนินงานต่อได้",
+      "threeHRNote": "แนวคิดการร่างงานโดยอ้างอิงขั้นตอนที่แผนกกำหนดไว้ และให้พนักงานตรวจสอบก่อนใช้",
       "threeFoundation": "แพลตฟอร์ม AI ร่วมของบริษัท",
       "threeChip1": "เอกสารและข้อมูลภายใน",
       "threeChip2": "สิทธิ์ตามบทบาท",
       "threeChip3": "Local AI",
-      "threeChip4": "งานอัตโนมัติตามเวลา",
+      "threeChip4": "งานประจำตามข้อกำหนด",
       "threeBottom": "แนวคิด AI ที่ปรับให้เหมาะกับผู้ใช้ โดยองค์กรยังคงควบคุมข้อมูลและสิทธิ์การเข้าถึง",
       "virtualWorld": "สภาพแวดล้อมเสมือน",
       "virtualS1": "งานต้อนรับและดูแลผู้ป่วย",
@@ -633,7 +633,7 @@ window.SITE_COPY={
       "virtualLoop3": "ปรับปรุง",
       "virtualLoop4": "ลองใหม่",
       "virtualAgent": "AI Agent",
-      "virtualTakeaway": "แนวคิดแพลตฟอร์มฝึก AI จากประสบการณ์ทำงาน"
+      "virtualTakeaway": "แนวคิดสำหรับทดสอบงานและการรับมือกับความล้มเหลวก่อนนำระบบไปใช้"
     },
     "technology": {
       "kicker": "03 / OUR STRENGTHS",
