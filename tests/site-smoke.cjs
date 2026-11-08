@@ -253,6 +253,19 @@ async function homepage(browser,label,width,height,mobile=false){
   await runCase(label+' opens strengths and cases on dedicated pages',async()=>{
     check(await page.locator('#technology-details').count()===0,'Long strengths proof should be moved off homepage');
     check(await page.locator('#projects .project-ledger').count()===0,'Full case ledger should be moved off homepage');
+    check(await page.locator('#projects .info-entry').count()===1,'Projects landing must offer only one destination, without onboarding');
+    check(await page.locator('#projects a[href*="onboarding.html"]').count()===0,'Onboarding button must be removed from the projects section');
+    const caseCTA=page.locator('#cases-page-link');
+    check(await caseCTA.isVisible(),'Dedicated cases navigation CTA missing');
+    check((await caseCTA.getAttribute('href')).startsWith('./cases.html?lang=ja'),'Cases CTA points to wrong page');
+    check(await caseCTA.locator('.info-entry-end svg').count()===1,'Large arrow CTA is missing');
+    const buttonMeasure=await caseCTA.evaluate(el=>({
+       height:el.getBoundingClientRect().height,
+       background:getComputedStyle(el).backgroundImage,
+       right:getComputedStyle(el.querySelector('.info-entry-end')).backgroundColor
+    }));
+    check(buttonMeasure.height>=83 && buttonMeasure.background.includes('gradient'),
+      'Cases CTA does not look like a clear page transition: '+JSON.stringify(buttonMeasure));
     const strengthsLink=page.locator('#technology .info-entry');
     check(await strengthsLink.isVisible(),'Homepage strengths CTA missing');
     await strengthsLink.click();
@@ -295,11 +308,37 @@ async function homepage(browser,label,width,height,mobile=false){
     await page.locator('#projects .info-entry[href^="./cases.html"]').click();
     await page.waitForURL('**/cases.html?lang=ja');
     check(await page.locator('.ledger-row').count()===4,'Case details missing');
+    const card=page.locator('#case-list');
+    check((await card.locator('strong').textContent()).includes('医薬品承認申請資料（CTD）'),'Case 01 title was not replaced with CTD development');
+    check((await card.innerText()).includes('Maxwell International'),'Case 01 collaboration not present');
+    const detailLink=card.locator('.case-detail-trigger');
+    check(await detailLink.isVisible(),'CTD detail navigation missing');
+    await detailLink.click();
+    await page.waitForURL('**/cases.html?lang=ja#case-ctd');
+    const details=page.locator('#case-ctd');
+    check(await details.isVisible(),'CTD detail did not open');
+    const narrative=await details.innerText();
+    for(const phrase of ['背景と課題','2L²の取り組み','機密情報への配慮','業務特化型の開発','研究データを、業務で活用できるAIへ']){
+      check(narrative.includes(phrase),'Case 01 is missing material from uploaded CTD case record: '+phrase);
+    }
+    check(await details.locator('.case-value').count()===3,'CTD case should show three technical values');
+    check((await details.locator('.case-study-partner a').getAttribute('href'))==='https://maxwellinternational.net/',
+      'Collaborator link is incorrect');
+    await viewportChecks(page,label+' CTD detail');
+    await page.screenshot({path:path.join(shots,label+'-ctd.png')});
+    await details.locator('.case-back-link').click();
+    check(await card.isVisible(),'Return to case list is unavailable');
     await viewportChecks(page,label+' cases standalone');
     await page.screenshot({path:path.join(shots,label+'-cases.png')});
     for(const lang of ['en','th','ja']){
       await page.locator('.info-header .language button[data-lang="'+lang+'"]').click();
       check(await page.locator('html').getAttribute('lang')===lang,'Cases language failed '+lang);
+      const caseTitle=await page.locator('#case-list strong').textContent();
+      check(caseTitle.length>12,'Case 01 title missing in '+lang);
+      const detailTitle=await page.locator('#case-ctd-title').textContent();
+      check(caseTitle===detailTitle,'Case 01 title mismatch between card and detail in '+lang);
+      const caseButton=await page.locator('#case-list .case-detail-trigger').textContent();
+      check(caseButton.trim().length>5,'Case 01 detail button untranslated in '+lang);
     }
     await page.locator('.info-nav a[data-site-i18n="process"]').click();
     await page.waitForURL('**/onboarding.html?lang=ja');
@@ -326,6 +365,11 @@ async function homepage(browser,label,width,height,mobile=false){
    await page.screenshot({path:path.join(shots,label+'-robot.png')});
    await sleep(7800);
    check(await mood.getAttribute('data-mood')==='neutral','robot did not reset after 7.6s');
+  });
+  await runCase(label+' customer cases menu uses dedicated listing',async()=>{
+   await page.goto(base+'customer.html',{waitUntil:'load'});
+   const nav=page.locator('[data-nav-key="projects"]');
+   check((await nav.getAttribute('href'))==='./cases.html','Customer menu incorrectly links to homepage fragment');
   });
   await runCase(label+' customer page language switch',async()=>{
    await page.goto(base+'customer.html',{waitUntil:'load'});
