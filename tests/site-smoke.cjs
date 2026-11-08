@@ -72,7 +72,7 @@ async function homepage(browser,label,width,height,mobile=false){
    await page.screenshot({path:path.join(shots,label+'-home.png')});
   });
   await runCase(label+' withdrawn benchmarks and gated company details',async()=>{
-    const banned=/(?:2\\.6\\s*(?:倍|×|x|เท่า)|561\\s*(?:問|questions|ข้อ)|0\\.1163|0\\.2988|0\\.3656|0\\.2150|0\\.1626|0\\.2256)/i;
+    const banned=/(?:2[.]6\s*(?:倍|×|x|เท่า)|561\s*(?:問|questions|ข้อ)|0[.]1163|0[.]2988|0[.]3656|0[.]2150|0[.]1626|0[.]2256)/i;
     for(const filename of ['index.html','strengths.html','cases.html','content.js']){
       const source=fs.readFileSync(path.resolve(filename),'utf8');
       check(!banned.test(source),'Withdrawn performance number remains in '+filename);
