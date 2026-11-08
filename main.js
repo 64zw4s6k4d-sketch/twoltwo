@@ -136,12 +136,23 @@
     // next heading near the upper quarter of the viewport in one operation:
     // no delayed closing, no giant animated scroll or visible layout jump.
     if(next.element){
-      const headerBottom=header?.getBoundingClientRect().bottom||82;
-      const desiredTop=Math.max(headerBottom+18,Math.min(window.innerHeight*.22,190));
-      const move=next.element.getBoundingClientRect().top-desiredTop;
-      if(Math.abs(move)>1){
-        window.scrollTo({top:Math.max(0,window.scrollY+move),behavior:'instant'});
-      }
+      // Mobile browsers may apply scroll anchoring *after* a native details
+      // element collapses. Confirm the heading alignment on the next frames,
+      // preventing it from finishing behind the sticky navigation bar.
+      const alignNextHeading=()=>{
+        if(!next.element.isConnected)return;
+        const headerBottom=header?.getBoundingClientRect().bottom||82;
+        const desiredTop=Math.max(headerBottom+18,Math.min(window.innerHeight*.22,190));
+        const move=next.element.getBoundingClientRect().top-desiredTop;
+        if(Math.abs(move)>2){
+          window.scrollTo({top:Math.max(0,window.scrollY+move),behavior:'instant'});
+        }
+      };
+      alignNextHeading();
+      window.requestAnimationFrame(()=>{
+        alignNextHeading();
+        window.requestAnimationFrame(alignNextHeading);
+      });
     }
     previousScrollY=window.scrollY;
     adjustingCollapse=false;
