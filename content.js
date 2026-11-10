@@ -19,7 +19,7 @@ window.SITE_COPY={
     "hero": {
       "kicker": "2L² / 業務向けAIソフトウェア開発",
       "title": "機密データを社外に出さず<br>現場で使えるAIをつくる",
-      "lead": "<span class=\"hero-sentence\">企業の機密データを社外に出さずに活用</span><span class=\"hero-sentence\">業務に合わせたローカルLLMとAIソフトウェアを開発</span>",
+      "lead": "",
       "primary": "2L²の技術を見る",
       "secondary": "開発実績を見る",
       "side": "ソフトウェア開発 / ローカルLLM / 社内データ活用",
@@ -32,7 +32,7 @@ window.SITE_COPY={
     },
     "philosophy": {
       "title": "AIモデルを置くだけでなく<br>業務で使う仕組みを<br><em>設計・開発する</em>",
-      "text": "業務課題とデータの扱い方を整理し 検索機能やローカルLLMを組み合わせて現場で使える仕組みを開発"
+      "text": "業務課題とデータの扱い方を整理\n検索機能とローカルLLMを組み合わせ\n現場で使えるAIソフトウェアを開発"
     },
     "services": {
       "kicker": "02 / SERVICES",
