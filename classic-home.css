@@ -31,7 +31,8 @@ body.classic-home::selection{background:#c9ad78;color:#070b11}
 }
 .classic-home .scene-3d {
   position:absolute;inset:0;perspective:1250px;perspective-origin:68% 47%;
-  transform-style:preserve-3d;animation:home-scene-drift 27s ease-in-out infinite alternate;
+  transform-style:preserve-3d;animation:none;
+  transform:translateX(var(--scene-x,0px)) rotateY(var(--scene-turn,0deg)) rotateX(var(--scene-pitch,0deg));
 }
 .classic-home .space-frame{
   position:absolute;left:66%;top:49%;width:min(50vw,700px);height:min(62vh,610px);
@@ -39,6 +40,8 @@ body.classic-home::selection{background:#c9ad78;color:#070b11}
   box-shadow:0 0 38px rgba(189,141,62,.035),inset 0 0 40px rgba(194,149,88,.045);
   transform:translate3d(-50%,-50%,var(--frame-depth)) rotateY(-21deg) rotateX(9deg);
   opacity:var(--frame-alpha,.5);
+  filter:blur(var(--frame-blur,0px));
+  will-change:transform,opacity;
 }
 .classic-home .space-frame::before,.classic-home .space-frame::after{
   content:"";position:absolute;width:25px;height:25px;
