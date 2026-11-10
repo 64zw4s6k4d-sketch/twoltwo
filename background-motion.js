@@ -29,6 +29,8 @@
 
     // Derived from the original homepage's scroll camera. The architecture
     // stays in one fixed 3D world instead of restarting at each section.
+    const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    document.documentElement.style.setProperty('--progress', (smoothY / maxScroll).toFixed(5));
     const pace = smoothY / Math.max(680, window.innerHeight * 0.92);
     const phase = pace * 740;
     scene.style.setProperty('--scene-x',
