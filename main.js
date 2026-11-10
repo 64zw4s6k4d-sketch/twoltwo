@@ -199,6 +199,64 @@
     for(let i=0;i<chapters.length;i++){if(chapters[i].offsetTop<=mid)index=i;}
     if(index!==activeIndex){activeIndex=index;updateNavigation();}
   }
+  // Settle a chapter gently into a readable position once the visitor
+  // finishes scrolling. Unlike CSS scroll-snap, this never captures long
+  // diagrams, open accordions, hash navigation, or reduced-motion users.
+  let snapInProgress=false;
+  let snapRelease=null;
+  function alignReadingPosition(){
+    if(snapDisabled||adjustingCollapse||snapInProgress||reducedMotion.matches||document.hidden)return;
+    if(document.querySelector('#mobile-nav.open'))return;
+    if(window.getSelection()?.toString().trim())return;
+    const focused=document.activeElement;
+    if(focused?.matches?.('input,textarea,select,[contenteditable="true"]'))return;
+
+    const viewportHeight=window.innerHeight;
+    const scrollY=window.scrollY;
+    const maxY=Math.max(0,document.documentElement.scrollHeight-viewportHeight);
+    const center=scrollY+viewportHeight*0.5;
+    let section=chapters[0];
+    for(const chapter of chapters){
+      if(chapter.offsetTop<=center)section=chapter;
+    }
+    if(!section||section.querySelector('details[open]'))return;
+    const content=section.querySelector(':scope > .chapter-content')||section;
+    const headerHeight=header?.getBoundingClientRect().height||82;
+    const safeTop=Math.max(headerHeight+22,Math.min(viewportHeight*.22,185));
+    const rect=content.getBoundingClientRect();
+    let ideal;
+
+    if(section.id==='home'){
+      ideal=0;
+    }else if(rect.height<=viewportHeight-headerHeight-55){
+      // Compact content sits in the clear vertical area below the menu.
+      const desiredTop=Math.max(headerHeight+22,(viewportHeight-rect.height+headerHeight)*.5);
+      ideal=scrollY+rect.top-desiredTop;
+    }else{
+      // Long articles begin below the navigation rather than being centered
+      // with their first paragraph partially offscreen.
+      const heading=section.querySelector('.manifesto,.section-intro h2,.company-statement h2,.contact-landing h2,h2,h1');
+      if(!heading)return;
+      ideal=scrollY+heading.getBoundingClientRect().top-safeTop;
+    }
+    ideal=clamp(ideal,0,maxY);
+    const delta=ideal-scrollY;
+    if(Math.abs(delta)<10||Math.abs(delta)>Math.min(190,viewportHeight*.29))return;
+
+    snapInProgress=true;
+    if(snapRelease)clearTimeout(snapRelease);
+    window.scrollTo({top:ideal,behavior:'smooth'});
+    snapRelease=window.setTimeout(()=>{
+      snapInProgress=false;
+      snapRelease=null;
+    },850);
+  }
+  function scheduleReadingAlignment(){
+    clearTimeout(snapTimer);
+    if(snapDisabled||adjustingCollapse||snapInProgress||reducedMotion.matches)return;
+    snapTimer=window.setTimeout(alignReadingPosition,260);
+  }
+
   function onScroll(){
     // Keep the existing read-to-collapse behavior on long service diagrams.
     collapseReadPanelsOnScroll();
@@ -208,6 +266,7 @@
     if(bar)bar.style.transform=`scaleX(${progress})`;
     detectChapter();
     header.classList.toggle('scrolled',window.scrollY>30);
+    scheduleReadingAlignment();
   }
   window.addEventListener('hashchange',()=>{snapDisabled=true;setTimeout(()=>snapDisabled=false,1500);});
   window.addEventListener('scroll',onScroll,{passive:true});
