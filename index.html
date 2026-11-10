@@ -1,11 +1,22 @@
 <!doctype html>
 <html lang="ja"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#F8F7F4">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#06090f">
 <meta name="description" content="2L²は企業の機密データを社外に送信せず活用するローカルLLM、RAG、業務向けAIソフトウェアを設計・開発します。"><link rel="icon" type="image/png" href="./assets/favicon.png">
-<title>2L² | Local AI</title><link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./journey.css"><link rel="stylesheet" href="./info-pages.css"><link rel="stylesheet" href="./editorial.css">
-<script defer src="./content.js"></script><script defer src="./main.js"></script>
-</head><body>
+<title>2L² | Local AI</title><link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./journey.css"><link rel="stylesheet" href="./info-pages.css"><link rel="stylesheet" href="./editorial.css"><link rel="stylesheet" href="./classic-home.css">
+<script defer src="./content.js"></script><script defer src="./main.js"></script><script defer src="./background-motion.js"></script>
+</head><body class="classic-home">
 <div id="progress" aria-hidden="true"></div>
+<div class="atmosphere" aria-hidden="true">
+  <div class="atmosphere-noise"></div>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+  <div class="scene-3d" id="scene-3d"><div class="floor"></div>
+    <div class="space-frame frame-1"></div><div class="space-frame frame-2"></div>
+    <div class="space-frame frame-3"></div><div class="space-frame frame-4"></div>
+    <div class="space-frame frame-5"></div><div class="space-frame frame-6"></div>
+    <div class="space-frame frame-7"></div><div class="space-frame frame-8"></div>
+  </div>
+  <div class="light-thread"></div><div class="scene-shade"></div>
+</div>
 <header class="site-header" id="site-header"><a class="brand" href="#home" aria-label="2L² — Home"><img src="./assets/brand-logo.png" alt="2L²" width="40" height="43"></a><nav class="desktop-nav" aria-label="Main navigation"><a href="#home" data-nav="home" data-i18n="nav.home">ホーム</a><a href="#services" data-nav="services" data-i18n="nav.services">事業内容</a><a href="./strengths.html?lang=ja" data-nav="technology" data-i18n="nav.technology">2L²の強み</a><a href="./cases.html?lang=ja" data-nav="projects" data-i18n="nav.projects">導入事例・検証結果</a><a href="#company" data-nav="company" data-i18n="nav.company">会社概要</a><a href="#contact" data-nav="contact" data-i18n="nav.contact">お問い合わせ</a><a class="nav-privacy" href="./customer.html" target="_blank" rel="noopener noreferrer" data-i18n="nav.customer">お客様向け情報</a></nav><div class="header-right"><div class="language" aria-label="Language"><button type="button" data-lang="ja" aria-pressed="true">JP</button><span>/</span><button type="button" data-lang="en" aria-pressed="false">EN</button><span>/</span><button type="button" data-lang="th" aria-pressed="false">TH</button></div><button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><span></span><span></span></button></div></header>
 <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation"><a href="#home" data-i18n="nav.home">ホーム</a><a href="#services" data-i18n="nav.services">事業内容</a><a href="./strengths.html?lang=ja" data-i18n="nav.technology">2L²の強み</a><a href="./cases.html?lang=ja" data-i18n="nav.projects">導入事例・検証結果</a><a href="#company" data-i18n="nav.company">会社概要</a><a href="#contact" data-i18n="nav.contact">お問い合わせ</a><a href="./customer.html" target="_blank" rel="noopener noreferrer" data-i18n="nav.customer">お客様向け情報</a></nav>
 <aside class="chapter-rail" aria-label="Page progress"><span class="rail-label" id="rail-label">00 — HOME</span><span class="rail-rule"><span class="rail-fill" id="rail-fill"></span></span><span class="rail-total">06</span></aside>
@@ -20,15 +31,7 @@
     <a class="action action-line" href="./cases.html?lang=ja"><span data-i18n="hero.secondary">開発実績を見る</span><span aria-hidden="true">↗</span></a>
     <a class="action action-text" href="./contact-form.html?lang=ja"><span data-i18n="hero.tertiary">導入について相談する</span><span aria-hidden="true">↗</span></a>
   </div>
-  <div class="hero-workflow" role="group" aria-label="システム構成例">
-    <p class="hero-workflow-caption" data-i18n="hero.flowKicker">想定するシステム構成の例（案件ごとに設計）</p>
-    <div class="hero-workflow-grid">
-      <div class="hero-workflow-step"><span>01</span><p data-i18n="hero.flow1">企業内の文書・研究データ</p></div>
-      <div class="hero-workflow-step"><span>02</span><p data-i18n="hero.flow2">社内環境での検索・ローカルLLM</p></div>
-      <div class="hero-workflow-step"><span>03</span><p data-i18n="hero.flow3">情報整理・検索・文章案の作成</p></div>
-      <div class="hero-workflow-step"><span>04</span><p data-i18n="hero.flow4">担当者による確認・業務利用</p></div>
-    </div>
-  </div>
+
  </div>
 </section>
 <section class="chapter philosophy" id="philosophy" data-chapter="01" aria-label="Design philosophy"><div class="chapter-content philosophy-content"><div class="section-topline"><span class="eyebrow">2L² / APPROACH</span><span class="fine-line"></span><span class="section-index">01</span></div><p class="manifesto" data-i18n="philosophy.title" data-html="true">AIモデルを置くだけでなく、<br>業務で使う仕組みを<br><em>設計・開発する。</em></p><p class="manifesto-sub" data-i18n="philosophy.text">まず業務上の課題と、取り扱う文書・データ・権限を確認します。その上で検索方法、ローカルLLM、画面、確認手順を組み合わせ、現場で扱えるソフトウェアを開発します。</p></div></section>
