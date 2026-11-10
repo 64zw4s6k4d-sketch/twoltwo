@@ -815,6 +815,10 @@ body:not(.information-page) .services .service-symbol .emblem-accent{
   stroke:rgba(246,216,164,.47);
   stroke-width:.75;
 }
+body:not(.information-page) .services .service-symbol-lab .emblem-accent{
+  stroke:rgba(242,213,164,.70);
+  stroke-width:1.25;
+}
 body:not(.information-page) .services .service-item>summary:hover .service-symbol,
 body:not(.information-page) .services .service-item>summary:focus-visible .service-symbol{
   color:#f2d5a0;
