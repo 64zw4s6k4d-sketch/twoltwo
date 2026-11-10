@@ -2,7 +2,7 @@
 <html lang="ja"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#06090f">
 <meta name="description" content="2L²は企業の機密データを社外に送信せず活用するローカルLLM、RAG、業務向けAIソフトウェアを設計・開発します。"><link rel="icon" type="image/png" href="./assets/favicon.png">
-<title>2L² | Local AI</title><link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./journey.css"><link rel="stylesheet" href="./info-pages.css"><script defer src="./content.js"></script><script defer src="./main.js"></script><script defer src="./background-motion.js"></script>
+<title>2L² | Local AI</title><link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./journey.css"><link rel="stylesheet" href="./info-pages.css"><link rel="stylesheet" href="./readability.css"><script defer src="./content.js"></script><script defer src="./main.js"></script><script defer src="./background-motion.js"></script>
 </head><body>
 <div id="progress" aria-hidden="true"></div>
 <div class="atmosphere" aria-hidden="true"><div class="atmosphere-noise"></div><div class="ambient ambient-a"></div><div class="ambient ambient-b"></div><div class="scene-3d" id="scene-3d"><div class="floor"></div><div class="space-frame frame-1"></div><div class="space-frame frame-2"></div><div class="space-frame frame-3"></div><div class="space-frame frame-4"></div><div class="space-frame frame-5"></div><div class="space-frame frame-6"></div><div class="space-frame frame-7"></div><div class="space-frame frame-8"></div></div><div class="light-thread"></div><div class="scene-shade"></div></div>
@@ -12,7 +12,7 @@
 <main id="main">
 <section class="chapter hero" id="home" data-chapter="00">
  <div class="chapter-content hero-content">
-  <p class="eyebrow" data-i18n="hero.kicker">2L² / 業務向けAIソフトウェア開発</p>
+  
   <h1 data-i18n="hero.title" data-html="true">機密データを社外に出さず、<br>現場で使えるAIをつくる。</h1>
   <p class="hero-lead" data-i18n="hero.lead" data-html="true">2L²は、企業の業務とデータに合わせたローカルLLM・AIソフトウェアを開発します。<br>社内文書の活用から、専門業務の自動化・効率化まで、設計・開発・運用を支援します。</p>
   <div class="hero-actions" aria-label="主なご案内">
@@ -20,22 +20,14 @@
     <a class="action action-line" href="./cases.html?lang=ja"><span data-i18n="hero.secondary">開発実績を見る</span><span aria-hidden="true">↗</span></a>
     <a class="action action-text" href="./contact-form.html?lang=ja"><span data-i18n="hero.tertiary">導入について相談する</span><span aria-hidden="true">↗</span></a>
   </div>
-  <div class="hero-workflow" role="group" aria-label="システム構成例">
-    <p class="hero-workflow-caption" data-i18n="hero.flowKicker">想定するシステム構成の例（案件ごとに設計）</p>
-    <div class="hero-workflow-grid">
-      <div class="hero-workflow-step"><span>01</span><p data-i18n="hero.flow1">企業内の文書・研究データ</p></div>
-      <div class="hero-workflow-step"><span>02</span><p data-i18n="hero.flow2">社内環境での検索・ローカルLLM</p></div>
-      <div class="hero-workflow-step"><span>03</span><p data-i18n="hero.flow3">情報整理・検索・文章案の作成</p></div>
-      <div class="hero-workflow-step"><span>04</span><p data-i18n="hero.flow4">担当者による確認・業務利用</p></div>
-    </div>
-  </div>
+
  </div>
 </section>
-<section class="chapter philosophy" id="philosophy" data-chapter="01" aria-label="Design philosophy"><div class="chapter-content philosophy-content"><div class="section-topline"><span class="eyebrow">2L² / APPROACH</span><span class="fine-line"></span><span class="section-index">01</span></div><p class="manifesto" data-i18n="philosophy.title" data-html="true">AIモデルを置くだけでなく、<br>業務で使う仕組みを<br><em>設計・開発する。</em></p><p class="manifesto-sub" data-i18n="philosophy.text">まず業務上の課題と、取り扱う文書・データ・権限を確認します。その上で検索方法、ローカルLLM、画面、確認手順を組み合わせ、現場で扱えるソフトウェアを開発します。</p></div></section>
-<section class="chapter services" id="services" data-chapter="02"><div class="chapter-content"><div class="section-topline"><span class="eyebrow" data-i18n="services.kicker">02 / SERVICES</span><span class="fine-line"></span><span class="section-index">02</span></div><div class="section-intro"><h2 data-i18n="services.title" data-html="true">社内データを活用するAIを、<br>設計から運用まで開発。</h2><p data-i18n="services.intro">企業の文書や専門業務に合わせて、検索・文章化・確認作業を支援するソフトウェアを開発します。構成や機能は、取り扱うデータと導入環境を確認した上で決定します。</p></div><div class="service-lines service-accordion" id="service-offerings">
+<section class="chapter philosophy" id="philosophy" data-chapter="01" aria-label="Design philosophy"><div class="chapter-content philosophy-content"><p class="manifesto" data-i18n="philosophy.title" data-html="true">AIモデルを置くだけでなく、<br>業務で使う仕組みを<br><em>設計・開発する。</em></p><p class="manifesto-sub" data-i18n="philosophy.text">まず業務上の課題と、取り扱う文書・データ・権限を確認します。その上で検索方法、ローカルLLM、画面、確認手順を組み合わせ、現場で扱えるソフトウェアを開発します。</p></div></section>
+<section class="chapter services" id="services" data-chapter="02"><div class="chapter-content"><div class="section-intro"><h2 data-i18n="services.title" data-html="true">社内データを活用するAIを、<br>設計から運用まで開発。</h2><p data-i18n="services.intro">企業の文書や専門業務に合わせて、検索・文章化・確認作業を支援するソフトウェアを開発します。構成や機能は、取り扱うデータと導入環境を確認した上で決定します。</p></div><div class="service-lines service-accordion" id="service-offerings">
 <details class="service-item" id="service-item-local-llm-details" data-service="local-llm-details">
   <summary class="service-line" aria-controls="local-llm-details">
-    <span class="entry-id">01 /</span>
+    
     <div class="service-summary-copy">
       <h3 data-i18n="services.s1title">ローカルLLM・業務ソフトウェア</h3>
       <p data-i18n="services.s1text">組織の要件に合わせた、ローカル環境でのAI活用を検討から運用まで支援します。</p>
@@ -44,7 +36,7 @@
     <span class="entry-symbol" aria-hidden="true">＋</span>
   </summary>
   <div class="service-detail-panel"><div class="llm-showcase" id="local-llm-details" aria-labelledby="llm-showcase-title">
-  <div class="llm-showcase-overline"><span><span data-i18n="services.detailKicker">LOCAL LLM / HOW IT WORKS</span></span><span>01—03</span></div>
+  
   <div class="llm-showcase-intro">
     <h3 id="llm-showcase-title"><span data-i18n="services.detailTitle">社内文書を参照して、業務の質問に答える。</span></h3>
     <p data-i18n="services.detailIntro">ローカル環境にAIを置き、必要な情報を検索して活用する。社員ごとの業務にも広げていく、2L²が考えるLocal LLMの仕組みをご紹介します。</p>
@@ -52,7 +44,7 @@
   <div class="llm-story-list">
     <article class="llm-story llm-story-network">
       <header class="llm-story-head">
-        <div class="llm-story-count"><span data-i18n="services.oneKicker">01 / LOCAL INFRASTRUCTURE</span></div>
+        
         <h4 data-i18n="services.oneTitle">ローカルAIとは？</h4>
         <p data-i18n="services.oneLead">AIを自社のサーバーやPCで動かし、社内の文書・データと連携させる仕組みです。</p>
       </header>
@@ -75,7 +67,7 @@
     </article>
     <article class="llm-story llm-story-rag">
       <header class="llm-story-head">
-        <div class="llm-story-count"><span data-i18n="services.twoKicker">02 / KNOWLEDGE TO ANSWERS</span></div>
+        
         <h4 data-i18n="services.twoTitle">検索結果を根拠に回答案を作成</h4>
         <p data-i18n="services.twoLead">社員の質問に対し、独自RAGで社内資料から関連情報を探し、ローカルLLMが参照元とともに回答する流れです。</p>
       </header>
@@ -107,7 +99,7 @@
     </article>
     <article class="llm-story llm-story-agents">
       <header class="llm-story-head">
-        <div class="llm-story-count"><span data-i18n="services.threeKicker">03 / PERSONAL AI AGENTS</span></div>
+        
         <h4 data-i18n="services.threeTitle">担当者・部署ごとのAI支援（開発構想）</h4>
         <p data-i18n="services.threeLead">担当者ごとの手順や部署で共有する方針を活用し、仕事を支えるAIエージェントの構想です。</p>
         <span class="llm-concept"><span data-i18n="services.threeStatus">開発中の製品コンセプト</span></span>
@@ -140,7 +132,7 @@
 </details>
 <details class="service-item" id="service-item-virtual-test-details" data-service="virtual-test-details">
   <summary class="service-line" aria-controls="virtual-test-details">
-    <span class="entry-id">02 /</span>
+    
     <div class="service-summary-copy">
       <h3 data-i18n="services.s2title">仮想テスト環境（検討中）</h3>
       <p data-i18n="services.s2text">本導入の前に想定する利用環境を仮想的に再現し、動作や運用上の課題を検証します。</p>
@@ -149,7 +141,7 @@
     <span class="entry-symbol" aria-hidden="true">＋</span>
   </summary>
   <div class="service-detail-panel"><div class="virtual-showcase" id="virtual-test-details" aria-labelledby="virtual-showcase-title">
- <div class="virtual-showcase-topline"><span data-i18n="services.virtualKicker">VIRTUAL TEST ENVIRONMENT / CONCEPT</span><span>VIRTUAL LAB / 2L²</span></div>
+ 
  <div class="virtual-showcase-intro">
   <h3 class="virtual-showcase-title" data-i18n="services.virtualTitle">業務を模した環境で、AIの動作を検証する構想。</h3>
   <p data-i18n="services.virtualIntro">企業の業務環境を再現し、AIに実務・失敗・改善・再挑戦を繰り返させる。現場への導入前にAIを育てるための仮想訓練環境の構想です。</p>
@@ -192,31 +184,31 @@
 </div></div></details>
 </div></div></section>
 <section class="chapter technology technology-landing" id="technology" data-chapter="03"><div class="chapter-content">
-<div class="section-topline"><span class="eyebrow" data-i18n="technology.kicker">03 / OUR STRENGTHS</span><span class="fine-line"></span><span class="section-index">03</span></div>
+
 <div class="section-intro"><h2 data-i18n="technology.title" data-html="true">社内情報を活用するAIを、<br>業務に合わせて設計。</h2><p data-i18n="technology.intro">社内文書の検索、アクセス制御、ローカルLLMによる文章案の作成など、業務に必要な機能を組み合わせます。</p></div>
 <a class="info-entry info-entry-primary" id="strengths-page-link" href="./strengths.html?lang=ja">
   <span class="info-entry-copy">
-    <span class="info-entry-eyebrow" data-site-i18n="viewPage">別ページで詳細を見る</span>
+    
     <span class="info-entry-title" data-site-i18n="strengthsAction">2L²の強みを詳しく見る</span>
   </span>
   <span class="info-entry-end" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"><path d="M7 16h19M18 8l8 8-8 8"/></svg></span>
 </a>
 </div></section>
 <section class="chapter projects projects-landing" id="projects" data-chapter="04"><div class="chapter-content">
-<div class="section-topline"><span class="eyebrow" data-i18n="projects.kicker">04 / CASES &amp; VALIDATION</span><span class="fine-line"></span><span class="section-index">04</span></div>
+
 <div class="section-intro"><h2 data-i18n="projects.title" data-html="true">開発したシステムと、<br>検討中の取り組み。</h2><p data-i18n="projects.intro">開発した内容と、研究・構想段階の取り組みを区別して紹介します。</p></div>
 <div class="info-entry-stack"><a class="info-entry info-entry-primary" id="cases-page-link" href="./cases.html?lang=ja">
   <span class="info-entry-copy">
-    <span class="info-entry-eyebrow" data-site-i18n="viewPage">別ページで詳細を見る</span>
+    
     <span class="info-entry-title" data-site-i18n="casesAction">導入事例・検証結果を見る</span>
   </span>
   <span class="info-entry-end" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"><path d="M7 16h19M18 8l8 8-8 8"/></svg></span>
 </a></div>
 </div></section>
-<section class="chapter company" id="company" data-chapter="05"><div class="chapter-content"><div class="section-topline"><span class="eyebrow" data-i18n="company.kicker">05 / COMPANY</span><span class="fine-line"></span><span class="section-index">05</span></div><div class="company-statement"><p class="company-overline" data-i18n="company.overline">ABOUT 2L²</p><h2 data-i18n="company.title" data-html="true">業務に合わせた<br><span>AIソフトウェアを開発。</span></h2><div class="company-details"><p data-i18n="company.intro">2L²は、企業の業務・データ・セキュリティ要件に合わせて、ローカルLLM、RAG、専門業務向けAIアプリケーションを設計・開発するソフトウェア企業です。</p><dl><div><dt data-i18n="company.nameLabel">商号</dt><dd data-i18n="company.name">ツーエルツー合同会社</dd></div><div><dt data-i18n="company.repLabel">代表社員</dt><dd data-i18n="company.rep">並里 璃王</dd></div><div><dt data-i18n="company.locationLabel">所在地</dt><dd data-i18n="company.location">〒150-0041 東京都渋谷区神南1丁目11-4 FPGリンクス神南 5階</dd></div></dl></div></div></div></section>
+<section class="chapter company" id="company" data-chapter="05"><div class="chapter-content"><div class="company-statement"><h2 data-i18n="company.title" data-html="true">業務に合わせた<br><span>AIソフトウェアを開発。</span></h2><div class="company-details"><p data-i18n="company.intro">2L²は、企業の業務・データ・セキュリティ要件に合わせて、ローカルLLM、RAG、専門業務向けAIアプリケーションを設計・開発するソフトウェア企業です。</p><dl><div><dt data-i18n="company.nameLabel">商号</dt><dd data-i18n="company.name">ツーエルツー合同会社</dd></div><div><dt data-i18n="company.repLabel">代表社員</dt><dd data-i18n="company.rep">並里 璃王</dd></div><div><dt data-i18n="company.locationLabel">所在地</dt><dd data-i18n="company.location">〒150-0041 東京都渋谷区神南1丁目11-4 FPGリンクス神南 5階</dd></div></dl></div></div></div></section>
 <section class="chapter contact contact-landing" id="contact" data-chapter="06">
   <div class="chapter-content">
-    <div class="section-topline"><span class="eyebrow" data-i18n="contact.kicker">06 / CONTACT</span><span class="fine-line"></span><span class="section-index">06</span></div>
+    
     <div class="contact-landing-body">
       <p class="contact-prelude" data-i18n="contact.prelude">お問い合わせ</p>
       <h2 data-i18n="contact.title" data-html="true">開発の相談は、<br>こちらから。</h2>
