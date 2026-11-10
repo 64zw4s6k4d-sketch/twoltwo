@@ -338,8 +338,8 @@ body .atmosphere .light-thread{display:none!important}
 
 /* Warm, precise, typographically calm. Do not load external font resources. */
 body {
-  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",
-    "Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif;
+  /* Preserve the website's original font family so the approved hero CTA
+     remains visually unchanged. Improve rendering without replacing typefaces. */
   font-kerning:normal;
   text-rendering:optimizeLegibility;
   -webkit-font-smoothing:antialiased;
