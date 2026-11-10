@@ -734,3 +734,14 @@ body:not(.information-page) .info-entry-primary .info-entry-title{
     width:30px;height:30px;
   }
 }
+
+/* Short, distinct hero statements prevent stranded Japanese sentence endings. */
+body:not(.information-page) .hero-lead .hero-sentence{
+  display:block;
+  margin-inline:auto;
+  text-wrap:balance;
+  max-width:100%;
+}
+body:not(.information-page) .hero-lead .hero-sentence+.hero-sentence{
+  margin-top:.24em;
+}
