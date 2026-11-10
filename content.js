@@ -19,7 +19,7 @@ window.SITE_COPY={
     "hero": {
       "kicker": "2L² / 業務向けAIソフトウェア開発",
       "title": "機密データを社外に出さず<br>現場で使えるAIをつくる",
-      "lead": "<span class="hero-sentence">企業の機密データを社外に出さずに活用</span><span class="hero-sentence">業務に合わせたローカルLLMとAIソフトウェアを開発</span>",
+      "lead": "<span class=\"hero-sentence\">企業の機密データを社外に出さずに活用</span><span class=\"hero-sentence\">業務に合わせたローカルLLMとAIソフトウェアを開発</span>",
       "primary": "2L²の技術を見る",
       "secondary": "開発実績を見る",
       "side": "ソフトウェア開発 / ローカルLLM / 社内データ活用",
