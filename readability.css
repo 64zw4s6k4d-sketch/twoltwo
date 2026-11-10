@@ -158,12 +158,8 @@ body.information-page .info-entry-eyebrow{display:none!important}
     mix-blend-mode:normal;
     transition:opacity .25s ease,border-color .2s,box-shadow .2s;
   }
-  .cursor-glow::after{
-    content:"";position:absolute;left:50%;top:50%;
-    width:4px;height:4px;border-radius:50%;background:#f8e2ae;
-    transform:translate(-50%,-50%);
-    box-shadow:0 0 8px 2px rgba(232,176,85,.35);
-  }
+  /* The surrounding halo is the sole cursor marker; no center dot. */
+  .cursor-glow::after{display:none!important;content:none!important;}
   .cursor-glow.hover{
     border-color:#f9e2b5;
     box-shadow:0 0 24px rgba(229,188,113,.38);
@@ -216,5 +212,117 @@ body.information-page .info-entry-eyebrow{display:none!important}
   }
   body:not(.information-page) .services .service-summary-copy p{
     font-size:15px!important;
+  }
+}
+
+/* 2026-11-10 — Centered editorial composition.
+   Only introductory copy and section headings are centered. Technical detail
+   diagrams, form fields, legal text and accordion rows retain left alignment. */
+body:not(.information-page) .hero .chapter-content,
+body:not(.information-page) .philosophy .chapter-content,
+body:not(.information-page) .services>.chapter-content,
+body:not(.information-page) .technology-landing>.chapter-content,
+body:not(.information-page) .projects-landing>.chapter-content,
+body:not(.information-page) .company>.chapter-content,
+body:not(.information-page) .contact-landing>.chapter-content{
+  margin-inline:auto!important;
+}
+body:not(.information-page) .hero .chapter-content,
+body:not(.information-page) .philosophy .chapter-content{
+  text-align:center;
+}
+body:not(.information-page) .hero h1,
+body:not(.information-page) .hero-lead,
+body:not(.information-page) .philosophy .manifesto,
+body:not(.information-page) .philosophy .manifesto-sub{
+  margin-left:auto!important;margin-right:auto!important;
+  text-align:center!important;
+}
+body:not(.information-page) .hero h1{
+  max-width:min(920px,100%)!important;
+}
+body:not(.information-page) .hero-lead{
+  max-width:min(760px,100%)!important;
+}
+body:not(.information-page) .hero-actions{
+  justify-content:center!important;
+}
+body:not(.information-page) .philosophy .manifesto{
+  max-width:min(940px,100%)!important;
+}
+body:not(.information-page) .philosophy .manifesto-sub{
+  max-width:min(760px,100%)!important;
+}
+/* Center the section headings, the supporting narrative and page links. */
+body:not(.information-page) .section-intro{
+  justify-items:center!important;text-align:center;
+}
+body:not(.information-page) .section-intro h2,
+body:not(.information-page) .section-intro p{
+  margin-inline:auto!important;
+  text-align:center!important;
+}
+body:not(.information-page) .section-intro h2{
+  max-width:1000px!important;
+}
+body:not(.information-page) .section-intro p{
+  max-width:min(760px,100%)!important;
+}
+body:not(.information-page) .technology-landing .info-entry-primary,
+body:not(.information-page) .projects-landing .info-entry-primary,
+body:not(.information-page) .projects-landing .info-entry-stack{
+  margin-inline:auto!important;
+}
+/* Services remain left aligned where they contain actionable details. */
+body:not(.information-page) .services .service-line,
+body:not(.information-page) .services .service-detail-panel{
+  text-align:left;
+}
+body:not(.information-page) .services .service-lines{
+  margin-left:auto!important;margin-right:auto!important;
+}
+/* Company introduction is centered, while the fact table is readable. */
+body:not(.information-page) .company-statement>h2{
+  text-align:center!important;
+  margin-inline:auto!important;
+}
+body:not(.information-page) .company-details{
+  margin-left:auto!important;margin-right:auto!important;
+  align-items:start;
+}
+body:not(.information-page) .company-details>p{
+  align-self:center;
+  text-align:left!important;
+}
+body:not(.information-page) .company-details dl{
+  text-align:left;
+}
+/* Contact section: centered and visually balanced without moving buttons or
+   altering any real mailto/form destinations. */
+body:not(.information-page) .contact-landing-body{
+  margin-inline:auto!important;text-align:center;
+}
+body:not(.information-page) .contact-landing .contact-prelude,
+body:not(.information-page) .contact-landing h2,
+body:not(.information-page) .contact-landing .contact-message{
+  margin-left:auto!important;margin-right:auto!important;
+  text-align:center!important;
+}
+body:not(.information-page) .contact-landing-direct{
+  text-align:center;
+}
+/* Narrow screens: no horizontal overflow from titles or large CTA groups. */
+@media(max-width:820px){
+  body:not(.information-page) .hero h1,
+  body:not(.information-page) .hero-lead,
+  body:not(.information-page) .philosophy .manifesto,
+  body:not(.information-page) .philosophy .manifesto-sub,
+  body:not(.information-page) .section-intro h2,
+  body:not(.information-page) .section-intro p{
+    max-width:100%!important;
+  }
+  body:not(.information-page) .company-details{
+    max-width:min(100%,620px);
+    grid-template-columns:1fr!important;
   }
 }
