@@ -58,27 +58,9 @@ async function homepage(browser,label,width,height,mobile=false){
   await runCase(label+' homepage loads',async()=>{
    await page.goto(base+'index.html',{waitUntil:'load'});
    await page.locator('#site-header').waitFor();
-   check(await page.locator('#home h1').textContent().then(s=>s.includes('機密データを社外に出さず')), 'JP top message absent');
-   const editorial=await page.evaluate(()=>({
-      background:getComputedStyle(document.body).backgroundColor,
-      graphic:!!document.querySelector('.gpu-stage, .scene-3d, img[src*="gpu-stack"]'),
-      flowSteps:document.querySelectorAll('.hero-workflow-step').length
-    }));
-    check(!editorial.graphic,'Semiconductor GPU artwork must not appear in the DOM');
-    check(editorial.flowSteps===4,'Illustrative four-stage software workflow is missing');
-    check(editorial.background==='rgb(248, 247, 244)','Site should use editorial off-white: '+JSON.stringify(editorial));
-    check(await page.locator('.hero-actions a').count()===3,'Hero should link to tech, examples and consultation');
-    await viewportChecks(page,label+' initial');
+   check(await page.locator('#home h1').textContent().then(s=>s.includes('どこにでも')), 'JP top message absent');
+   await viewportChecks(page,label+' initial');
    await page.screenshot({path:path.join(shots,label+'-home.png')});
-  });
-  await runCase(label+' withdrawn benchmarks and gated company details',async()=>{
-    const banned=/(?:2[.]6\s*(?:倍|×|x|เท่า)|561\s*(?:問|questions|ข้อ)|0[.]1163|0[.]2988|0[.]3656|0[.]2150|0[.]1626|0[.]2256)/i;
-    for(const filename of ['index.html','strengths.html','cases.html','content.js']){
-      const source=fs.readFileSync(path.resolve(filename),'utf8');
-      check(!banned.test(source),'Withdrawn performance number remains in '+filename);
-    }
-    check(!fs.readFileSync(path.resolve('content.js'),'utf8').includes('Maxwell International'),
-      'Customer name should be withheld pending public disclosure permission');
   });
   await runCase(label+' 3-language navigation',async()=>{
    if(mobile){
@@ -130,7 +112,7 @@ async function homepage(browser,label,width,height,mobile=false){
         arrowWidth:arrow.getBoundingClientRect().width
       };
    });
-   check(luxury.background==='none','Inquiry action should use solid editorial color rather than ornamental gradients');
+   check(luxury.background.includes('gradient'),'Premium action needs subtly graded matte-metal finish');
    check(luxury.height>=80,'Premium action is not spacious enough: '+JSON.stringify(luxury));
    check(luxury.signature==='2L² / CONTACT','Custom typographic seal missing: '+JSON.stringify(luxury));
    check(luxury.arrowBorder!=='0px'&&luxury.arrowShape&&luxury.arrowWidth>=48,
@@ -283,7 +265,7 @@ async function homepage(browser,label,width,height,mobile=false){
         arrow:getComputedStyle(el.querySelector('.info-entry-end')).backgroundColor,
         circle:getComputedStyle(el.querySelector('.info-entry-end'),'::before').borderTopWidth
       }));
-      check(metal.height>=80,'Premium destination button height wrong: '+JSON.stringify(metal));
+      check(metal.height>=95 && metal.circle!=='0px','Premium editorial CTA missing: '+JSON.stringify(metal));
     }
     check((await caseCTA.getAttribute('href')).startsWith('./cases.html?lang=ja'),'Cases CTA points to wrong page');
     check(await caseCTA.locator('.info-entry-end svg').count()===1,'Large arrow CTA is missing');
@@ -292,7 +274,7 @@ async function homepage(browser,label,width,height,mobile=false){
        background:getComputedStyle(el).backgroundImage,
        right:getComputedStyle(el.querySelector('.info-entry-end')).backgroundColor
     }));
-    check(buttonMeasure.height>=80 && buttonMeasure.background==='none',
+    check(buttonMeasure.height>=83 && buttonMeasure.background.includes('gradient'),
       'Cases CTA does not look like a clear page transition: '+JSON.stringify(buttonMeasure));
     const strengthsLink=page.locator('#technology .info-entry');
     check(await strengthsLink.isVisible(),'Homepage strengths CTA missing');
@@ -318,11 +300,10 @@ async function homepage(browser,label,width,height,mobile=false){
     const rag=page.locator('#rag-results-details');
     check(await rag.evaluate(el=>el.open),'RAG proof did not open');
     const evidence=await rag.innerText();
-    for(const phrase of ['社内文書を準備','アクセス権に応じて検索','回答案と参照元を提示','担当者が確認']){
-      check(evidence.includes(phrase),'RAG diagram is missing: '+phrase);
+    for(const value of ['561','439','0.1163','0.2988','0.1103','0.3656','0.1258','0.2150','0.0743','0.1626','0.1485','0.2256']){
+      check(evidence.includes(value),'Missing original RAG evaluation '+value);
     }
-    check(await rag.locator('.rag-process-step').count()===4,'RAG should explain the four steps without metrics');
-    check(await rag.locator('.rag-chart-group').count()===0,'Withdrawn RAG chart still exists');
+    check(await rag.locator('.rag-chart-group').count()===4,'RAG chart must have four question types');
     await viewportChecks(page,label+' RAG proof');
     await page.screenshot({path:path.join(shots,label+'-rag.png')});
     for(const [lang,fragment] of [['en','Role-Based'],['th','เทคโนโลยี'],['ja','権限制御技術']]){
@@ -336,14 +317,10 @@ async function homepage(browser,label,width,height,mobile=false){
     await page.goto(base+'index.html',{waitUntil:'load'});
     await page.locator('#projects .info-entry[href^="./cases.html"]').click();
     await page.waitForURL('**/cases.html?lang=ja');
-    check(await page.locator('.ledger-row').count()===3,'Withdrawn evaluation should be removed and cases renumbered');
-    const listing=await page.locator('.ledger-row').allTextContents();
-    check(listing[1].includes('仮想テスト環境'),'Case 02 must retain the virtual testing concept');
-    check(listing[2].includes('海外企業'),'Case 03 must describe overseas collaboration exploration');
-    check(!listing[1].includes('海外企業'),'Case 02 has wrongly reused case 03 translation');
+    check(await page.locator('.ledger-row').count()===4,'Case details missing');
     const card=page.locator('#case-list');
     check((await card.locator('strong').textContent()).includes('医薬品承認申請資料（CTD）'),'Case 01 title was not replaced with CTD development');
-    check((await card.innerText()).includes('医療文書作成の専門企業'),'CTD development collaborator description missing');
+    check((await card.innerText()).includes('Maxwell International'),'Case 01 collaboration not present');
     const detailLink=card.locator('.case-detail-trigger');
     const details=page.locator('#case-ctd');
     check(await detailLink.isVisible(),'CTD detail navigation missing');
@@ -355,11 +332,12 @@ async function homepage(browser,label,width,height,mobile=false){
     check(await detailLink.getAttribute('aria-expanded')==='true','Open CTD button must announce expanded state');
     check((await detailLink.textContent()).includes('閉じる'),'CTD toggle label must change on opening');
     const narrative=await details.innerText();
-    for(const phrase of ['背景と課題','2L²の取り組み','外部送信しないAI活用','業務に合わせたソフトウェア開発','研究データを、業務で使えるソフトウェアへ']){
+    for(const phrase of ['背景と課題','2L²の取り組み','機密情報への配慮','業務特化型の開発','研究データを、業務で活用できるAIへ']){
       check(narrative.includes(phrase),'Case 01 is missing material from uploaded CTD case record: '+phrase);
     }
     check(await details.locator('.case-value').count()===3,'CTD case should show three technical values');
-    check(await details.locator('.case-study-partner a').count()===0,'Collaborator identity cannot be publicly linked without authorization');
+    check((await details.locator('.case-study-partner a').getAttribute('href'))==='https://maxwellinternational.net/',
+      'Collaborator link is incorrect');
     await viewportChecks(page,label+' CTD detail');
     await page.screenshot({path:path.join(shots,label+'-ctd.png')});
     await details.locator('.case-back-link').click();

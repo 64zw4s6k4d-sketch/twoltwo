@@ -136,7 +136,7 @@
 .gpu-door-left{left:0;transform-origin:0% 50%;transform:rotateY(var(--door-angle-left))}
 .gpu-door-right{right:0;transform-origin:100% 50%;transform:rotateY(var(--door-angle-right))}
 .gpu-door-face{
-  position:absolute;inset:0;background-image:none;
+  position:absolute;inset:0;background-image:url("./assets/gpu-door.png");
   background-size:200% 100%;background-repeat:no-repeat;
   backface-visibility:hidden;
   filter:drop-shadow(0 0 12px rgba(213,161,88,.12));
