@@ -886,3 +886,198 @@ html[lang="ja"] body:not(.information-page) .technology-landing .section-intro h
   max-width:min(1040px,100%)!important;
   line-height:1.45!important;
 }
+
+
+/* 2026-11-12 | 2L² service diagrams: spacious document labels and refined virtual-world insignia.
+   Preserve the cinematic background, existing CTAs and disclosure behavior. */
+
+/* Let the source documents occupy a full-width tier inside the RAG workflow.
+   Prevent Japanese word fragments from breaking inside narrow mini-cards. */
+body:not(.information-page) .services .llm-workstation-flow{
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:11px!important;
+  min-height:0!important;
+  padding:clamp(12px,1.6vw,21px)!important;
+}
+body:not(.information-page) .services .llm-workstation-sources{
+  min-width:0;
+  width:100%;
+  gap:10px;
+}
+body:not(.information-page) .services .llm-workstation-block{
+  box-sizing:border-box;
+  min-width:0;
+  width:100%;
+  padding:clamp(13px,1.5vw,19px) clamp(13px,1.7vw,22px)!important;
+  gap:clamp(10px,1.3vw,16px)!important;
+  align-items:center;
+}
+body:not(.information-page) .services .llm-workstation-block > div{
+  display:grid;
+  gap:3px;
+  min-width:0;
+  flex:1;
+}
+body:not(.information-page) .services .llm-workstation-block .llm-icon{
+  flex:0 0 24px;
+  width:24px;
+  height:24px;
+}
+html[lang="ja"] body:not(.information-page) .services [data-i18n="services.twoDocs"],
+html[lang="ja"] body:not(.information-page) .services [data-i18n="services.twoDocsNote"],
+html[lang="ja"] body:not(.information-page) .services [data-i18n="services.oneDocs"],
+html[lang="ja"] body:not(.information-page) .services [data-i18n="services.oneDocsNote"]{
+  white-space:nowrap!important;
+  word-break:keep-all!important;
+  overflow-wrap:normal!important;
+  text-wrap:nowrap;
+  letter-spacing:0!important;
+}
+body:not(.information-page) .services .llm-workstation-flow > .llm-flow-arrow{
+  justify-self:center!important;
+  align-self:center!important;
+  transform:rotate(90deg)!important;
+  font-size:20px!important;
+}
+body:not(.information-page) .services .llm-workstation-model{
+  box-sizing:border-box;
+  width:100%;
+  min-height:95px;
+  padding:17px 14px!important;
+}
+
+/* Scheduled automation receives its own full-width row, not a cramped tag.
+   This is a proposed capability within the product-concept section. */
+body:not(.information-page) .services .llm-foundation-tags{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:0;
+}
+body:not(.information-page) .services .llm-foundation-tags > span{
+  min-width:0;
+  padding:12px 10px!important;
+}
+body:not(.information-page) .services .llm-foundation-tags > span:last-child{
+  grid-column:1/-1;
+  border-right:0!important;
+  border-top:1px solid rgba(214,179,122,.26)!important;
+  padding:16px clamp(14px,3vw,28px)!important;
+  font-size:clamp(12px,1.13vw,15px)!important;
+  line-height:1.9!important;
+  color:#e7d6b5;
+  letter-spacing:.006em;
+  text-align:center;
+  overflow-wrap:anywhere;
+}
+
+/* High-end engraved city miniature at the exact virtual-test explanation.
+   Twin metal outlines, restrained sheen and graded fine-line architecture. */
+body:not(.information-page) .services .virtual-showcase-heading{
+  display:grid;
+  grid-template-columns:94px minmax(0,1fr);
+  align-items:center;
+  gap:clamp(17px,2.6vw,32px);
+  margin:0 0 clamp(19px,2.5vw,30px);
+}
+body:not(.information-page) .services .virtual-showcase-heading .virtual-showcase-title{
+  margin:0!important;
+  min-width:0;
+  text-wrap:balance;
+}
+body:not(.information-page) .services .virtual-showcase-mark{
+  box-sizing:border-box;
+  position:relative;
+  display:grid;
+  place-items:center;
+  width:90px;
+  height:90px;
+  border:1px solid rgba(227,192,137,.66);
+  border-radius:20px;
+  color:#ead1a1;
+  background:
+    radial-gradient(ellipse 90% 80% at 23% 12%,rgba(243,210,157,.14),transparent 70%),
+    linear-gradient(152deg,#252b2b 1%,#111921 54%,#0a121a);
+  box-shadow:
+    inset 0 1px rgba(248,223,177,.20),
+    inset 0 -2px rgba(0,0,0,.45),
+    0 11px 34px rgba(0,0,0,.38),
+    0 0 19px rgba(201,162,94,.075);
+}
+body:not(.information-page) .services .virtual-showcase-mark::before{
+  content:"";
+  pointer-events:none;
+  position:absolute;
+  inset:6px;
+  border:1px solid rgba(214,177,116,.33);
+  border-radius:14px;
+}
+body:not(.information-page) .services .virtual-showcase-mark svg{
+  display:block;
+  position:relative;
+  z-index:1;
+  width:76px;
+  height:76px;
+  stroke-width:1.18;
+  filter:drop-shadow(0 1px 1px rgba(0,0,0,.55));
+}
+body:not(.information-page) .services .virtual-showcase-mark .emblem-secondary{
+  stroke:rgba(239,216,176,.77);
+  stroke-width:1.3;
+}
+body:not(.information-page) .services .virtual-showcase-mark .emblem-primary{
+  stroke:#f8dfb0;
+  stroke-width:1.65;
+}
+body:not(.information-page) .services .virtual-showcase-mark .emblem-accent{
+  stroke:rgba(231,195,134,.54);
+  stroke-width:1.05;
+}
+body:not(.information-page) .services .service-symbol-lab{
+  border-color:rgba(230,199,151,.72)!important;
+  background:
+    radial-gradient(circle at 28% 18%,rgba(246,211,157,.17),transparent 62%),
+    linear-gradient(145deg,#30312d,#101a20 72%);
+}
+body:not(.information-page) .services .service-symbol-lab svg{
+  stroke-linejoin:round;
+}
+@media(max-width:620px){
+  body:not(.information-page) .services .llm-foundation-tags{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  body:not(.information-page) .services .llm-foundation-tags > span{
+    border-right:0!important;
+    border-bottom:1px solid rgba(214,179,122,.18);
+  }
+  body:not(.information-page) .services .llm-foundation-tags > span:last-child{
+    border-top:0!important;
+    border-bottom:0!important;
+    padding:15px 14px!important;
+    font-size:clamp(11.5px,3.2vw,14px)!important;
+    line-height:1.78!important;
+  }
+  body:not(.information-page) .services .llm-workstation-block{
+    padding:12px 13px!important;
+    gap:10px!important;
+  }
+  body:not(.information-page) .services .virtual-showcase-heading{
+    grid-template-columns:62px minmax(0,1fr);
+    gap:15px;
+    margin-bottom:22px;
+  }
+  body:not(.information-page) .services .virtual-showcase-mark{
+    width:60px;height:60px;border-radius:15px;
+  }
+  body:not(.information-page) .services .virtual-showcase-mark::before{
+    inset:4px;border-radius:10px;
+  }
+  body:not(.information-page) .services .virtual-showcase-mark svg{
+    width:52px;height:52px;
+  }
+}
+@media(max-width:370px){
+  html[lang="ja"] body:not(.information-page) .services [data-i18n="services.twoDocs"],
+  html[lang="ja"] body:not(.information-page) .services [data-i18n="services.twoDocsNote"]{
+    font-size:clamp(11px,3.3vw,13px)!important;
+  }
+}
