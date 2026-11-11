@@ -870,3 +870,19 @@ body:not(.information-page) .services .service-item>summary:focus-visible .servi
     transition:none!important;
   }
 }
+
+
+/* 2026-11-12 | Keep bespoke-services headline on intentional lines.
+   Responsive typography only: all approved graphics/buttons remain untouched. */
+@media(min-width:821px){
+  html[lang="ja"] body:not(.information-page) .philosophy .manifesto{
+    max-width:min(1030px,100%)!important;
+    font-size:clamp(37px,4.25vw,62px)!important;
+    line-height:1.5!important;
+  }
+}
+html[lang="ja"] body:not(.information-page) .services .section-intro h2,
+html[lang="ja"] body:not(.information-page) .technology-landing .section-intro h2{
+  max-width:min(1040px,100%)!important;
+  line-height:1.45!important;
+}
