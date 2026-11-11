@@ -54,7 +54,7 @@
      if(names[lang][key])node.textContent=names[lang][key];
    }
    btns.forEach(button=>{const active=button.dataset.lang===lang;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active))});
-   for(const node of document.querySelectorAll('.info-nav a,.info-footer a')){
+   for(const node of document.querySelectorAll('.info-nav a,.info-footer a,a[data-language-link]')){
      const url=new URL(node.getAttribute('href'),location.href);
      url.searchParams.set('lang',lang);
      node.href=url.pathname.split('/').at(-1)+url.search+url.hash;
