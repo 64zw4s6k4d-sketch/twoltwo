@@ -1081,3 +1081,73 @@ body:not(.information-page) .services .service-symbol-lab svg{
     font-size:clamp(11px,3.3vw,13px)!important;
   }
 }
+
+
+/* 2026-11-12 | Clean, human-edited technical and case pages.
+   Remove micro-label real estate; let titles and verifiable evidence lead. */
+.information-page .technology-proof-summary{
+  grid-template-columns:minmax(0,1fr) 42px!important;
+  gap:clamp(14px,2.4vw,30px)!important;
+}
+.information-page .tech-proofs{
+  margin-top:clamp(43px,6vw,80px)!important;
+}
+.information-page .technology-proof-summary .proof-summary-info{
+  min-width:0;
+}
+.information-page .technology-proof-summary .proof-summary-info h3{
+  font-family:var(--jp-gothic);
+  font-weight:580;
+  letter-spacing:-.025em;
+}
+.information-page .technology-proof-summary .proof-summary-caption{
+  font-size:clamp(13px,1.09vw,15px);
+}
+.information-page .projects .ledger-row{
+  grid-template-columns:64px minmax(0,1fr)!important;
+  gap:clamp(14px,2vw,24px)!important;
+}
+.information-page .projects .ledger-detail{
+  font-size:clamp(13px,1.12vw,15px)!important;
+  line-height:1.85!important;
+  max-width:860px;
+}
+.information-page .projects .case-row-affiliation{
+  font-size:clamp(12px,1.05vw,14px);
+}
+.information-page .case-study-values-head h4{
+  margin-top:0;
+}
+.information-page .case-value h5{
+  font-family:var(--jp-gothic);
+  font-weight:600;
+  letter-spacing:-.015em;
+}
+/* The full-row link is a real destination, with the same premium hover affordance. */
+.information-page .architecture-row-onboarding{
+  cursor:pointer;
+  transition:background .22s ease, border-color .22s ease;
+}
+.information-page .architecture-row-onboarding:hover,
+.information-page .architecture-row-onboarding:focus-visible{
+  background:rgba(213,180,124,.075);
+  border-color:rgba(220,189,137,.75);
+}
+.information-page .architecture-row-onboarding .architecture-link-hint{
+  font-family:var(--jp-gothic);
+  font-size:clamp(12px,1.07vw,14px)!important;
+  letter-spacing:0!important;
+}
+@media(max-width:620px){
+  .information-page .technology-proof-summary{
+    grid-template-columns:minmax(0,1fr) 34px!important;
+    padding:24px 7px!important;
+  }
+  .information-page .projects .ledger-row{
+    grid-template-columns:27px minmax(0,1fr)!important;
+    gap:12px!important;
+  }
+  .information-page .projects .ledger-detail{
+    font-size:clamp(12px,3.2vw,14px)!important;
+  }
+}
