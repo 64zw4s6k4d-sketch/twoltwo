@@ -159,16 +159,63 @@ async function topPage(browser,label,width,height,mobile){
       await page.locator('#case-ctd-close').click();
       assert(!(await detail.isVisible()),'CTD detail did not close');
     });
-    await caseTest(label+' contact page and legal pages',async()=>{
-      await loaded(page,'contact-form.html?lang=ja');
+    await caseTest(label+' two inquiry routes and protected email preparation',async()=>{
+      await loaded(page,'index.html');
+      const general=page.locator('#general-inquiry-link');
+      const policy=page.locator('#policy-inquiry-link');
+      assert(await general.isVisible()&&await policy.isVisible(),'Both inquiry routes must be visible');
+      assert.equal(await page.locator('.contact-inquiry-option').count(),2);
+      assert.equal(await page.locator('.site-footer .policy-footer-links a').count(),3);
+      await policy.click();
+      await page.waitForURL('**/contact-form.html?lang=ja&category=policy');
+      assert.equal(await page.locator('#contact-category').inputValue(),'policy');
+      assert.equal(await page.locator('#contact-category option').count(),3);
       assert(await page.locator('#contact-name').isVisible());
       assert(await page.locator('#contact-email').isVisible());
       assert(await page.locator('#contact-message').isVisible());
-      for(const pageName of ['customer.html','privacy.html','security.html','onboarding.html']){
-        await loaded(page,pageName);
-        assert((await page.locator('body').innerText()).trim().length>80,pageName+' is empty');
+      assert.match(await page.locator('.contact-form-notice').innerText(),/メールアプリ/);
+      await loaded(page,'contact-form.html?lang=en&category=general');
+      assert.equal(await page.locator('#contact-category').inputValue(),'general');
+      assert.equal(await page.locator('#contact-category option[value=general]').innerText(),'General inquiries');
+    });
+    await caseTest(label+' legal policies in Japanese and English',async()=>{
+      for(const [file,expectedCount] of [
+        ['information-protection.html',7],
+        ['information-security.html',10],
+        ['privacy-policy.html',8]
+      ]){
+        await loaded(page,file+'?lang=ja');
+        const doc=page.locator('.policy-language[data-policy-lang=ja]');
+        assert(await doc.isVisible(),file+' Japanese version hidden');
+        assert.equal(await doc.locator('.policy-section').count(),expectedCount);
+        assert.equal(await page.locator('.policy-related a').count(),6); // three links per language
+        assert.equal(await page.locator('meta[name=robots]').getAttribute('content'),'noindex,nofollow');
+        assert(!await page.locator('link[rel=canonical]').count(),'Unapproved document must not expose production canonical');
+        await inspect(page,label+' '+file+' JA');
+        if(file==='information-security.html'){
+          assert.equal(await doc.locator('.policy-responsibilities tbody tr').count(),7);
+          assert.match(await doc.innerText(),/導入企業様に実施していただきます/);
+          assert.match(await doc.innerText(),/責任を免除するものではありません/);
+        }
+        if(file==='privacy-policy.html'){
+          assert.match(await doc.innerText(),/namisatorio@twoltwo.com/);
+          assert.match(await doc.innerText(),/ツーエルツー合同会社/);
+        }
+        await page.locator('.policy-header .language button[data-lang=en]').click();
+        const translated=page.locator('.policy-language[data-policy-lang=en]');
+        assert(await translated.isVisible(),file+' English version hidden');
+        assert.equal(await translated.locator('.policy-section').count(),expectedCount);
+        assert((await translated.innerText()).length>200);
+        assert.equal(await page.locator('html').getAttribute('lang'),'en');
+        await inspect(page,label+' '+file+' EN');
+        await screenshot(page,label+'-'+file.replace('.html',''));
+        const links=translated.locator('.policy-related a');
+        assert(await links.count()===3,'Missing policy cross-navigation');
       }
-      await inspect(page,label+' subpage');
+      await loaded(page,'customer.html');
+      assert.equal(await page.locator('.customer-policy-footer a').count(),3);
+      await loaded(page,'onboarding.html');
+      assert((await page.locator('body').innerText()).trim().length>80);
     });
     await caseTest(label+' no runtime or asset errors',async()=>verify());
   }finally{await context.close()}
