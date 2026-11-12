@@ -1,20 +1,230 @@
 <!doctype html>
 <html lang="ja"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#060910">
-<meta name="description" content="2L² — ローカルAI・業務用AI・医療文書処理の設計と研究開発。"><link rel="icon" type="image/png" href="./assets/favicon.png">
-<title>2L² | Local AI</title><link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./journey.css"><script defer src="./content.js"></script><script defer src="./main.js"></script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#06090f">
+<meta name="description" content="2L²は企業の機密データを社外に送信せず活用するローカルLLM、RAG、業務向けAIソフトウェアを設計・開発します。"><link rel="icon" type="image/png" href="./assets/favicon.png">
+<title>2L² | Local AI</title><link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./journey.css"><link rel="stylesheet" href="./info-pages.css"><link rel="stylesheet" href="./readability.css"><script defer src="./content.js"></script><script defer src="./main.js"></script><script defer src="./background-motion.js"></script>
 </head><body>
 <div id="progress" aria-hidden="true"></div>
-<div class="atmosphere" aria-hidden="true"><div class="atmosphere-noise"></div><div class="ambient ambient-a"></div><div class="ambient ambient-b"></div><div class="scene-3d" id="scene-3d"><div class="floor"></div><div class="space-frame frame-1"></div><div class="space-frame frame-2"></div><div class="space-frame frame-3"></div><div class="space-frame frame-4"></div><div class="space-frame frame-5"></div><div class="space-frame frame-6"></div><div class="space-frame frame-7"></div><div class="space-frame frame-8"></div></div><div class="gpu-stage" aria-hidden="true"><div class="gpu-anchor-frame"></div><div class="gpu-door"><div class="gpu-door-aperture"></div><div class="gpu-door-leaf gpu-door-left"><div class="gpu-door-face"></div><div class="gpu-door-edge"></div></div><div class="gpu-door-leaf gpu-door-right"><div class="gpu-door-face"></div><div class="gpu-door-edge"></div></div></div><div class="gpu-stack"><img src="./assets/gpu-stack.png" alt=""></div></div></div><div class="light-thread"></div><div class="scene-shade"></div></div>
-<header class="site-header" id="site-header"><a class="brand" href="#home" aria-label="2L² — Home"><img src="./assets/brand-logo.png" alt="2L²" width="40" height="43"></a><nav class="desktop-nav" aria-label="Main navigation"><a href="#home" data-nav="home" data-i18n="nav.home">ホーム</a><a href="#services" data-nav="services" data-i18n="nav.services">事業内容</a><a href="#technology" data-nav="technology" data-i18n="nav.technology">技術紹介</a><a href="#projects" data-nav="projects" data-i18n="nav.projects">開発・検証</a><a href="#company" data-nav="company" data-i18n="nav.company">会社概要</a><a href="#contact" data-nav="contact" data-i18n="nav.contact">お問い合わせ</a><a class="nav-privacy" href="./customer.html" target="_blank" rel="noopener noreferrer" data-i18n="nav.customer">お客様向け情報</a></nav><div class="header-right"><div class="language" aria-label="Language"><button type="button" data-lang="ja" aria-pressed="true">JP</button><span>/</span><button type="button" data-lang="en" aria-pressed="false">EN</button><span>/</span><button type="button" data-lang="th" aria-pressed="false">TH</button></div><button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><span></span><span></span></button></div></header>
-<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation"><a href="#home" data-i18n="nav.home">ホーム</a><a href="#services" data-i18n="nav.services">事業内容</a><a href="#technology" data-i18n="nav.technology">技術紹介</a><a href="#projects" data-i18n="nav.projects">開発・検証</a><a href="#company" data-i18n="nav.company">会社概要</a><a href="#contact" data-i18n="nav.contact">お問い合わせ</a><a href="./customer.html" target="_blank" rel="noopener noreferrer" data-i18n="nav.customer">お客様向け情報</a></nav>
+<div class="atmosphere" aria-hidden="true"><div class="atmosphere-noise"></div><div class="ambient ambient-a"></div><div class="ambient ambient-b"></div><div class="scene-3d" id="scene-3d"><div class="floor"></div><div class="space-frame frame-1"></div><div class="space-frame frame-2"></div><div class="space-frame frame-3"></div><div class="space-frame frame-4"></div><div class="space-frame frame-5"></div><div class="space-frame frame-6"></div><div class="space-frame frame-7"></div><div class="space-frame frame-8"></div></div><div class="scene-shade"></div></div>
+<header class="site-header" id="site-header"><a class="brand" href="#home" aria-label="2L² — Home"><img src="./assets/brand-logo.png" alt="2L²" width="40" height="43"></a><nav class="desktop-nav" aria-label="Main navigation"><a href="#home" data-nav="home" data-i18n="nav.home">ホーム</a><a href="#services" data-nav="services" data-i18n="nav.services">事業内容</a><a href="./strengths.html?lang=ja" data-nav="technology" data-i18n="nav.technology">2L²の強み</a><a href="./cases.html?lang=ja" data-nav="projects" data-i18n="nav.projects">導入事例・検証結果</a><a href="#company" data-nav="company" data-i18n="nav.company">会社概要</a><a href="#contact" data-nav="contact" data-i18n="nav.contact">お問い合わせ</a><a class="nav-privacy" href="./customer.html" target="_blank" rel="noopener noreferrer" data-i18n="nav.customer">お客様向け情報</a></nav><div class="header-right"><div class="language" aria-label="Language"><button type="button" data-lang="ja" aria-pressed="true">JP</button><span>/</span><button type="button" data-lang="en" aria-pressed="false">EN</button><span>/</span><button type="button" data-lang="th" aria-pressed="false">TH</button></div><button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><span></span><span></span></button></div></header>
+<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation"><a href="#home" data-i18n="nav.home">ホーム</a><a href="#services" data-i18n="nav.services">事業内容</a><a href="./strengths.html?lang=ja" data-i18n="nav.technology">2L²の強み</a><a href="./cases.html?lang=ja" data-i18n="nav.projects">導入事例・検証結果</a><a href="#company" data-i18n="nav.company">会社概要</a><a href="#contact" data-i18n="nav.contact">お問い合わせ</a><a href="./customer.html" target="_blank" rel="noopener noreferrer" data-i18n="nav.customer">お客様向け情報</a></nav>
 <aside class="chapter-rail" aria-label="Page progress"><span class="rail-label" id="rail-label">00 — HOME</span><span class="rail-rule"><span class="rail-fill" id="rail-fill"></span></span><span class="rail-total">06</span></aside>
 <main id="main">
-<section class="chapter hero" id="home" data-chapter="00"><div class="chapter-content hero-content"><p class="eyebrow" data-i18n="hero.kicker">2L² / LOCAL AI</p><h1 data-i18n="hero.title" data-html="true">あなたのAIに、<br>誰の許可もいらない</h1><p class="hero-lead" data-i18n="hero.lead" data-html="true">企業や医療の現場に合わせて、<br>AIの設計から運用までを最適化する。</p><div class="hero-actions"><a class="action action-solid" href="#services"><span data-i18n="hero.primary">私たちの事業</span><span aria-hidden="true">↗</span></a><a class="action action-line" href="#contact"><span data-i18n="hero.secondary">お問い合わせ</span><span aria-hidden="true">↗</span></a></div></div><div class="hero-side"><span class="side-rule"></span><span data-i18n="hero.side" data-html="true">一つの答えではなく、<br>現場に合う設計を。</span></div><div class="hero-index" aria-hidden="true">00<span> / 06</span></div></section>
-<section class="chapter philosophy" id="philosophy" data-chapter="01" aria-label="Design philosophy"><div class="chapter-content philosophy-content"><div class="section-topline"><span class="eyebrow">2L² / APPROACH</span><span class="fine-line"></span><span class="section-index">01</span></div><p class="manifesto" data-i18n="philosophy.title" data-html="true">必要な場所に、<br>必要な技術を、<br><em>必要な分だけ。</em></p><p class="manifesto-sub" data-i18n="philosophy.text">現場に合わせて、技術・機能・コストを最適化。課題理解から運用まで、一貫して支援します。</p></div></section>
-<section class="chapter services" id="services" data-chapter="02"><div class="chapter-content"><div class="section-topline"><span class="eyebrow" data-i18n="services.kicker">02 / SERVICES</span><span class="fine-line"></span><span class="section-index">02</span></div><div class="section-intro"><h2 data-i18n="services.title" data-html="true">現場を起点に、<br>AIを設計する。</h2><p data-i18n="services.intro">業種や業務の違いを理解し、導入可能な技術を一つずつ形にしていきます。</p></div><div class="service-lines"><article class="service-line"><span class="entry-id">01 /</span><div><h3 data-i18n="services.s1title">Local LLM</h3><p data-i18n="services.s1text">組織の要件に合わせた、ローカル環境でのAI活用を検討・設計。</p></div><span class="entry-symbol" aria-hidden="true">↗</span></article><article class="service-line"><span class="entry-id">02 /</span><div><h3 data-i18n="services.s2title">医療文書・情報抽出</h3><p data-i18n="services.s2text">紙やPDFに含まれる情報の抽出・構造化を研究開発。</p></div><span class="entry-symbol" aria-hidden="true">↗</span></article><article class="service-line"><span class="entry-id">03 /</span><div><h3 data-i18n="services.s3title">業務に合わせたAI開発</h3><p data-i18n="services.s3text">文書検索や業務支援など、利用環境に応じた仕組みを設計。</p></div><span class="entry-symbol" aria-hidden="true">↗</span></article></div></div></section>
-<section class="chapter technology" id="technology" data-chapter="03"><div class="chapter-content"><div class="section-topline"><span class="eyebrow" data-i18n="technology.kicker">03 / TECHNOLOGY</span><span class="fine-line"></span><span class="section-index">03</span></div><div class="tech-layout"><div class="tech-copy"><h2 data-i18n="technology.title" data-html="true">データの近くに、<br>知性を置く。</h2><p data-i18n="technology.intro">現場の運用と情報管理の条件から、最適なAI構成を考えます。</p></div><div class="tech-architecture" aria-label="AI architecture diagram"><div class="architecture-spine"></div><div class="architecture-row"><span>01</span><div><strong data-i18n="technology.l1">利用する人・業務</strong><small data-i18n="technology.d1">使う場面から設計</small></div><b>↗</b></div><div class="architecture-row"><span>02</span><div><strong data-i18n="technology.l2">アプリケーション</strong><small data-i18n="technology.d2">検索・抽出・対話</small></div><b>↗</b></div><div class="architecture-row"><span>03</span><div><strong data-i18n="technology.l3">AI モデル</strong><small data-i18n="technology.d3">用途に合わせた構成</small></div><b>↗</b></div><div class="architecture-row"><span>04</span><div><strong data-i18n="technology.l4">ローカル基盤</strong><small data-i18n="technology.d4">運用環境・情報管理</small></div><b>↗</b></div></div></div></div></section>
-<section class="chapter projects" id="projects" data-chapter="04"><div class="chapter-content"><div class="section-topline"><span class="eyebrow" data-i18n="projects.kicker">04 / DEVELOPMENT</span><span class="fine-line"></span><span class="section-index">04</span></div><div class="section-intro"><h2 data-i18n="projects.title" data-html="true">まず、確かめる。<br>それから、進める。</h2><p data-i18n="projects.intro">PoCを通じて実用性を検証し、課題と成果を明確にしながら開発を進めます。</p></div><div class="project-ledger"><div class="ledger-label" data-i18n="projects.label">研究開発・検証中のテーマ</div><article class="ledger-row"><span>01</span><strong data-i18n="projects.p1">医療文書のOCR・構造化</strong><small>RESEARCH / PoC</small></article><article class="ledger-row"><span>02</span><strong data-i18n="projects.p2">業務文書の検索・活用</strong><small>RESEARCH / PoC</small></article><article class="ledger-row"><span>03</span><strong data-i18n="projects.p3">ローカルAIの利用環境</strong><small>DESIGN / PoC</small></article></div><p class="project-note" data-i18n="projects.note">※ 上記は研究開発・検証のテーマであり、商用導入実績や性能を保証するものではありません。</p></div></section>
-<section class="chapter company" id="company" data-chapter="05"><div class="chapter-content"><div class="section-topline"><span class="eyebrow" data-i18n="company.kicker">05 / COMPANY</span><span class="fine-line"></span><span class="section-index">05</span></div><div class="company-statement"><p class="company-overline" data-i18n="company.overline">ABOUT 2L²</p><h2 data-i18n="company.title" data-html="true">技術と現場の、<br><span>あいだに立つ。</span></h2><div class="company-details"><p data-i18n="company.intro">2L²は、ローカルAIや医療・業務データの活用に取り組むテクノロジー企業です。</p><dl><div><dt data-i18n="company.nameLabel">商号</dt><dd data-i18n="company.name">ツーエルツー合同会社</dd></div><div><dt data-i18n="company.repLabel">代表社員</dt><dd data-i18n="company.rep">並里 璃王</dd></div><div><dt data-i18n="company.locationLabel">所在地</dt><dd data-i18n="company.location">東京都渋谷区（正式な所在地は公開前に確認）</dd></div></dl></div></div></div></section>
-<section class="chapter contact" id="contact" data-chapter="06"><div class="chapter-content"><div class="section-topline"><span class="eyebrow" data-i18n="contact.kicker">06 / CONTACT</span><span class="fine-line"></span><span class="section-index">06</span></div><div class="contact-body"><p class="contact-prelude" data-i18n="contact.prelude">技術の相談から、始めませんか。</p><h2 data-i18n="contact.title" data-html="true">次の可能性を、<br>ともに。</h2><p class="contact-message" data-i18n="contact.text">課題のご相談、PoCや共同開発について、お気軽にお問い合わせください。</p><a class="contact-link" id="email-link" hidden><span data-i18n="contact.cta">メールで問い合わせる</span><span aria-hidden="true">↗</span></a><p class="contact-unavailable" id="contact-unavailable" data-i18n="contact.unavailable">お問い合わせ先の設定中です。公開前にメールアドレスを登録してください。</p></div></div><footer class="site-footer"><a href="./customer.html" target="_blank" rel="noopener noreferrer" data-i18n="nav.customer">お客様向け情報</a><a href="#home" data-i18n="footer.back">ページの先頭へ ↑</a></footer></section>
+<section class="chapter hero" id="home" data-chapter="00">
+ <div class="chapter-content hero-content">
+  
+  <h1 data-i18n="hero.title" data-html="true">機密データを社外に出さず<br>現場で使えるAIをつくる</h1>
+  <div class="hero-actions" aria-label="主なご案内">
+    <a class="action action-solid" href="./strengths.html?lang=ja"><span data-i18n="hero.primary">2L²の技術を見る</span><span aria-hidden="true">↗</span></a>
+    <a class="action action-line" href="./cases.html?lang=ja"><span data-i18n="hero.secondary">開発実績を見る</span><span aria-hidden="true">↗</span></a>
+    <a class="action action-text" href="./contact-form.html?lang=ja"><span data-i18n="hero.tertiary">導入について相談する</span><span aria-hidden="true">↗</span></a>
+  </div>
+
+ </div>
+</section>
+<section class="chapter philosophy" id="philosophy" data-chapter="01" aria-label="Design philosophy"><div class="chapter-content philosophy-content"><p class="manifesto" data-i18n="philosophy.title" data-html="true">企業ごとの業務に合わせて<br>必要なシステムを<br><em>設計・開発</em></p><p class="manifesto-sub" data-i18n="philosophy.text">業務課題とデータの扱い方を整理
+検索機能と出力形式を業務特化
+現場で求められるAIソフトウェアを実現</p></div></section>
+<section class="chapter services" id="services" data-chapter="02"><div class="chapter-content"><div class="section-intro"><h2 data-i18n="services.title" data-html="true">社内の知識を活かし<br>あらゆる業務を支えるAIへ</h2><p data-i18n="services.intro">社内文書の検索はもちろん専門業務の効率化まで 必要な機能を導入環境に合わせて設計</p></div><div class="service-lines service-accordion" id="service-offerings">
+<details class="service-item" id="service-item-local-llm-details" data-service="local-llm-details">
+  <summary class="service-line" aria-controls="local-llm-details">
+    <span class="service-symbol service-symbol-library" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path class="emblem-secondary" d="M14 8.5h26.5l8 8V36M14 8.5v47h23.5M40.5 8.5v8h8"/><path class="emblem-primary" d="M22.5 23h17M22.5 30h13M22.5 37h8"/><circle class="emblem-primary" cx="42" cy="44" r="8.5"/><path class="emblem-primary" d="m48 50 7 7"/><path class="emblem-accent" d="M9 8.5V5h4M53 53h4v4"/></svg></span>
+    <div class="service-summary-copy">
+      <h3 data-i18n="services.s1title">ローカルLLM・業務ソフトウェア</h3>
+      <p data-i18n="services.s1text">社内環境で稼働するLLMと資料検索・文書作成を組み合わせ 設計から運用まで担当</p>
+      <span class="service-summary-hint" data-i18n="services.detailLink">仕組み・活用例を見る</span>
+    </div>
+    <span class="entry-symbol" aria-hidden="true">＋</span>
+  </summary>
+  <div class="service-detail-panel"><div class="llm-showcase" id="local-llm-details" aria-labelledby="llm-showcase-title">
+  
+  <div class="llm-showcase-intro">
+    <h3 id="llm-showcase-title"><span data-i18n="services.detailTitle">社内文書を参照して業務の質問に答える</span></h3>
+    <p data-i18n="services.detailIntro">ローカル環境にAIを置き、必要な情報を検索して活用する。社員ごとの業務にも広げていく、2L²が考えるLocal LLMの仕組みをご紹介します。</p>
+  </div>
+  <div class="llm-story-list">
+    <article class="llm-story llm-story-network">
+      <header class="llm-story-head">
+        
+        <h4 data-i18n="services.oneTitle">2L²ローカルAIの利用環境</h4>
+        <p data-i18n="services.oneLead">AIを自社のサーバーやPCで動かし、社内の文書・データと連携させる仕組みです。</p>
+      </header>
+      <div class="llm-network-board">
+        <div class="llm-net-boundary">
+          <div class="llm-boundary-label"><span class="llm-security-dot" aria-hidden="true"></span><span data-i18n="services.oneNetwork">社内ネットワーク内</span></div>
+          <div class="llm-net-flow">
+            <div class="llm-net-node"><svg class="llm-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.5"/><path d="M4.5 21v-2.5c0-4 3.2-6 7.5-6s7.5 2 7.5 6V21"/></svg><strong data-i18n="services.oneEmployee">社員</strong></div>
+            <span class="llm-flow-arrow" aria-hidden="true">↔</span>
+            <div class="llm-net-node llm-net-highlight"><svg class="llm-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="7" rx="2"/><rect x="4" y="14" width="16" height="7" rx="2"/><path d="M8 6.5h.01M8 17.5h.01M12 6.5h4M12 17.5h4"/></svg><strong data-i18n="services.oneLocalAI">2L²ローカルAI</strong></div>
+            <span class="llm-flow-arrow" aria-hidden="true">↔</span>
+            <div class="llm-net-node"><svg class="llm-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v5h4M9 12h7M9 16h7"/></svg><strong data-i18n="services.oneDocs">社内文書・データ</strong><small data-i18n="services.oneDocsNote">規程・報告書・業務資料</small></div>
+          </div>
+        </div>
+        <div class="llm-net-footer">
+          <div class="llm-net-external"><svg class="llm-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="5.5"/><path d="m15 15 5 5"/></svg><div><strong data-i18n="services.oneExternal">インターネット・外部情報</strong><small data-i18n="services.oneExternalNote">必要時のみ取得（接続設定による）</small></div></div>
+          <div class="llm-net-protected"><span aria-hidden="true">×</span><strong data-i18n="services.oneNoServer">機密資料を外部AIサービスに送らない構成を設計</strong></div>
+        </div>
+      </div>
+    </article>
+    <article class="llm-story llm-story-rag">
+      <header class="llm-story-head">
+        
+        <h4 data-i18n="services.twoTitle">検索結果を根拠に回答案を作成</h4>
+        <p data-i18n="services.twoLead">社員の質問に対し、独自RAGで社内資料から関連情報を探し、ローカルLLMが参照元とともに回答する流れです。</p>
+      </header>
+      <div class="llm-rag-workflow">
+        <div class="llm-rag-questions">
+          <div class="llm-small-label"><span data-i18n="services.twoEmployee">社員が質問</span></div>
+          <div class="llm-question"><span class="llm-role-icon"><svg class="llm-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.5"/><path d="M4.5 21v-2.5c0-4 3.2-6 7.5-6s7.5 2 7.5 6V21"/></svg></span><div><strong data-i18n="services.twoOffice">経理担当</strong><p data-i18n="services.twoOfficeAsk">経費精算の手順は？</p></div></div>
+          <div class="llm-question"><span class="llm-role-icon"><svg class="llm-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.5"/><path d="M4.5 21v-2.5c0-4 3.2-6 7.5-6s7.5 2 7.5 6V21"/></svg></span><div><strong data-i18n="services.twoSales">営業担当</strong><p data-i18n="services.twoSalesAsk">提案書のひな形は？</p></div></div>
+        </div>
+        <span class="llm-flow-arrow llm-rag-arrow" aria-hidden="true">→</span>
+        <div class="llm-workstation">
+          <div class="llm-workstation-head"><span data-i18n="services.twoWorkstation">2L² AI Workstation</span></div>
+          <div class="llm-workstation-flow">
+            <div class="llm-workstation-sources">
+              <div class="llm-workstation-block"><svg class="llm-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="5.5"/><path d="m15 15 5 5"/></svg><div><strong data-i18n="services.twoRag">独自RAG</strong><small data-i18n="services.twoRagNote">社内資料から検索</small></div></div>
+              <div class="llm-workstation-block"><svg class="llm-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v5h4M9 12h7M9 16h7"/></svg><div><strong data-i18n="services.twoDocs">社内文書・データ</strong><small data-i18n="services.twoDocsNote">規程・報告書・ひな形</small></div></div>
+            </div>
+            <span class="llm-flow-arrow" aria-hidden="true">→</span>
+            <div class="llm-workstation-model"><span class="llm-system-mark" aria-hidden="true">LLM</span><strong data-i18n="services.twoLlm">ローカルLLM</strong><small data-i18n="services.twoLlmNote">根拠をもとに回答を生成</small></div>
+          </div>
+        </div>
+        <span class="llm-flow-arrow llm-rag-arrow" aria-hidden="true">→</span>
+        <div class="llm-rag-answers">
+          <div class="llm-answer"><div class="llm-small-label"><span data-i18n="services.twoAnswer">AIの回答例</span></div><strong data-i18n="services.twoAnswerA">精算手順を回答</strong><small data-i18n="services.twoReferenceA">参照：経費精算規程</small></div>
+          <div class="llm-answer"><div class="llm-small-label"><span data-i18n="services.twoAnswer">AIの回答例</span></div><strong data-i18n="services.twoAnswerB">保存先を案内</strong><small data-i18n="services.twoReferenceB">参照：提案書ひな形（最新）</small></div>
+        </div>
+      </div>
+      <p class="llm-story-footnote" data-i18n="services.twoBottom">社内資料の検索から回答生成までをつなぎ、参照元を確認しやすくします。</p>
+    </article>
+    <article class="llm-story llm-story-agents">
+      <header class="llm-story-head">
+        
+        <h4 data-i18n="services.threeTitle">担当者・部署ごとのAI支援</h4>
+        <p data-i18n="services.threeLead">担当者ごとの手順や部署で共有する方針を活用し、仕事を支えるAIエージェントの構想です。</p>
+        <span class="llm-concept"><span data-i18n="services.threeStatus">開発中の製品コンセプト</span></span>
+      </header>
+      <div class="llm-agent-grid">
+        <div class="llm-agent-card">
+          <div class="llm-agent-role"><svg class="llm-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.5"/><path d="M4.5 21v-2.5c0-4 3.2-6 7.5-6s7.5 2 7.5 6V21"/></svg><strong data-i18n="services.threeSales">営業担当（Aさん）</strong></div>
+          <p class="llm-agent-question" data-i18n="services.threeSalesAsk">「いつもの手順で提案資料を作って」</p>
+          <div class="llm-agent-down" aria-hidden="true">↓</div>
+          <div class="llm-agent-identity"><span class="llm-system-mark" aria-hidden="true">A</span><div><strong data-i18n="services.threeSalesAI">Aさん専用のAI</strong><small data-i18n="services.threeSalesNote">提案資料の作り方や営業手順を参照</small></div></div>
+        </div>
+        <div class="llm-agent-card">
+          <div class="llm-agent-role"><svg class="llm-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3.5"/><path d="M4.5 21v-2.5c0-4 3.2-6 7.5-6s7.5 2 7.5 6V21"/></svg><strong data-i18n="services.threeHR">人事担当（Bさん）</strong></div>
+          <p class="llm-agent-question" data-i18n="services.threeHRAsk">「相談相手が休みでも、仕事を進めておきたい」</p>
+          <div class="llm-agent-down" aria-hidden="true">↓</div>
+          <div class="llm-agent-identity"><span class="llm-system-mark" aria-hidden="true">B</span><div><strong data-i18n="services.threeHRAI">部署共通のAI</strong><small data-i18n="services.threeHRNote">事前共有した方針や手順をもとに作業案を用意。あとは確認作業をするだけで、業務を進められます。</small></div></div>
+        </div>
+      </div>
+      <div class="llm-foundation-down" aria-hidden="true">↓</div>
+      <div class="llm-shared-foundation">
+        <strong class="llm-foundation-title" data-i18n="services.threeFoundation">企業の共通AI基盤</strong>
+        <div class="llm-foundation-tags">
+          <span data-i18n="services.threeChip1">社内資料・データ</span><span data-i18n="services.threeChip2">社員別の権限制御</span><span data-i18n="services.threeChip3">2L²ローカルAI</span><span data-i18n="services.threeChip4">定期処理（設定した日時に合わせて、24時間365日、業務処理を自動実行）</span>
+        </div>
+      </div>
+      <p class="llm-story-footnote" data-i18n="services.threeBottom">一人ひとりに合わせた働き方を支えながら、情報と権限は企業が管理する構想です。</p>
+    </article>
+  </div>
+</div></div>
+</details>
+<details class="service-item" id="service-item-virtual-test-details" data-service="virtual-test-details">
+  <summary class="service-line" aria-controls="virtual-test-details">
+    <span class="service-symbol service-symbol-lab" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path class="emblem-accent" d="M13 22v-8h8M59 14h8v8M13 58v8h8M59 66h8v-8"/><path class="emblem-secondary" d="m11 53 29 15 29-15M11 53l29-14 29 14M40 39v29"/><path class="emblem-secondary" d="M26 51V21l14-7 14 7v30M26 21l14 7 14-7M40 14v36"/><path class="emblem-primary" d="M32 29v5m0 6v5m16-16v5m0 6v5"/><path class="emblem-secondary" d="M54 49V37l8-4v17M54 37l8 4"/><path class="emblem-primary" d="M18 43v12M13 42c0-4 2-7 5-7s5 3 5 7-2 5-5 5-5-1-5-5Z"/><circle class="emblem-primary" cx="27" cy="54" r="2"/><path class="emblem-primary" d="M27 56v7m-4-4 4-2 4 2"/><path class="emblem-accent" d="M10 31c3-11 12-19 24-22M70 45c-2 8-7 13-15 18"/></svg></span>
+    <div class="service-summary-copy">
+      <h3 data-i18n="services.s2title">仮想テスト環境</h3>
+      <p data-i18n="services.s2text">業務環境と想定トラブルを仮想空間で再現し AIの動作を検証する仕組みを構想</p>
+      <span class="service-summary-hint" data-i18n="services.virtualOpen">検証の考え方を見る</span>
+    </div>
+    <span class="entry-symbol" aria-hidden="true">＋</span>
+  </summary>
+  <div class="service-detail-panel"><div class="virtual-showcase" id="virtual-test-details" aria-labelledby="virtual-showcase-title">
+ 
+ <div class="virtual-showcase-intro">
+  <div class="virtual-showcase-heading"><span class="virtual-showcase-mark" aria-hidden="true"><svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path class="emblem-accent" d="M13 22v-8h8M59 14h8v8M13 58v8h8M59 66h8v-8"/><path class="emblem-secondary" d="m11 53 29 15 29-15M11 53l29-14 29 14M40 39v29"/><path class="emblem-secondary" d="M26 51V21l14-7 14 7v30M26 21l14 7 14-7M40 14v36"/><path class="emblem-primary" d="M32 29v5m0 6v5m16-16v5m0 6v5"/><path class="emblem-secondary" d="M54 49V37l8-4v17M54 37l8 4"/><path class="emblem-primary" d="M18 43v12M13 42c0-4 2-7 5-7s5 3 5 7-2 5-5 5-5-1-5-5Z"/><circle class="emblem-primary" cx="27" cy="54" r="2"/><path class="emblem-primary" d="M27 56v7m-4-4 4-2 4 2"/><path class="emblem-accent" d="M10 31c3-11 12-19 24-22M70 45c-2 8-7 13-15 18"/></svg></span>
+  <h3 class="virtual-showcase-title" data-i18n="services.virtualTitle">業務を模した環境でAIの動作を検証する構想</h3></div>
+  <p data-i18n="services.virtualIntro">企業の業務環境を再現し、AIに実務・失敗・改善・再挑戦を繰り返させる。現場への導入前にAIを育てるための仮想訓練環境の構想です。</p>
+  <span class="virtual-showcase-status" data-i18n="services.virtualStatus">構想・検討段階</span>
+ </div>
+ <div class="virtual-lab" role="group" aria-label="企業業務の仮想訓練環境">
+  <div class="virtual-lab-title" data-i18n="services.virtualWorld">仮想環境</div>
+  <div class="virtual-lab-grid">
+    <div class="virtual-lab-scenarios virtual-lab-left">
+      <div class="virtual-scenario"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><path d="M6 20v-3c0-3.4 2.6-5 6-5s6 1.6 6 5v3M3 20h18"/></svg><span data-i18n="services.virtualS1">受付・患者対応</span></div>
+      <div class="virtual-scenario"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M2.5 21v-3.5c0-3 2.2-4.6 5.5-4.6s5.5 1.6 5.5 4.6V21M14 14.5c3.9-.2 7.5 1.8 7.5 5.2V21"/></svg><span data-i18n="services.virtualS2">患者・顧客</span></div>
+      <div class="virtual-scenario"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="7" r="2.5"/><path d="M2.5 19v-3c0-2.8 1.8-4.5 4.5-4.5s4.5 1.7 4.5 4.5v3M12.5 19v-3c0-2.8 1.8-4.5 4.5-4.5s4.5 1.7 4.5 4.5v3M9 9.5l6 0"/></svg><span data-i18n="services.virtualS3">スタッフ連携</span></div>
+    </div>
+    
+  <div class="virtual-cycle" role="group" aria-label="AI実務訓練の循環">
+    <svg class="virtual-cycle-arrows" viewBox="0 0 420 420" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+      <defs><marker id="vt-arrow" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7 Z" fill="#cfa44b"/></marker></defs>
+      <circle cx="210" cy="210" r="144" fill="none" stroke="rgba(218,176,93,.18)" stroke-width="1"/>
+      <path d="M127 92 A144 144 0 0 1 328 127" fill="none" stroke="#cfa44b" stroke-width="4" marker-end="url(#vt-arrow)"/>
+      <path d="M328 127 A144 144 0 0 1 293 328" fill="none" stroke="#cfa44b" stroke-width="4" marker-end="url(#vt-arrow)"/>
+      <path d="M293 328 A144 144 0 0 1 92 293" fill="none" stroke="#cfa44b" stroke-width="4" marker-end="url(#vt-arrow)"/>
+      <path d="M92 293 A144 144 0 0 1 127 92" fill="none" stroke="#cfa44b" stroke-width="4" marker-end="url(#vt-arrow)"/>
+    </svg>
+    <div class="virtual-cycle-center">
+      <img class="virtual-cycle-logo" src="./assets/brand-logo.png" alt="" width="60" height="64" loading="lazy" decoding="async">
+      <strong data-i18n="services.virtualAgent">AIエージェント</strong>
+    </div>
+    <div class="virtual-cycle-label virtual-cycle-label-1"><span data-i18n="services.virtualLoop1">実務</span></div><div class="virtual-cycle-label virtual-cycle-label-2"><span data-i18n="services.virtualLoop2">失敗</span></div><div class="virtual-cycle-label virtual-cycle-label-3"><span data-i18n="services.virtualLoop3">改善</span></div><div class="virtual-cycle-label virtual-cycle-label-4"><span data-i18n="services.virtualLoop4">再挑戦</span></div>
+  </div>
+    <div class="virtual-lab-scenarios virtual-lab-right">
+      <div class="virtual-scenario"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18"/><rect x="5" y="5" width="14" height="14" rx="3"/></svg><span data-i18n="services.virtualS4">診療・業務処理</span></div>
+      <div class="virtual-scenario"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M8 14h2M14 14h2M8 18h2"/></svg><span data-i18n="services.virtualS5">スケジュール管理</span></div>
+      <div class="virtual-scenario"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M12 15v3M12 20h.01"/></svg><span data-i18n="services.virtualS6">設備トラブル</span></div>
+      <div class="virtual-scenario"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6zM15 3v5h4M9 12h7M9 16h6M9 19h4"/></svg><span data-i18n="services.virtualS7">書類確認・審査</span></div>
+    </div>
+  </div>
+ </div>
+ <p class="virtual-takeaway" data-i18n="services.virtualTakeaway">AIに「仕事の経験」を与える、新しい訓練基盤。</p>
+ <p class="virtual-disclaimer" data-i18n="services.virtualDisclaimer">※ 仮想訓練環境は現時点で開発・検討中の構想です。AIの自律的な学習能力や導入後の効果を実証したものではありません。</p>
+</div></div></details>
+</div></div></section>
+<section class="chapter technology technology-landing" id="technology" data-chapter="03"><div class="chapter-content">
+
+<div class="section-intro"><h2 data-i18n="technology.title" data-html="true">必要な業務に<br>必要分の機能を<br>導入コストを最小限に</h2><p data-i18n="technology.intro">資料検索・アクセス制御・ローカルLLMによる回答作成を 業務とセキュリティ要件に合わせて設計</p></div>
+<a class="info-entry info-entry-primary" id="strengths-page-link" href="./strengths.html?lang=ja">
+  <span class="info-entry-copy">
+    
+    <span class="info-entry-title" data-site-i18n="strengthsAction">2L²の強みを詳しく見る</span>
+  </span>
+  <span class="info-entry-end" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"><path d="M7 16h19M18 8l8 8-8 8"/></svg></span>
+</a>
+</div></section>
+<section class="chapter projects projects-landing" id="projects" data-chapter="04"><div class="chapter-content">
+
+<div class="section-intro"><h2 data-i18n="projects.title" data-html="true">開発したシステムと<br>検討中の取り組み</h2><p data-i18n="projects.intro">開発実績と研究・構想段階の取り組みを区別して紹介</p></div>
+<div class="info-entry-stack"><a class="info-entry info-entry-primary" id="cases-page-link" href="./cases.html?lang=ja">
+  <span class="info-entry-copy">
+    
+    <span class="info-entry-title" data-site-i18n="casesAction">導入事例・検証結果を見る</span>
+  </span>
+  <span class="info-entry-end" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square"><path d="M7 16h19M18 8l8 8-8 8"/></svg></span>
+</a></div>
+</div></section>
+<section class="chapter company" id="company" data-chapter="05"><div class="chapter-content"><div class="company-statement"><h2 data-i18n="company.title" data-html="true">業務に合わせた<br><span>AIソフトウェアを開発</span></h2><div class="company-details"><p data-i18n="company.intro">2L²は企業のデータとセキュリティ要件に合わせて ローカルLLM・RAG・専門業務向けAIを開発するソフトウェア企業</p><dl><div><dt data-i18n="company.nameLabel">商号</dt><dd data-i18n="company.name">ツーエルツー合同会社</dd></div><div><dt data-i18n="company.repLabel">代表社員</dt><dd data-i18n="company.rep">並里 璃王</dd></div><div><dt data-i18n="company.locationLabel">所在地</dt><dd data-i18n="company.location">〒150-0041 東京都渋谷区神南1丁目11-4 FPGリンクス神南 5階</dd></div></dl></div></div></div></section>
+<section class="chapter contact contact-landing" id="contact" data-chapter="06">
+  <div class="chapter-content">
+    
+    <div class="contact-landing-body">
+      <p class="contact-prelude" data-i18n="contact.prelude">お問い合わせ</p>
+      <h2 data-i18n="contact.title" data-html="true">開発の相談は<br>こちらから</h2>
+      <p class="contact-message" data-i18n="contact.text">社内文書の検索・ローカルLLMの導入・CTDなどの専門業務向け開発についてご相談ください</p>
+      <a class="contact-form-entry" id="contact-form-open" href="./contact-form.html?lang=ja">
+        <span data-i18n="contact.openForm">お問い合わせフォームを開く</span><span aria-hidden="true">↗</span>
+      </a>
+      <div class="contact-landing-direct">
+        <p data-i18n="contact.directLead">メールアプリが起動しない場合は下記のアドレスへ直接ご連絡ください</p>
+        <a class="contact-landing-email" id="email-link" href="mailto:namisatorio@twoltwo.com?subject=2L%C2%B2%20%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B">namisatorio@twoltwo.com</a>
+        <p class="contact-unavailable" id="contact-unavailable" data-i18n="contact.unavailable" hidden>現在、メールのご案内を準備しています。</p>
+      </div>
+    </div>
+  </div>
+  <footer class="site-footer"><a href="./customer.html" target="_blank" rel="noopener noreferrer" data-i18n="nav.customer">お客様向け情報</a><a href="#home" data-i18n="footer.back">ページの先頭へ ↑</a></footer>
+</section>
 </main><noscript><p style="position:relative;z-index:50;background:#05090d;color:white;padding:1rem">This website requires JavaScript / このサイトでは JavaScript を使用しています。</p></noscript></body></html>

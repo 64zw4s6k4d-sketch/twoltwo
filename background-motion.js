@@ -1,0 +1,122 @@
+/* 2L² — original scroll-responsive spatial camera.
+   Homepage background only. No added imagery, hardware art, or page navigation changes. */
+(() => {
+  'use strict';
+  // Pre-editorial dark site: the background scene is present only on the homepage.
+  const scene = document.getElementById('scene-3d');
+  if (!scene) return;
+  const frames = Array.from(scene.querySelectorAll('.space-frame'));
+  if (!frames.length) return;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+  let targetY = window.scrollY;
+  let smoothY = targetY;
+  let scheduled = false;
+
+  function render() {
+    scheduled = false;
+    if (reducedMotion.matches) {
+      scene.style.removeProperty('--scene-x');
+      scene.style.removeProperty('--scene-turn');
+      scene.style.removeProperty('--scene-pitch');
+      frames.forEach(frame => {
+        frame.style.removeProperty('--depth');
+        frame.style.removeProperty('--frame-opacity');
+        frame.style.removeProperty('--frame-blur');
+      });
+      return;
+    }
+
+    // Derived from the original homepage's scroll camera. The architecture
+    // stays in one fixed 3D world instead of restarting at each section.
+    const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    document.documentElement.style.setProperty('--progress', (smoothY / maxScroll).toFixed(5));
+    // Exact original background light progression from the reference commit.
+    const chapters = document.querySelectorAll('.chapter[data-chapter]');
+    const vh = Math.max(window.innerHeight, 1);
+    const futureStart = (chapters[5]?.offsetTop ?? vh * 5) - vh * 0.5;
+    const futureEnd = (chapters[6]?.offsetTop ?? vh * 6) + vh * 0.55;
+    const rawFuture = clamp((smoothY - futureStart) / Math.max(1, futureEnd - futureStart), 0, 1);
+    const future = rawFuture * rawFuture * (3 - 2 * rawFuture);
+    const root = document.documentElement.style;
+    root.setProperty('--future-light', future.toFixed(4));
+    root.setProperty('--future-glow', Math.round(13 + future * 88) + 'px');
+    root.setProperty('--future-alpha', (0.045 + future * 0.56).toFixed(4));
+    root.setProperty('--future-border-alpha', (0.44 + future * 0.53).toFixed(4));
+    root.setProperty('--future-core-alpha', (0.015 + future * 0.14).toFixed(4));
+    const pace = smoothY / Math.max(680, window.innerHeight * 0.92);
+    const phase = pace * 740;
+    scene.style.setProperty('--scene-x',
+      `${Math.sin(pace * 0.58) * Math.min(window.innerWidth * 0.06, 72)}px`);
+    scene.style.setProperty('--scene-turn', `${Math.sin(pace * 0.44) * 3.9}deg`);
+    scene.style.setProperty('--scene-pitch', `${Math.sin(pace * 0.33) * 1.8}deg`);
+
+    frames.forEach((frame, index) => {
+      const depth = ((phase + index * 690) % 5520) - 4320;
+      const frontFade = clamp((1100 - depth) / 650, 0, 1);
+      const farFade = clamp((depth + 4270) / 650, 0, 1);
+      const opacity = frontFade * farFade * (index % 3 === 0 ? 0.74 : 0.48);
+      frame.style.setProperty('--depth', `${depth.toFixed(1)}px`);
+      frame.style.setProperty('--frame-opacity', opacity.toFixed(3));
+      frame.style.setProperty('--frame-blur',
+        `${clamp((depth - 550) / 380, 0, 4)}px`);
+    });
+
+    if (Math.abs(targetY - smoothY) > 0.18) {
+      smoothY += (targetY - smoothY) * 0.105;
+      queueRender();
+    } else {
+      smoothY = targetY;
+    }
+  }
+  function queueRender() {
+    if (!scheduled) {
+      scheduled = true;
+      window.requestAnimationFrame(render);
+    }
+  }
+  function updateTarget() {
+    targetY = window.scrollY;
+    if (reducedMotion.matches) smoothY = targetY;
+    queueRender();
+  }
+  // Restore the original restrained golden cursor halo from the referenced site.
+  if (window.matchMedia('(hover:hover) and (pointer:fine)').matches && !reducedMotion.matches) {
+    const glow = document.createElement('div');
+    glow.className = 'cursor-glow';
+    glow.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(glow);
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+    let gx = mx, gy = my, activeTimer;
+    let active = false;
+    document.addEventListener('mousemove', event => {
+      mx = event.clientX;
+      my = event.clientY;
+      glow.classList.add('active');
+      clearTimeout(activeTimer);
+      activeTimer = setTimeout(() => glow.classList.remove('active'), 400);
+      if (!active) {
+        active = true;
+        requestAnimationFrame(animateGlow);
+      }
+    }, {passive:true});
+    document.querySelectorAll('a,button,.service-line,.architecture-row,.ledger-row').forEach(el => {
+      el.addEventListener('mouseenter', () => glow.classList.add('hover'));
+      el.addEventListener('mouseleave', () => glow.classList.remove('hover'));
+    });
+    function animateGlow() {
+      gx += (mx - gx) * 0.2;
+      gy += (my - gy) * 0.2;
+      glow.style.transform = `translate(${gx}px,${gy}px) translate(-50%,-50%)`;
+      if (Math.abs(mx-gx) + Math.abs(my-gy) > 0.5 || glow.classList.contains('active')) {
+        requestAnimationFrame(animateGlow);
+      } else {
+        active = false;
+      }
+    }
+  }
+  window.addEventListener('scroll', updateTarget, {passive: true});
+  window.addEventListener('resize', updateTarget, {passive: true});
+  reducedMotion.addEventListener?.('change', updateTarget);
+  updateTarget();
+})();
