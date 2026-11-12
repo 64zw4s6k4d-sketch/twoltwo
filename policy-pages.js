@@ -20,6 +20,12 @@
   const match=old.match(/^policy-(?:protection|security|privacy)-(?:ja|en)-section-(\d+)$/);
   if(match)history.replaceState(null,'','#policy-'+id+'-'+lang+'-section-'+match[1]);
  }
- for(const button of controls)button.addEventListener('click',()=>setLanguage(button.dataset.lang));
+ for(const button of controls)button.addEventListener('click',()=>{
+  const lang=button.dataset.lang;
+  const url=new URL(location.href);
+  url.searchParams.set('lang',lang);
+  history.replaceState(null,'',url.pathname+url.search+url.hash);
+  setLanguage(lang);
+ });
  setLanguage(langs[selected]?selected:'ja');
 })();
