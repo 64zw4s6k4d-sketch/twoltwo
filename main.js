@@ -45,8 +45,11 @@
     });
     const philosophyLink=$('#philosophy-page-link');
     if(philosophyLink)philosophyLink.href='./philosophy.html?lang='+encodeURIComponent(lang);
-    const formOpen=$('#contact-form-open');
-    if(formOpen)formOpen.href='./contact-form.html?lang='+encodeURIComponent(lang);
+    for(const node of document.querySelectorAll('#general-inquiry-link,#policy-inquiry-link,.policy-footer-links a')){
+      const url=new URL(node.getAttribute('href'),location.href);
+      url.searchParams.set('lang',lang==='th'&&node.matches('.policy-footer-links a')?'en':lang);
+      node.href='./'+url.pathname.split('/').at(-1)+url.search+url.hash;
+    }
     document.querySelectorAll('.language button').forEach(button=>{const selected=button.dataset.lang===lang;button.classList.toggle('active',selected);button.setAttribute('aria-pressed',String(selected));});
     document.title = (lang==='ja'?'2L²｜ローカルAI':lang==='th'?'2L² | โลคัล AI':'2L² | Local AI');
     updateNavigation();
