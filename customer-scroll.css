@@ -117,3 +117,18 @@ body.customer-page{margin:0;min-width:320px;min-height:100svh;display:flex;flex-
  .customer-intro h1{font-size:clamp(29px,7.7vw,38px)}
  .customer-card-title{font-size:clamp(18px,5vw,23px)}
 }
+
+/* Draft legal-policy links, quiet and accessible, outside the three-scene office UI. */
+.customer-policy-footer{
+ display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+ gap:12px clamp(17px,2.6vw,36px);
+ padding:26px clamp(20px,5vw,65px) 40px;
+ border-top:1px solid rgba(223,192,148,.2);
+ background:#080e16;
+ position:relative;z-index:4;
+}
+.customer-policy-footer a{
+ color:#dbc397;font:500 clamp(12px,1.04vw,14px)/1.65 inherit;
+ text-decoration:none;overflow-wrap:anywhere;
+}
+.customer-policy-footer a:hover,.customer-policy-footer a:focus-visible{color:#f6dca9}
