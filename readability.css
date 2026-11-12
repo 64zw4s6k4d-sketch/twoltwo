@@ -1657,3 +1657,113 @@ body:not(.information-page) .services .service-symbol-lab svg{
     grid-template-columns:minmax(0,1fr);
   }
 }
+
+
+/* 2026-11-12 | Brand-authentic logomark and finely engraved task controls.
+   No generic SaaS pictograms or visual effects; restrained brass detailing. */
+.information-page .schedule-ui-brand{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:49px;
+  min-height:49px;
+  color:inherit;
+}
+.information-page .schedule-ui-brand img{
+  display:block;
+  width:42px;
+  height:45px;
+  max-width:none;
+  object-fit:contain;
+  filter:none;
+}
+.information-page .schedule-field-icon{
+  position:relative;
+  box-sizing:border-box;
+  flex:0 0 49px!important;
+  width:49px!important;
+  height:49px!important;
+  border:1px solid rgba(212,182,136,.40);
+  border-radius:3px;
+  color:#dfc59b;
+  background:linear-gradient(148deg,#283038 0%,#1a242b 52%,#121c24 100%);
+  box-shadow:inset 0 1px rgba(238,214,173,.07);
+}
+.information-page .schedule-field-icon:before{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  inset:4px;
+  border:1px solid rgba(218,189,146,.17);
+  border-radius:1px;
+}
+.information-page .schedule-field-icon svg{
+  display:block;
+  position:relative;
+  z-index:1;
+  width:32px!important;
+  height:32px!important;
+  stroke-width:1.15;
+}
+.information-page .schedule-field-icon svg .engrave-fine,
+.information-page .schedule-ui-time-icon svg .engrave-fine{
+  stroke:rgba(222,194,152,.64);
+  stroke-width:1.0;
+}
+.information-page .schedule-field-icon svg .engrave-major,
+.information-page .schedule-ui-time-icon svg .engrave-major{
+  stroke:#f0d6a7;
+  stroke-width:1.5;
+}
+.information-page .schedule-ui-time-icon{
+  box-sizing:border-box;
+  width:48px!important;
+  height:48px!important;
+  flex:0 0 48px!important;
+  border-radius:4px!important;
+  background:linear-gradient(145deg,#273039,#151e27);
+  border:1px solid rgba(218,182,125,.53);
+  box-shadow:inset 0 1px rgba(234,214,170,.10);
+  color:#e8d1a9;
+}
+.information-page .schedule-ui-time-icon svg{
+  width:33px!important;
+  height:33px!important;
+  stroke-width:1.1;
+}
+.information-page .schedule-preview-field{
+  gap:clamp(13px,1.6vw,20px)!important;
+}
+.information-page .schedule-ui-card,
+.information-page .schedule-ui-saved-card{
+  box-shadow:inset 0 1px rgba(251,234,205,.05),0 9px 28px rgba(0,0,0,.17);
+}
+@media(max-width:440px){
+  .information-page .schedule-ui-brand{
+    min-height:38px;
+    min-width:40px;
+    padding-right:9px!important;
+  }
+  .information-page .schedule-ui-brand img{
+    width:33px;
+    height:36px;
+  }
+  .information-page .schedule-field-icon{
+    width:44px!important;
+    height:44px!important;
+    flex-basis:44px!important;
+  }
+  .information-page .schedule-field-icon svg{
+    width:29px!important;
+    height:29px!important;
+  }
+  .information-page .schedule-ui-time-icon{
+    width:43px!important;
+    height:43px!important;
+    flex-basis:43px!important;
+  }
+  .information-page .schedule-ui-time-icon svg{
+    width:30px!important;
+    height:30px!important;
+  }
+}
