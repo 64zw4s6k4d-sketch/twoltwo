@@ -61,7 +61,8 @@
    }
    syncCaseButton(lang);
    const type=document.body.dataset.informationPage;
-   document.title=(type==='cases'?translate('nav.projects',lang):translate('nav.technology',lang))+' | 2L²';
+   const title=type==='philosophy'?translate('philosophyPage.label',lang):(type==='cases'?translate('nav.projects',lang):translate('nav.technology',lang));
+   document.title=title+' | 2L²';
  }
  btns.forEach(node=>node.addEventListener('click',()=>setLang(node.dataset.lang)));
  const init=names[selected]?selected:'ja';
