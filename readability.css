@@ -2035,3 +2035,208 @@ body .info-footer:has(.policy-footer-links){
 @media(prefers-reduced-motion:reduce){
  body:not(.information-page) .contact-landing .contact-inquiry-option{transition:none!important}
 }
+
+
+/* 2L² — Signature statement and crafted brass invitations.
+   Editorial emphasis instead of decorative AI/SaaS visual language. */
+
+/* Give the final sentence its own confident, central place in the manifesto. */
+body.information-page.philosophy-document-page .philosophy-document-finale{
+  position:relative;
+  isolation:isolate;
+  max-width:100%;
+  margin:clamp(66px,8.5vw,125px) auto clamp(15px,3vw,38px);
+  padding:clamp(48px,6vw,82px) 0 clamp(30px,5vw,59px);
+  text-align:center;
+  border-top:1px solid rgba(218,184,128,.51);
+}
+body.information-page.philosophy-document-page .philosophy-document-finale::before{
+  content:"";
+  position:absolute;
+  top:-2px;
+  left:50%;
+  transform:translateX(-50%);
+  width:clamp(100px,18vw,190px);
+  height:3px;
+  background:linear-gradient(90deg,rgba(223,191,135,0),#e4c592 25%,#efddbb 50%,#e4c592 75%,rgba(223,191,135,0));
+}
+body.information-page.philosophy-document-page .philosophy-document-finale .philosophy-document-closing{
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  color:#f6ead4!important;
+  font-size:clamp(26px,3vw,43px)!important;
+  font-weight:640!important;
+  line-height:1.78!important;
+  letter-spacing:-.033em!important;
+  text-wrap:pretty;
+  word-break:normal;
+  overflow-wrap:anywhere;
+  text-shadow:0 2px 24px rgba(0,0,0,.22);
+}
+
+/* Two deliberate variants of one premium button language:
+   ink-black with gold type for philosophy; satin brass for contact. */
+body:not(.information-page) .premium-action{
+  box-sizing:border-box;
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:clamp(22px,3vw,36px);
+  min-height:clamp(72px,6.5vw,88px)!important;
+  padding:clamp(14px,1.7vw,20px) clamp(21px,2.25vw,31px)!important;
+  border-radius:2px!important;
+  text-decoration:none!important;
+  font-family:var(--jp-gothic);
+  font-weight:590;
+  font-size:clamp(17px,1.42vw,20px)!important;
+  letter-spacing:-.01em!important;
+  line-height:1.55!important;
+  white-space:normal;
+  box-shadow:inset 0 1px rgba(254,239,214,.15),0 14px 40px rgba(0,0,0,.29)!important;
+  transform:none!important;
+  filter:none!important;
+  transition:background .25s ease,border-color .25s ease,box-shadow .25s ease,color .25s ease!important;
+}
+body:not(.information-page) .premium-action::before{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  z-index:0;
+  inset:5px;
+  border:1px solid rgba(239,210,162,.24);
+}
+body:not(.information-page) .premium-action::after{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  z-index:0;
+  height:1px;
+  left:19px;
+  right:19px;
+  top:2px;
+  background:linear-gradient(90deg,transparent,rgba(255,234,191,.38),transparent);
+}
+body:not(.information-page) .premium-action .premium-action-label{
+  position:relative;
+  z-index:1;
+  min-width:0;
+}
+body:not(.information-page) .premium-action .premium-action-symbol,
+body:not(.information-page) .premium-action .company-philosophy-link-mark{
+  box-sizing:border-box;
+  position:relative;
+  z-index:1;
+  flex:0 0 clamp(41px,4.2vw,50px)!important;
+  width:clamp(41px,4.2vw,50px)!important;
+  height:clamp(41px,4.2vw,50px)!important;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  box-shadow:inset 0 1px rgba(255,236,202,.09);
+  transition:transform .25s ease,border-color .25s ease,background .25s ease;
+}
+body:not(.information-page) .premium-action .premium-action-symbol svg{
+  display:block;
+  width:26px!important;
+  height:26px!important;
+  stroke-width:1.35;
+}
+body:not(.information-page) .premium-action:hover,
+body:not(.information-page) .premium-action:focus-visible{
+  transform:none!important;
+  filter:none!important;
+  box-shadow:inset 0 1px rgba(255,243,219,.24),0 18px 46px rgba(0,0,0,.32)!important;
+}
+body:not(.information-page) .premium-action:hover .premium-action-symbol,
+body:not(.information-page) .premium-action:focus-visible .premium-action-symbol{
+  transform:translateX(3px);
+}
+body:not(.information-page) .premium-action:focus-visible{
+  outline:2px solid #f0d7a7!important;
+  outline-offset:5px;
+}
+
+/* Company philosophy: engraved brass border, dark satin-ink face. */
+body:not(.information-page) .company-statement a.company-philosophy-link.premium-action{
+  width:min(100%,485px)!important;
+  margin:clamp(32px,4.5vw,56px) auto 0!important;
+  border:1px solid rgba(233,197,136,.86)!important;
+  color:#f7e6c8!important;
+  background:linear-gradient(120deg,#273039 0%,#1b242c 43%,#101921 100%)!important;
+}
+body:not(.information-page) .company-statement a.company-philosophy-link.premium-action:hover{
+  border-color:#f6dab1!important;
+  background:linear-gradient(120deg,#323b40,#1e2b33 50%,#152028)!important;
+}
+body:not(.information-page) .company-statement a.company-philosophy-link.premium-action .premium-action-symbol{
+  color:#efd4a6!important;
+  border:1px solid rgba(228,194,137,.54)!important;
+  background:linear-gradient(145deg,rgba(227,193,137,.09),rgba(15,24,32,.12))!important;
+}
+
+/* Single contact action: matte gold, solid typography, no artificial glow. */
+body:not(.information-page) .contact-landing a.contact-form-entry.premium-action{
+  width:min(100%,555px)!important;
+  margin:clamp(30px,4vw,46px) 0 0!important;
+  border:1px solid #c7a470!important;
+  color:#141b22!important;
+  background:linear-gradient(118deg,#efd8ae 0%,#d7b989 47%,#b39261 100%)!important;
+  font-weight:670!important;
+}
+body:not(.information-page) .contact-landing a.contact-form-entry.premium-action::before{
+  border-color:rgba(74,58,33,.23);
+}
+body:not(.information-page) .contact-landing a.contact-form-entry.premium-action:hover{
+  border-color:#ffebc7!important;
+  background:linear-gradient(118deg,#f9e5bf 0%,#e5c899 48%,#c19d68 100%)!important;
+}
+body:not(.information-page) .contact-landing a.contact-form-entry.premium-action .premium-action-symbol{
+  border:1px solid rgba(54,48,38,.44)!important;
+  color:#1c2329!important;
+  background:rgba(255,251,237,.13);
+}
+body:not(.information-page) .contact-landing .contact-landing-direct{
+  margin-top:clamp(30px,3vw,42px);
+}
+@media(max-width:600px){
+  body.information-page.philosophy-document-page .philosophy-document-finale{
+    margin-top:64px;
+    padding:43px 0 23px;
+    text-align:left;
+  }
+  body.information-page.philosophy-document-page .philosophy-document-finale::before{
+    left:0;
+    transform:none;
+    width:105px;
+  }
+  body.information-page.philosophy-document-page .philosophy-document-finale .philosophy-document-closing{
+    font-size:clamp(25px,7vw,35px)!important;
+    font-weight:630!important;
+    line-height:1.8!important;
+    letter-spacing:-.046em!important;
+  }
+  body:not(.information-page) .premium-action{
+    font-size:clamp(16px,4.3vw,19px)!important;
+    padding:14px 18px!important;
+    min-height:73px!important;
+  }
+  body:not(.information-page) .premium-action .premium-action-symbol{
+    width:43px!important;
+    height:43px!important;
+    flex-basis:43px!important;
+  }
+  body:not(.information-page) .premium-action .premium-action-symbol svg{
+    width:23px!important;
+    height:23px!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  body:not(.information-page) .premium-action,
+  body:not(.information-page) .premium-action .premium-action-symbol{
+    transition:none!important;
+  }
+}
