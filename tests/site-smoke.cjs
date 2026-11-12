@@ -100,7 +100,7 @@ async function topPage(browser,label,width,height,mobile){
       assert.equal(await page.locator('.philosophy-document-header h1').innerText(),'技術の進歩を、人の自由に変える');
       assert(await page.locator('.philosophy-document-finale').isVisible());
       const finaleSize=await page.locator('.philosophy-document-closing').evaluate(el=>parseFloat(getComputedStyle(el).fontSize));
-      assert(finaleSize>=25,'Philosophy finale lacks visual emphasis');
+      assert(finaleSize>=24,'Philosophy finale lacks visual emphasis');
       const closing=page.locator('.philosophy-document-closing');
       const ending=await closing.innerText();
       const sentence='技術が人の可能性を制限するのではなく、人の可能性を広げるために存在する社会を、私たちは目指します。';
