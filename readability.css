@@ -1151,3 +1151,167 @@ body:not(.information-page) .services .service-symbol-lab svg{
     font-size:clamp(12px,3.2vw,14px)!important;
   }
 }
+
+
+/* AI execution plans — editorial workflow integrated with the technical pages.
+   All displayed controls are explanatory; the actual draft-setting UI lives in the product. */
+.information-page .architecture-row-schedule:hover,
+.information-page .architecture-row-schedule:focus-visible{
+  background:rgba(218,187,134,.07);
+}
+.information-page .schedule-proof-body{
+  padding-block:clamp(28px,4vw,56px)!important;
+}
+.information-page .schedule-program{
+  display:grid;
+  gap:clamp(26px,4vw,47px);
+  width:100%;
+  min-width:0;
+  max-width:1080px;
+  margin-inline:auto;
+  font-family:var(--jp-gothic);
+  color:#e9e6df;
+}
+.information-page .schedule-program-intro{
+  margin:0;
+  color:#d5d9d7;
+  max-width:860px;
+  font-size:clamp(15px,1.4vw,19px);
+  line-height:1.96;
+  letter-spacing:.012em;
+}
+.information-page .schedule-program-preview{
+  min-width:0;
+  padding:clamp(22px,3.4vw,39px);
+  border:1px solid rgba(214,185,139,.42);
+  border-radius:3px;
+  background:
+    radial-gradient(ellipse 85% 140% at 99% -20%,rgba(203,165,100,.09),transparent 66%),
+    linear-gradient(135deg,#19232a 0%,#111b22 100%);
+  box-shadow:inset 0 1px 0 rgba(236,214,177,.045);
+}
+.information-page .schedule-program-preview h4{
+  color:#f0e4cf;
+  font-size:clamp(18px,1.8vw,23px);
+  font-weight:560;
+  letter-spacing:-.025em;
+  line-height:1.6;
+  margin:0 0 clamp(18px,2.5vw,26px);
+}
+.information-page .schedule-preview-fields{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0;
+  border-top:1px solid rgba(221,199,160,.25);
+}
+.information-page .schedule-preview-field{
+  display:flex;
+  align-items:center;
+  min-width:0;
+  gap:14px;
+  padding:clamp(17px,2.3vw,24px) 12px;
+  border-bottom:1px solid rgba(221,199,160,.21);
+  font-size:clamp(14px,1.22vw,16px);
+  line-height:1.7;
+  font-weight:510;
+}
+.information-page .schedule-preview-field:nth-child(odd){
+  padding-left:0;
+}
+.information-page .schedule-preview-field:nth-child(even){
+  padding-left:clamp(15px,2.5vw,28px);
+  border-left:1px solid rgba(221,199,160,.21);
+}
+.information-page .schedule-field-icon{
+  display:grid;
+  place-items:center;
+  flex:0 0 29px;
+  width:29px;
+  height:29px;
+  color:#d6bc91;
+}
+.information-page .schedule-field-icon svg{
+  display:block;
+  width:25px;
+  height:25px;
+}
+.information-page .schedule-program-steps{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:0;
+  border-top:1px solid rgba(214,185,139,.45);
+  border-bottom:1px solid rgba(214,185,139,.28);
+}
+.information-page .schedule-program-step{
+  min-width:0;
+  padding:clamp(24px,3vw,36px) clamp(18px,2.4vw,30px) clamp(25px,3vw,37px);
+}
+.information-page .schedule-program-step:first-child{
+  padding-left:0;
+}
+.information-page .schedule-program-step:not(:first-child){
+  border-left:1px solid rgba(208,187,155,.22);
+}
+.information-page .schedule-program-step h4{
+  margin:0 0 16px;
+  color:#f0e5d5;
+  font-size:clamp(16px,1.5vw,19px);
+  line-height:1.65;
+  letter-spacing:-.02em;
+  font-weight:570;
+}
+.information-page .schedule-program-step p{
+  margin:0;
+  color:#bfc8c8;
+  font-size:clamp(13px,1.15vw,15px);
+  line-height:1.93;
+}
+.information-page .schedule-program-status{
+  border-left:2px solid rgba(214,183,133,.74);
+  padding:2px 0 3px clamp(17px,2.3vw,27px);
+}
+.information-page .schedule-program-status h4{
+  font-size:clamp(15px,1.36vw,18px);
+  font-weight:590;
+  color:#e8d5b8;
+  line-height:1.6;
+  margin:0 0 9px;
+}
+.information-page .schedule-program-status p{
+  font-size:clamp(13px,1.14vw,15px);
+  line-height:1.95;
+  color:#bcc4c4;
+  margin:0;
+  max-width:890px;
+}
+@media(max-width:800px){
+  .information-page .schedule-program-steps{
+    grid-template-columns:minmax(0,1fr);
+  }
+  .information-page .schedule-program-step{
+    padding:23px 0!important;
+  }
+  .information-page .schedule-program-step:not(:first-child){
+    border-left:0;
+    border-top:1px solid rgba(208,187,155,.22);
+  }
+}
+@media(max-width:510px){
+  .information-page .schedule-preview-fields{
+    grid-template-columns:minmax(0,1fr);
+  }
+  .information-page .schedule-preview-field,
+  .information-page .schedule-preview-field:nth-child(even){
+    padding:14px 0;
+    border-left:0;
+  }
+  .information-page .schedule-program-preview{
+    padding:20px 16px;
+  }
+  .information-page .schedule-program-intro{
+    font-size:15px;
+  }
+  .information-page .schedule-program{
+    gap:27px;
+  }
+}
