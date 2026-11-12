@@ -1315,3 +1315,345 @@ body:not(.information-page) .services .service-symbol-lab svg{
     gap:27px;
   }
 }
+
+
+/* 2026-11-12 | Execution-plan screen illustrations, redrawn from the user guide.
+   Two responsive, non-interactive examples integrated with the navy and brass design. */
+.information-page .schedule-sample{
+  display:grid;
+  gap:clamp(19px,2.7vw,29px);
+  min-width:0;
+}
+.information-page .schedule-sample-heading{
+  font-family:var(--jp-gothic);
+  font-size:clamp(20px,2.2vw,28px);
+  line-height:1.55;
+  font-weight:580;
+  letter-spacing:-.025em;
+  color:#f1e6d1;
+  margin:0;
+}
+.information-page .schedule-ui-card,
+.information-page .schedule-ui-saved-card{
+  box-sizing:border-box;
+  min-width:0;
+  margin:0;
+  border:1px solid rgba(223,191,143,.42);
+  border-radius:5px;
+  background:
+    radial-gradient(ellipse 68% 45% at 96% -15%,rgba(199,163,103,.105),transparent 80%),
+    linear-gradient(135deg,#202a31 0%,#152029 65%,#101922 100%);
+  box-shadow:inset 0 1px rgba(255,246,222,.075),0 15px 42px rgba(0,0,0,.17);
+  overflow:hidden;
+}
+.information-page .schedule-ui-topbar{
+  display:flex;
+  align-items:center;
+  min-height:63px;
+  gap:clamp(9px,1.7vw,20px);
+  padding:clamp(14px,1.7vw,19px) clamp(17px,2.7vw,31px);
+  border-bottom:1px solid rgba(224,194,154,.22);
+}
+.information-page .schedule-ui-brand{
+  flex:0 0 auto;
+  color:#e8c985;
+  border-right:1px solid rgba(225,197,147,.33);
+  padding-right:clamp(12px,1.8vw,23px);
+  font-family:Georgia,serif;
+  font-size:clamp(19px,2.4vw,27px);
+  font-weight:540;
+  line-height:1;
+}
+.information-page .schedule-ui-topbar > strong{
+  min-width:0;
+  color:#f2eadd;
+  font-size:clamp(15px,1.4vw,19px);
+  line-height:1.5;
+  font-weight:560;
+}
+.information-page .schedule-ui-tag{
+  flex:0 0 auto;
+  margin-left:auto;
+  border:1px solid rgba(213,185,139,.40);
+  border-radius:2px;
+  padding:7px 10px;
+  color:#e0d1b4;
+  font-size:clamp(11px,1vw,13px);
+  font-weight:500;
+  letter-spacing:0;
+}
+.information-page .schedule-ui-layout{
+  display:grid;
+  grid-template-columns:minmax(0,1.58fr) minmax(220px,.88fr);
+  gap:0;
+  min-width:0;
+  padding:clamp(20px,3.6vw,43px) clamp(17px,2.7vw,31px);
+}
+.information-page .schedule-ui-main{
+  min-width:0;
+  padding-right:clamp(22px,3vw,36px);
+}
+.information-page .schedule-ui-main h5{
+  color:#f2e5d0;
+  margin:0 0 22px;
+  font-size:clamp(19px,2.0vw,25px);
+  line-height:1.5;
+  font-weight:600;
+  letter-spacing:-.02em;
+}
+.information-page .schedule-ui-time{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:17px 0;
+  border-top:1px solid rgba(218,193,158,.20);
+  border-bottom:1px solid rgba(218,193,158,.20);
+}
+.information-page .schedule-ui-time-icon{
+  display:grid;
+  place-items:center;
+  width:43px;
+  height:43px;
+  flex:0 0 43px;
+  border:1px solid rgba(208,178,121,.45);
+  border-radius:50%;
+  color:#e2c08a;
+}
+.information-page .schedule-ui-time-icon svg{
+  width:28px;
+  height:28px;
+}
+.information-page .schedule-ui-time > div{
+  display:grid;
+  gap:5px;
+  min-width:0;
+}
+.information-page .schedule-ui-time strong{
+  color:#f3e7cd;
+  font-size:clamp(16px,1.6vw,21px);
+  font-weight:590;
+  line-height:1.4;
+  font-variant-numeric:tabular-nums;
+}
+.information-page .schedule-ui-time > div > span{
+  color:#aeb9be;
+  font-size:clamp(12px,1.1vw,14px);
+  line-height:1.6;
+}
+.information-page .schedule-ui-main h6{
+  color:#e7d8bc;
+  margin:23px 0 11px;
+  font-size:clamp(14px,1.25vw,17px);
+  line-height:1.55;
+  font-weight:570;
+}
+.information-page .schedule-ui-tasklist{
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.information-page .schedule-ui-tasklist li{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  min-height:39px;
+  padding:9px 0;
+  border-bottom:1px solid rgba(204,191,173,.15);
+  font-size:clamp(12px,1.15vw,15px);
+  line-height:1.65;
+  color:#d9ddd9;
+}
+.information-page .schedule-ui-tasklist li i{
+  display:block;
+  flex:0 0 5px;
+  width:5px;height:5px;
+  border-radius:50%;
+  background:#d3af73;
+}
+.information-page .schedule-ui-side{
+  display:grid;
+  align-content:center;
+  gap:clamp(15px,1.9vw,22px);
+  min-width:0;
+  border-left:1px solid rgba(214,186,147,.3);
+  padding-left:clamp(19px,2.7vw,33px);
+}
+.information-page .schedule-ui-side > div{
+  display:grid;
+  gap:5px;
+  min-width:0;
+}
+.information-page .schedule-ui-side span{
+  color:#aeafb1;
+  font-size:clamp(12px,1.03vw,14px);
+  line-height:1.55;
+}
+.information-page .schedule-ui-side strong{
+  color:#eee5d4;
+  font-size:clamp(13px,1.2vw,16px);
+  font-weight:550;
+  line-height:1.6;
+  overflow-wrap:anywhere;
+}
+.information-page .schedule-ui-actions{
+  display:flex;
+  justify-content:flex-end;
+  flex-wrap:wrap;
+  gap:10px;
+  border-top:1px solid rgba(214,186,147,.27);
+  padding:clamp(15px,2.2vw,23px) clamp(17px,2.7vw,31px);
+}
+.information-page .schedule-ui-actions span{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:41px;
+  padding:10px 16px;
+  border-radius:2px;
+  font-size:clamp(12px,1.05vw,14px);
+  font-weight:550;
+  line-height:1.4;
+  cursor:default;
+  user-select:none;
+}
+.information-page .schedule-ui-ghost{
+  border:1px solid rgba(217,190,148,.45);
+  color:#eadfc9;
+  background:rgba(4,8,12,.13);
+}
+.information-page .schedule-ui-gold{
+  border:1px solid #d9ba82;
+  color:#111a22;
+  background:linear-gradient(145deg,#efd7a7,#bb9154);
+}
+.information-page .schedule-ui-saved{
+  display:grid;
+  grid-template-columns:minmax(180px,.8fr) minmax(0,1.5fr);
+  gap:clamp(22px,4.5vw,55px);
+  align-items:center;
+  padding:clamp(6px,1vw,12px) 0 0;
+  margin:0;
+}
+.information-page .schedule-ui-saved-copy{
+  min-width:0;
+}
+.information-page .schedule-ui-saved-copy h5{
+  color:#f0e7d7;
+  font-size:clamp(18px,1.9vw,24px);
+  font-weight:590;
+  line-height:1.55;
+  margin:0 0 10px;
+}
+.information-page .schedule-ui-saved-copy p{
+  margin:0;
+  color:#b7c0c2;
+  font-size:clamp(13px,1.19vw,16px);
+  line-height:1.93;
+}
+.information-page .schedule-ui-saved-card{
+  padding:clamp(21px,2.8vw,33px);
+}
+.information-page .schedule-ui-saved-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.information-page .schedule-ui-saved-top strong{
+  color:#f4eada;
+  font-size:clamp(16px,1.6vw,21px);
+  font-weight:600;
+}
+.information-page .schedule-ui-saved-top span{
+  display:inline-flex;
+  padding:6px 10px;
+  border:1px solid rgba(219,183,125,.45);
+  border-radius:2px;
+  color:#e0c393;
+  font-size:clamp(11px,1.0vw,13px);
+  line-height:1.45;
+}
+.information-page .schedule-ui-saved-card > p{
+  margin:15px 0 19px;
+  color:#d7d9d6;
+  font-size:clamp(14px,1.3vw,17px);
+  font-variant-numeric:tabular-nums;
+}
+.information-page .schedule-ui-saved-bottom{
+  display:flex;
+  gap:clamp(14px,2.8vw,33px);
+  flex-wrap:wrap;
+  padding-top:16px;
+  border-top:1px solid rgba(219,183,125,.22);
+}
+.information-page .schedule-ui-saved-bottom span{
+  color:#dfc190;
+  font-size:clamp(12px,1.1vw,14px);
+  font-weight:550;
+}
+.information-page .schedule-sample-caption{
+  display:block;
+  color:#aab5b8;
+  font-size:clamp(12px,1.04vw,14px);
+  line-height:1.8;
+  margin:0;
+}
+@media(max-width:840px){
+  .information-page .schedule-ui-saved{
+    grid-template-columns:minmax(0,1fr);
+    gap:18px;
+  }
+}
+@media(max-width:690px){
+  .information-page .schedule-ui-layout{
+    grid-template-columns:minmax(0,1fr);
+    gap:21px;
+  }
+  .information-page .schedule-ui-main{
+    padding-right:0;
+  }
+  .information-page .schedule-ui-side{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:16px;
+    border-left:0;
+    border-top:1px solid rgba(214,186,147,.30);
+    padding:20px 0 0;
+  }
+}
+@media(max-width:440px){
+  .information-page .schedule-ui-topbar{
+    gap:10px;
+    padding:15px 13px;
+  }
+  .information-page .schedule-ui-tag{
+    padding:5px 6px;
+    font-size:10px;
+  }
+  .information-page .schedule-ui-topbar > strong{
+    font-size:14px;
+  }
+  .information-page .schedule-ui-brand{
+    padding-right:9px;
+    font-size:20px;
+  }
+  .information-page .schedule-ui-layout{
+    padding:19px 14px;
+  }
+  .information-page .schedule-ui-main h5{
+    font-size:19px;
+  }
+  .information-page .schedule-ui-time-icon{
+    flex:0 0 35px;width:35px;height:35px;
+  }
+  .information-page .schedule-ui-time-icon svg{
+    width:23px;height:23px;
+  }
+  .information-page .schedule-ui-time strong{
+    font-size:15px;
+  }
+  .information-page .schedule-ui-side{
+    grid-template-columns:minmax(0,1fr);
+  }
+}
