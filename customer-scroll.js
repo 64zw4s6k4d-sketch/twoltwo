@@ -49,7 +49,7 @@
       en:['Information Protection Policy','Information Security and Data Handling','Privacy Policy'],
       th:['นโยบายคุ้มครองข้อมูล','การรักษาความปลอดภัยและการจัดการข้อมูล','นโยบายความเป็นส่วนตัว']
     };
-    $(".customer-policy-footer a").forEach((link,i)=>{
+    document.querySelectorAll(".customer-policy-footer a").forEach((link,i)=>{
       link.textContent=titles[lang][i];
       const file=link.dataset.policyFile;
       link.href='./'+file+'?lang='+(lang==='th'?'en':lang);
