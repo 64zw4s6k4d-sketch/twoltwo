@@ -5,31 +5,31 @@
   const COPY={
     ja:{
       title:"お客様向け情報",subtitle:"ご覧になりたい項目をお選びください。",
-      footnote:"各項目の詳しい内容は現在準備中です。",home:"ホームへ ↗",cta:"詳しく見る",
+      footnote:"情報保護に関する方針と導入までの流れをご案内します。",home:"ホームへ ↗",cta:"詳しく見る",
       nav:{home:"ホーム",services:"事業内容",technology:"2L²の強み",projects:"導入事例・検証結果",company:"会社概要",contact:"お問い合わせ",customer:"お客様向け情報"},
       topics:[
-        {title:"情報保護方針",description:"情報保護に関する方針",href:"./privacy.html"},
-        {title:"情報の安全管理・取り扱い",description:"情報の安全管理と取り扱い",href:"./security.html"},
+        {title:"情報保護方針",description:"情報保護に関する方針",href:"./information-protection.html"},
+        {title:"情報の安全管理・取り扱い",description:"情報の安全管理と取り扱い",href:"./information-security.html"},
         {title:"導入までの流れ",description:"ご相談から導入まで",href:"./onboarding.html"}
       ]
     },
     en:{
       title:"Customer Information",subtitle:"Select the information you need.",
-      footnote:"Detailed content for each topic is currently being prepared.",home:"Home ↗",cta:"View details",
+      footnote:"Explore our information policies and implementation process.",home:"Home ↗",cta:"View details",
       nav:{home:"Home",services:"Services",technology:"Our Strengths",projects:"Cases & Results",company:"Company",contact:"Contact",customer:"Customer Information"},
       topics:[
-        {title:"Information Protection Policy",description:"Our approach to information protection",href:"./privacy.html?lang=en"},
-        {title:"Information Security & Handling",description:"Security management and handling of information",href:"./security.html?lang=en"},
+        {title:"Information Protection Policy",description:"Our approach to information protection",href:"./information-protection.html?lang=en"},
+        {title:"Information Security & Handling",description:"Security management and handling of information",href:"./information-security.html?lang=en"},
         {title:"Our Implementation Process",description:"From consultation to implementation",href:"./onboarding.html?lang=en"}
       ]
     },
     th:{
       title:"ข้อมูลสำหรับลูกค้า",subtitle:"เลือกข้อมูลที่ต้องการอ่าน",
-      footnote:"เนื้อหารายละเอียดของแต่ละหัวข้ออยู่ระหว่างการจัดเตรียม",home:"หน้าแรก ↗",cta:"ดูรายละเอียด",
+      footnote:"ดูนโยบายข้อมูลและขั้นตอนการนำระบบไปใช้งาน",home:"หน้าแรก ↗",cta:"ดูรายละเอียด",
       nav:{home:"หน้าแรก",services:"บริการ",technology:"จุดแข็งของ 2L²",projects:"กรณีศึกษาและผลการทดสอบ",company:"บริษัท",contact:"ติดต่อเรา",customer:"ข้อมูลสำหรับลูกค้า"},
       topics:[
-        {title:"นโยบายคุ้มครองข้อมูล",description:"แนวทางการคุ้มครองข้อมูล",href:"./privacy.html?lang=th"},
-        {title:"การรักษาความปลอดภัยและการจัดการข้อมูล",description:"การรักษาความปลอดภัยและการจัดการข้อมูล",href:"./security.html?lang=th"},
+        {title:"นโยบายคุ้มครองข้อมูล",description:"แนวทางการคุ้มครองข้อมูล",href:"./information-protection.html?lang=en"},
+        {title:"การรักษาความปลอดภัยและการจัดการข้อมูล",description:"การรักษาความปลอดภัยและการจัดการข้อมูล",href:"./information-security.html?lang=en"},
         {title:"ขั้นตอนการนำไปใช้งาน",description:"จากการปรึกษาไปจนถึงการนำไปใช้งาน",href:"./onboarding.html?lang=th"}
       ]
     }
@@ -44,6 +44,16 @@
     $("#customer-title").textContent=copy.title;
     $("#customer-subtitle").textContent=copy.subtitle;
     $("#customer-footnote").textContent=copy.footnote;
+    const titles={
+      ja:['情報保護方針','情報の安全管理・取扱','個人情報保護方針'],
+      en:['Information Protection Policy','Information Security and Data Handling','Privacy Policy'],
+      th:['นโยบายคุ้มครองข้อมูล','การรักษาความปลอดภัยและการจัดการข้อมูล','นโยบายความเป็นส่วนตัว']
+    };
+    $(".customer-policy-footer a").forEach((link,i)=>{
+      link.textContent=titles[lang][i];
+      const file=link.dataset.policyFile;
+      link.href='./'+file+'?lang='+(lang==='th'?'en':lang);
+    });
     $("#customer-home-mobile").textContent=copy.home;
     $$("[data-nav-key]").forEach(link=>link.textContent=copy.nav[link.dataset.navKey]);
     const cards=$$(".customer-card");
