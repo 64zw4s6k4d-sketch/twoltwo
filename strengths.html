@@ -67,17 +67,17 @@
    <div class="schedule-program-preview">
     <h4 data-i18n="technology.schedulePreviewTitle">実行プランで設定する内容</h4>
     <div class="schedule-preview-fields" role="group" aria-label="実行プランの設定項目">
-     <div class="schedule-preview-field"><span class="schedule-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6 7h12M6 12h12M6 17h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M3 4h18v16H3z" stroke="currentColor" stroke-opacity=".48" stroke-width="1.2"/></svg></span><span data-i18n="technology.scheduleTask">任せるタスク</span></div>
-     <div class="schedule-preview-field"><span class="schedule-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.5"/><path d="M5 21v-2c0-3.8 3-6 7-6s7 2.2 7 6v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span data-i18n="technology.scheduleAgent">担当AIメンバー</span></div>
-     <div class="schedule-preview-field"><span class="schedule-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.3"/><path d="M12 6.5V12l4 2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span><span data-i18n="technology.scheduleTime">開始日時・終了日時</span></div>
-     <div class="schedule-preview-field"><span class="schedule-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 19V12M10 19V8M15 19V5M20 19v-9M3 20.5h19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span data-i18n="technology.scheduleLimit">タスク件数・稼働時間の上限</span></div>
+     <div class="schedule-preview-field"><span class="schedule-field-icon" aria-hidden="true"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path class="engrave-fine" d="M8.5 4.5h15l5 5v22h-20zM23.5 4.5v5h5"/><path class="engrave-major" d="M13 15h11M13 20h11M13 25h8"/><path class="engrave-fine" d="M5.5 8v24h19"/></svg></span><span data-i18n="technology.scheduleTask">任せるタスク</span></div>
+     <div class="schedule-preview-field"><span class="schedule-field-icon" aria-hidden="true"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path class="engrave-fine" d="M6 5.5h24v25H6zM6 11h24"/><path class="engrave-major" d="M11 8.2h5M12 17h12M12 22h8"/><path class="engrave-fine" d="M12 27h12"/><circle class="engrave-major" cx="25.5" cy="25.5" r="2.4"/></svg></span><span data-i18n="technology.scheduleAgent">担当AIメンバー</span></div>
+     <div class="schedule-preview-field"><span class="schedule-field-icon" aria-hidden="true"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle class="engrave-fine" cx="18" cy="18" r="14"/><circle class="engrave-fine" cx="18" cy="18" r="11.25"/><path class="engrave-fine" d="M18 7v2.4M18 26.6V29M7 18h2.4M26.6 18H29M10.2 10.2l1.8 1.8M24 24l1.8 1.8"/><path class="engrave-major" d="M18 11.7V18l5.5 3.2"/><circle class="engrave-major" cx="18" cy="18" r="1.2"/></svg></span><span data-i18n="technology.scheduleTime">開始日時・終了日時</span></div>
+     <div class="schedule-preview-field"><span class="schedule-field-icon" aria-hidden="true"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path class="engrave-fine" d="M5.5 29V8.5h25V29zM10 24.7h16"/><path class="engrave-major" d="M10 24.7v-5.8M15.4 24.7v-10M20.8 24.7v-13M26 24.7v-7.8"/><path class="engrave-fine" d="M9.2 10.5h4M22.7 10.5h4"/></svg></span><span data-i18n="technology.scheduleLimit">タスク件数・稼働時間の上限</span></div>
     </div>
    </div>
    <section class="schedule-sample" aria-label="AIの実行プラン画面例">
     <h4 class="schedule-sample-heading" data-i18n="technology.scheduleMockTitle">実行プランの画面イメージ</h4>
     <figure class="schedule-ui-card">
      <div class="schedule-ui-topbar">
-      <span class="schedule-ui-brand">2L²</span>
+      <span class="schedule-ui-brand"><img src="./assets/brand-logo.png" width="42" height="45" alt="2L² ロゴ" loading="lazy" decoding="async"></span>
       <strong data-i18n="technology.scheduleMockHeader">AIの実行提案を確認</strong>
       <span class="schedule-ui-tag" data-i18n="technology.scheduleMockSample">表示サンプル</span>
      </div>
@@ -85,7 +85,7 @@
       <div class="schedule-ui-main">
        <h5 data-i18n="technology.scheduleMockQuestion">この時間に進める設定にしますか？</h5>
        <div class="schedule-ui-time">
-        <span class="schedule-ui-time-icon" aria-hidden="true"><svg viewBox="0 0 28 28" fill="none"><rect x="4.5" y="6" width="19" height="18" rx="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M9 3.5v5M19 3.5v5M5 12h18M9 16h3M15 16h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+        <span class="schedule-ui-time-icon" aria-hidden="true"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path class="engrave-fine" d="M7 8.5h22v22H7zM7 14.5h22M12 5.5v6M24 5.5v6"/><path class="engrave-major" d="M12 19h4M21 19h3M12 24.5h4M21 24.5h3"/><path class="engrave-fine" d="M17 31.5h2"/></svg></span>
         <div><strong data-i18n="technology.scheduleMockTime">11/12(木) 22:00 ～ 翌朝 06:00</strong><span data-i18n="technology.scheduleMockTimeHelp">開始時間と終了時間を自由に設定</span></div>
        </div>
        <h6 data-i18n="technology.scheduleMockTasks">この時間に任せるタスク</h6>
