@@ -222,9 +222,16 @@
       <p class="contact-prelude" data-i18n="contact.prelude">お問い合わせ</p>
       <h2 data-i18n="contact.title" data-html="true">開発の相談は<br>こちらから</h2>
       <p class="contact-message" data-i18n="contact.text">社内文書の検索・ローカルLLMの導入・CTDなどの専門業務向け開発についてご相談ください</p>
-      <a class="contact-form-entry" id="contact-form-open" href="./contact-form.html?lang=ja">
-        <span data-i18n="contact.openForm">お問い合わせフォームを開く</span><span aria-hidden="true">↗</span>
-      </a>
+      <nav class="contact-inquiry-options" aria-label="お問い合わせの種類">
+        <a class="contact-inquiry-option" id="general-inquiry-link" href="./contact-form.html?lang=ja&amp;category=general">
+          <span class="contact-inquiry-copy"><strong data-i18n="contact.normalTitle">一般のお問い合わせ</strong><span data-i18n="contact.generalLead">サービスの導入、開発、お見積り、共同研究など</span></span>
+          <span class="contact-inquiry-arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="contact-inquiry-option" id="policy-inquiry-link" href="./contact-form.html?lang=ja&amp;category=policy">
+          <span class="contact-inquiry-copy"><strong data-i18n="contact.policyTitle">プライバシーポリシー等に関するお問い合わせ</strong><span data-i18n="contact.policyLead">個人情報、情報保護方針、安全管理に関するご質問</span></span>
+          <span class="contact-inquiry-arrow" aria-hidden="true">↗</span>
+        </a>
+      </nav>
       <div class="contact-landing-direct">
         <p data-i18n="contact.directLead">メールアプリが起動しない場合は下記のアドレスへ直接ご連絡ください</p>
         <a class="contact-landing-email" id="email-link" href="mailto:namisatorio@twoltwo.com?subject=2L%C2%B2%20%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B">namisatorio@twoltwo.com</a>
@@ -232,6 +239,12 @@
       </div>
     </div>
   </div>
-  <footer class="site-footer"><a href="./customer.html" target="_blank" rel="noopener noreferrer" data-i18n="nav.customer">お客様向け情報</a><a href="#home" data-i18n="footer.back">ページの先頭へ ↑</a></footer>
+  <footer class="site-footer">
+<nav class="policy-footer-links" aria-label="情報保護に関する方針">
+<a href="./information-protection.html?lang=ja" data-i18n="footer.protection">情報保護方針</a>
+<a href="./information-security.html?lang=ja" data-i18n="footer.security">情報の安全管理・取扱</a>
+<a href="./privacy-policy.html?lang=ja" data-i18n="footer.privacy">個人情報保護方針</a>
+</nav>
+<a href="./customer.html" target="_blank" rel="noopener noreferrer" data-i18n="nav.customer">お客様向け情報</a><a href="#home" data-i18n="footer.back">ページの先頭へ ↑</a></footer>
 </section>
 </main><noscript><p style="position:relative;z-index:50;background:#05090d;color:white;padding:1rem">This website requires JavaScript / このサイトでは JavaScript を使用しています。</p></noscript></body></html>
