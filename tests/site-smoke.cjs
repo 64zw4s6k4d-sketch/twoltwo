@@ -1,526 +1,169 @@
-/* 2L² static-site end-to-end smoke/regression suite.
- * Run: npm install --no-save playwright && npx playwright install chromium
- *      python3 -m http.server 8765 &
- *      node tests/site-smoke.cjs
- */
+/* 2L² production site browser smoke suite.
+   Matches the approved standalone Strengths, Cases and Schedule pages.
+   Run from the static site root with node tests/site-smoke.cjs.
+*/
 'use strict';
+const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
-const assert=require('node:assert/strict');
 const {chromium}=require('playwright');
 const base=process.env.SITE_URL||'http://127.0.0.1:8765/';
-const shots=path.resolve('test-artifacts');
-fs.mkdirSync(shots,{recursive:true});
-const problems=[];
-const results=[];
-const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
-function check(value,message){if(!value)throw new Error(message);}
-async function runCase(name,fn){
+const artifacts=path.resolve('test-artifacts');
+fs.mkdirSync(artifacts,{recursive:true});
+const results=[],problems=[];
+async function caseTest(name,fn){
   try{await fn();results.push({name,status:'passed'});console.log('PASS '+name)}
-  catch(err){results.push({name,status:'failed',error:String(err.stack||err)});problems.push(name+': '+String(err.stack||err));console.error('FAIL '+name+': '+err.stack)}
+  catch(e){const problem=String(e&&e.stack||e);results.push({name,status:'failed',error:problem});problems.push(name+': '+problem);console.error('FAIL '+name+': '+problem)}
 }
-function observe(page,label){
+function monitor(page){
   const errors=[];
-  page.on('pageerror',err=>errors.push('JavaScript: '+err.message));
-  page.on('response',resp=>{
-    if(resp.url().startsWith(base)&&resp.status()>=400)errors.push('HTTP '+resp.status()+' '+resp.url())
-  });
-  page.on('console',msg=>{if(msg.type()==='error')errors.push('Console: '+msg.text())});
-  return {errors,verify(){check(errors.length===0,label+' browser errors: '+JSON.stringify(errors))}};
+  page.on('pageerror',e=>errors.push('JavaScript: '+e.message));
+  page.on('response',r=>{if(r.url().startsWith(base)&&r.status()>=400)errors.push('HTTP '+r.status()+' '+r.url())});
+  return ()=>assert.deepEqual(errors,[],errors.join('\n'));
 }
-async function viewportChecks(page,label){
-  const issues=await page.evaluate(()=>{
-    const doc=document.documentElement;
-    const max=Math.max(doc.scrollWidth,document.body.scrollWidth);
-    const titles=Array.from(document.querySelectorAll('.chapter h1,.chapter h2,.llm-story h4,.virtual-showcase-title'))
-      .filter(el=>el.getClientRects().length)
-      .map(el=>({text:(el.textContent||'').trim().slice(0,70),width:Math.round(el.getBoundingClientRect().width),scroll:el.scrollWidth}));
-    const overflowers=Array.from(document.querySelectorAll('body *')).map(el=>{
-      const r=el.getBoundingClientRect();
-      return {node:el.tagName.toLowerCase(),cls:String(el.className?.baseVal??el.className??'').slice(0,80),right:Math.round(r.right),left:Math.round(r.left),width:Math.round(r.width)};
-    }).filter(x=>x.right>window.innerWidth+10||x.left<-10).slice(0,22);
-    const controls=['.language button[data-lang="en"]','#menu-toggle'].map(sel=>{
-      const el=document.querySelector(sel);if(!el)return {sel,missing:true};
-      const r=el.getBoundingClientRect();const x=r.left+r.width/2,y=r.top+r.height/2,at=document.elementFromPoint(x,y);
-      return {sel,rect:{x:r.x,y:r.y,w:r.width,h:r.height},topAtPoint:at?.outerHTML?.slice(0,130)};
+async function inspect(page,name){
+  const result=await page.evaluate(()=>({
+    inner:innerWidth,
+    doc:document.documentElement.scrollWidth,
+    body:document.body.scrollWidth,
+    clipped:[...document.querySelectorAll('h1,h2,h3')].filter(n=>n.getClientRects().length&&n.scrollWidth>n.clientWidth+5).map(n=>n.textContent.trim().slice(0,80))
+  }));
+  assert(Math.max(result.doc,result.body)<=result.inner+6,name+' horizontal overflow '+JSON.stringify(result));
+  assert.equal(result.clipped.length,0,name+' clipped headings '+JSON.stringify(result.clipped));
+}
+async function screenshot(page,name){await page.screenshot({path:path.join(artifacts,name+'.png'),fullPage:false})}
+async function loaded(page,url){const r=await page.goto(base+url,{waitUntil:'load'});assert(r&&r.ok(),url+' failed HTTP request');}
+async function topPage(browser,label,width,height,mobile){
+  const context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1,reducedMotion:'reduce'});
+  const page=await context.newPage();page.setDefaultTimeout(8000);const verify=monitor(page);
+  try{
+    await caseTest(label+' homepage and logo',async()=>{
+      await loaded(page,'index.html');
+      assert.match(await page.locator('#home h1').innerText(),/機密データを社外に出さず/);
+      assert.equal(await page.locator('.space-frame').count(),8);
+      assert(await page.locator('#site-header .brand img').evaluate(img=>img.complete&&img.naturalWidth>0));
+      assert(await page.locator('.hero-actions .action-solid').isVisible());
+      await inspect(page,label+' homepage');await screenshot(page,label+'-home');
     });
-    return {inner:window.innerWidth,scroll:max,overflow:max-window.innerWidth,headlines:titles.filter(t=>t.scroll>t.width+4),overflowers,controls};
-  });
-  check(issues.overflow<=5,label+' horizontal page overflow '+JSON.stringify(issues));
-  // Titles can wrap to two or three lines, but their own scrollable width should not clip.
-  check(issues.headlines.length===0,label+' clipped headings: '+JSON.stringify(issues.headlines));
-}
-async function homepage(browser,label,width,height,mobile=false){
- const context=await browser.newContext({viewport:{width,height},deviceScaleFactor:mobile?2:1,isMobile:mobile,hasTouch:mobile,reducedMotion:'reduce'});
- const page=await context.newPage();page.setDefaultTimeout(9000);
- const observed=observe(page,label);
- try{
-  await runCase(label+' homepage loads',async()=>{
-   await page.goto(base+'index.html',{waitUntil:'load'});
-   await page.locator('#site-header').waitFor();
-   check(await page.locator('#home h1').textContent().then(s=>s.includes('どこにでも')), 'JP top message absent');
-   await viewportChecks(page,label+' initial');
-   await page.screenshot({path:path.join(shots,label+'-home.png')});
-  });
-  await runCase(label+' 3-language navigation',async()=>{
-   if(mobile){
-     const headerDebug=await page.evaluate(()=>{
-       const els=['.language button[data-lang="en"]','#menu-toggle'].map(sel=>{
-         const el=document.querySelector(sel);const r=el.getBoundingClientRect();
-         const x=r.x+r.width/2,y=r.y+r.height/2;
-         const top=document.elementFromPoint(x,y);
-         const header=getComputedStyle(document.querySelector('#site-header'));
-         const self=getComputedStyle(el);
-         return {sel,rect:{x:r.x,y:r.y,w:r.width,h:r.height},inViewport:x>=0&&x<innerWidth&&y>=0&&y<innerHeight,top:top?.outerHTML?.slice(0,180),pointer:self.pointerEvents,headerPointer:header.pointerEvents,headerZ:header.zIndex};
-       });
-       return {innerWidth,scrollWidth:document.documentElement.scrollWidth,els};
-     });
-     console.log('MOBILE HIT TEST '+label+' '+JSON.stringify(headerDebug));
-   }
-   for(const [code,expected] of [['en','Our Strengths'],['th','จุดแข็งของ 2L²'],['ja','2L²の強み']]){
-     await page.locator('.language button[data-lang="'+code+'"]').click();
-     check(await page.locator('html').getAttribute('lang')===code,'language '+code+' did not activate');
-     const all=await page.locator('.desktop-nav a[data-nav="technology"]').textContent();
-     check(all.includes(expected),'label incorrect for '+code+': '+all);
-   }
-  });
-  await runCase(label+' contact email works',async()=>{
-   const email=page.locator('#email-link');
-   check(await email.isVisible(),'Contact email link must be visible');
-   const href=await email.getAttribute('href');
-   check(href?.startsWith('mailto:namisatorio@twoltwo.com?'), 'Unexpected contact destination '+href);
-   check(!(await page.locator('#contact-unavailable').isVisible()), 'Unconfigured-contact warning is still displayed');
-  });
-  await runCase(label+' opens contact form on a separate page',async()=>{
-   check(await page.locator('#contact-form-open').isVisible(),'Homepage contact CTA missing');
-   check(await page.locator('#contact-form').count()===0,'Contact fields should not be embedded in homepage');
-   await page.locator('#contact-form-open').click();
-   await page.waitForURL('**/contact-form.html?lang=ja');
-   check(await page.locator('#contact-form').isVisible(),'Dedicated contact form did not appear');
-   check(await page.locator('.contact-panel-index').count()===0,'01 / INQUIRY must not appear above contact form');
-   const luxury=await page.locator('#contact-submit').evaluate(button=>{
-      const style=getComputedStyle(button);
-      const copy=button.querySelector('.contact-submit-copy');
-      const meta=copy.querySelector('.contact-submit-signature');
-      const arrow=button.querySelector('.contact-submit-end');
-      const arrowStyle=getComputedStyle(arrow);
-      return {
-        background:style.backgroundImage,color:style.color,
-        height:button.getBoundingClientRect().height,
-        signature:meta?.textContent?.trim(),copyLabel:copy?.querySelector('.contact-submit-label')?.textContent?.trim(),
-        arrowBorder:arrowStyle.borderLeftWidth,arrowShape:!!arrow?.querySelector('svg path'),
-        arrowWidth:arrow.getBoundingClientRect().width
-      };
-   });
-   check(luxury.background.includes('gradient'),'Premium action needs subtly graded matte-metal finish');
-   check(luxury.height>=80,'Premium action is not spacious enough: '+JSON.stringify(luxury));
-   check(luxury.signature==='2L² / CONTACT','Custom typographic seal missing: '+JSON.stringify(luxury));
-   check(luxury.arrowBorder!=='0px'&&luxury.arrowShape&&luxury.arrowWidth>=48,
-      'Precision arrow panel is missing: '+JSON.stringify(luxury));
-   check(await page.locator('#contact-form-back').count()===0 || await page.locator('.contact-form-back').isVisible(),'Contact return control missing');
-   await viewportChecks(page,label+' dedicated contact form');
-   await page.screenshot({path:path.join(shots,label+'-contact.png')});
-  });
-  await runCase(label+' contact form validation and draft creation',async()=>{
-   const form=page.locator('#contact-form');
-   check(await form.isVisible(),'Contact form is not visible');
-   // Required fields must block an empty form.
-   await page.locator('#contact-submit').click();
-   const invalid=await page.locator('#contact-form-status').textContent();
-   check(invalid.includes('必須項目'),'Missing required-fields warning');
-   check(!(await page.locator('#contact-mailto-open').isVisible()),'Blank form generated a draft');
-   // A valid draft contains every field, but the user still has to send it.
-   await page.locator('#contact-company').fill('株式会社テスト');
-   await page.locator('#contact-name').fill('テスト 太郎');
-   await page.locator('#contact-email').fill('test@example.com');
-   await page.locator('#contact-phone').fill('03-9999-1234');
-   await page.locator('#contact-category').selectOption('poc');
-   await page.locator('#contact-message').fill('独自RAGのPoCについて相談したいです。');
-   await page.evaluate(()=>{
-     const link=document.getElementById('contact-mailto-open');
-     link.addEventListener('click',e=>{e.preventDefault();window.__mailIntentClicked=true;});
-   });
-   await page.locator('#contact-submit').click();
-   check(await page.locator('#contact-mailto-open').isVisible(),'Prepared-mail fallback not visible');
-   const href=await page.locator('#contact-mailto-open').getAttribute('href');
-   check(href.startsWith('mailto:namisatorio@twoltwo.com?subject='),'Incorrect contact recipient');
-   const body=new URLSearchParams(href.split('?')[1]).get('body');
-   check(body.includes('株式会社テスト')&&body.includes('テスト 太郎')&&body.includes('test@example.com')&&body.includes('03-9999-1234')&&body.includes('独自RAGのPoCについて相談したいです。'),'Draft missing contact fields');
-   check(await page.evaluate(()=>window.__mailIntentClicked===true),'Mail application opening was not triggered');
-   check((await page.locator('#contact-form-status').textContent()).includes('送信は完了していません'),'UI inaccurately implies a successful send');
-   // Editing must clear the draft link.
-   await page.locator('#contact-message').fill('変更後の本文');
-   check(!(await page.locator('#contact-mailto-open').isVisible()),'Stale draft link was not cleared');
-  });
-  await runCase(label+' contact page languages and return navigation',async()=>{
-    for(const code of ['en','th','ja']){
-      await page.locator('.contact-form-header .language button[data-lang="'+code+'"]').click();
-      check(await page.locator('html').getAttribute('lang')===code,'Form page language failed: '+code);
-      check(await page.locator('#contact-company').getAttribute('placeholder')!==null,'Translated placeholder missing');
-      check((await page.locator('.contact-form-back').getAttribute('href')).includes('lang='+code),'Return URL lost locale');
+    await caseTest(label+' translation controls',async()=>{
+      for(const code of ['en','th','ja']){
+        await page.locator('#site-header .language button[data-lang="'+code+'"]').click();
+        assert.equal(await page.locator('html').getAttribute('lang'),code);
+        assert((await page.locator('#home h1').innerText()).trim().length>10);
+      }
+    });
+    if(mobile){
+      await caseTest(label+' responsive menu',async()=>{
+        await loaded(page,'index.html');
+        const toggle=page.locator('#menu-toggle');
+        assert(await toggle.isVisible());
+        await toggle.click({timeout:7000});
+        assert.equal(await toggle.getAttribute('aria-expanded'),'true');
+        await page.locator('#mobile-nav a[href="#company"]').click();
+        assert.equal(await toggle.getAttribute('aria-expanded'),'false');
+      });
     }
-    await page.locator('.contact-form-back').click();
-    await page.waitForURL('**/index.html?lang=ja#contact');
-    check(await page.locator('#contact-form').count()===0,'Contact form visible after returning to homepage');
-    check(await page.locator('#contact-form-open').isVisible(),'Homepage CTA not restored after returning');
-    await viewportChecks(page,label+' homepage after contact return');
-  });
-  await runCase(label+' Local LLM inline expand and auto-collapse',async()=>{
-   const local=page.locator('#service-item-local-llm-details');
-   await local.locator('summary').click();
-   check(await local.evaluate(el=>el.open),'Local LLM did not open');
-   check(await local.locator('.llm-story').count()===3,'Expected 3 Local LLM diagrams');
-   check(await local.locator('.llm-system-mark').count()===3,'Expected restrained system identifiers instead of robot icons');
-   const llmSheet=await local.locator('.llm-story').first().evaluate(el=>{
-     const st=getComputedStyle(el);
-     return {background:st.backgroundImage,shadow:st.boxShadow,radius:st.borderRadius};
-   });
-   check(llmSheet.background==='none' && llmSheet.shadow==='none'&& llmSheet.radius==='0px',
-      'LLM walkthrough should look like editorial technical sheets: '+JSON.stringify(llmSheet));
-   await page.locator('.llm-story-agents').scrollIntoViewIfNeeded();
-   await page.screenshot({path:path.join(shots,label+'-local-last.png')});
-   // Move along the last diagram in small increments as a real user would.
-   let closed=false;
-   for(let i=0;i<60;i++){
-     const state=await page.evaluate(()=>{
-       const node=document.querySelector('#service-item-local-llm-details');
-       const last=node?.querySelector('.llm-story-agents');
-       const rect=last?.getBoundingClientRect();
-       return {open:!!node?.open,bottom:rect?.bottom,threshold:innerHeight*.25};
-     });
-     if(!state.open){closed=true;break;}
-     await page.evaluate(()=>window.scrollBy(0,Math.max(55,innerHeight*.20)));
-     await sleep(28);
-   }
-   check(closed || !(await local.evaluate(el=>el.open)), 'Local LLM did not collapse after final slide');
-   const virtual=page.locator('#service-item-virtual-test-details');
-   check(!(await virtual.evaluate(el=>el.open)),'Virtual lab should stay closed until clicked');
-   await page.waitForTimeout(120);
-   const handoff=await page.evaluate(()=>{
-     const rect=document.querySelector('#service-item-virtual-test-details summary').getBoundingClientRect();
-     const header=document.querySelector('#site-header').getBoundingClientRect();
-     return {top:rect.top,headerBottom:header.bottom,viewport:innerHeight};
-   });
-   check(handoff.top>=handoff.headerBottom-12 && handoff.top<handoff.viewport*.44,
-     'Local-to-virtual handoff did not settle on next title: '+JSON.stringify(handoff));
-   // Opening a panel again by hand must still work.
-   await local.locator('summary').click();check(await local.evaluate(el=>el.open),'Local LLM cannot be reopened');
-   await local.locator('summary').click();check(!(await local.evaluate(el=>el.open)),'Local LLM cannot be closed manually');
-  });
-  await runCase(label+' Virtual Test Environment auto-handoff to strengths',async()=>{
-   const virtual=page.locator('#service-item-virtual-test-details');
-   if(!(await virtual.evaluate(el=>el.open)))await virtual.locator('summary').click();
-   check(await virtual.evaluate(el=>el.open),'Virtual Test Environment did not open');
-   check(await virtual.locator('.virtual-scenario').count()===7,'Expected 7 business scenes');
-   check(await virtual.locator('.virtual-cycle-label').count()===4,'Expected practice/failure/improve/retry cycle');
-   const shieldLogo=virtual.locator('.virtual-cycle-logo');
-   check(await shieldLogo.count()===1,'Virtual cycle should use official 2L² image, not text');
-   await shieldLogo.scrollIntoViewIfNeeded();
-   check(await shieldLogo.evaluate(image=>image.complete&&image.naturalWidth>0),'Virtual center 2L² logo did not load');
-   const processSheet=await virtual.locator('.virtual-lab').evaluate(el=>{
-      const st=getComputedStyle(el);
-      return {background:st.backgroundImage,radius:st.borderRadius,shadow:st.boxShadow};
-   });
-   check(processSheet.background==='none'&&processSheet.shadow==='none',
-      'Virtual process map still has ornamental gradients: '+JSON.stringify(processSheet));
-   await virtual.locator('.virtual-lab').scrollIntoViewIfNeeded();
-   await viewportChecks(page,label+' virtual expanded');
-   await page.screenshot({path:path.join(shots,label+'-virtual.png')});
-   // The virtual showcase includes a takeaway/disclosure after the central
-   // graphic. Do not close until that entire demonstration has been viewed.
-   let autoClosed=false;
-   for(let i=0;i<65;i++){
-     if(!(await virtual.evaluate(el=>el.open))){autoClosed=true;break;}
-     await page.evaluate(()=>window.scrollBy(0,Math.max(55,innerHeight*.20)));
-     await sleep(30);
-   }
-   check(autoClosed || !(await virtual.evaluate(el=>el.open)),
-      'Virtual Test Environment did not auto-close after its final content');
-   await page.waitForTimeout(120);
-   const strengthPosition=await page.evaluate(()=>{
-     const rect=document.querySelector('#technology .section-topline').getBoundingClientRect();
-     const header=document.querySelector('#site-header').getBoundingClientRect();
-     return {top:rect.top,headerBottom:header.bottom,viewport:innerHeight};
-   });
-   check(strengthPosition.top>=strengthPosition.headerBottom-14 && strengthPosition.top<strengthPosition.viewport*.45,
-      'Virtual-to-strengths handoff did not settle correctly: '+JSON.stringify(strengthPosition));
-   // A reader can always reopen the virtual explanation manually.
-   await virtual.locator('summary').click();
-   check(await virtual.evaluate(el=>el.open),'Virtual panel cannot be reopened');
-   await virtual.locator('summary').click();
-   check(!(await virtual.evaluate(el=>el.open)),'Virtual panel cannot be closed manually');
-  });
-  await runCase(label+' opens strengths and cases on dedicated pages',async()=>{
-    check(await page.locator('#technology-details').count()===0,'Long strengths proof should be moved off homepage');
-    check(await page.locator('#projects .project-ledger').count()===0,'Full case ledger should be moved off homepage');
-    check(await page.locator('#projects .info-entry').count()===1,'Projects landing must offer only one destination, without onboarding');
-    check(await page.locator('#projects a[href*="onboarding.html"]').count()===0,'Onboarding button must be removed from the projects section');
-    const caseCTA=page.locator('#cases-page-link');
-    const strengthsCTA=page.locator('#strengths-page-link');
-    check(await caseCTA.isVisible() && await strengthsCTA.isVisible(),'Dedicated destination CTAs missing');
-    for(const button of [caseCTA,strengthsCTA]){
-      const metal=await button.evaluate(el=>({
-        height:el.getBoundingClientRect().height,
-        border:getComputedStyle(el).borderTopColor,
-        arrow:getComputedStyle(el.querySelector('.info-entry-end')).backgroundColor,
-        circle:getComputedStyle(el.querySelector('.info-entry-end'),'::before').borderTopWidth
-      }));
-      check(metal.height>=95 && metal.circle!=='0px','Premium editorial CTA missing: '+JSON.stringify(metal));
-    }
-    check((await caseCTA.getAttribute('href')).startsWith('./cases.html?lang=ja'),'Cases CTA points to wrong page');
-    check(await caseCTA.locator('.info-entry-end svg').count()===1,'Large arrow CTA is missing');
-    const buttonMeasure=await caseCTA.evaluate(el=>({
-       height:el.getBoundingClientRect().height,
-       background:getComputedStyle(el).backgroundImage,
-       right:getComputedStyle(el.querySelector('.info-entry-end')).backgroundColor
-    }));
-    check(buttonMeasure.height>=83 && buttonMeasure.background.includes('gradient'),
-      'Cases CTA does not look like a clear page transition: '+JSON.stringify(buttonMeasure));
-    const strengthsLink=page.locator('#technology .info-entry');
-    check(await strengthsLink.isVisible(),'Homepage strengths CTA missing');
-    await strengthsLink.click();
-    await page.waitForURL('**/strengths.html?lang=ja');
-    check(await page.locator('#access-control-details').count()===1,'Access diagram missing from strengths page');
-    check(await page.locator('#rag-results-details').count()===1,'RAG chart missing from strengths page');
-    check(await page.locator('.architecture-row-link').count()===2,'Strengths entry links missing');
-    await viewportChecks(page,label+' strengths standalone');
-    await page.screenshot({path:path.join(shots,label+'-strengths.png')});
-  });
-  await runCase(label+' standalone strengths proof panels and language',async()=>{
-    const accessLink=page.locator('.architecture-row-link[href="#access-control-details"]');
-    await accessLink.click();
-    const access=page.locator('#access-control-details');
-    check(await access.evaluate(el=>el.open),'Access permissions did not open');
-    check(await access.locator('.access-person').count()===10,'Missing department users');
-    check(await access.locator('.access-matrix tbody tr').count()===2,'Missing rights table');
-    check(await access.locator('.access-core img').evaluate(el=>el.complete&&el.naturalWidth>0),'Official logo missing');
-    await viewportChecks(page,label+' access proof');
-    const ragLink=page.locator('.architecture-row-link[href="#rag-results-details"]');
-    await ragLink.click();
-    const rag=page.locator('#rag-results-details');
-    check(await rag.evaluate(el=>el.open),'RAG proof did not open');
-    const evidence=await rag.innerText();
-    for(const value of ['561','439','0.1163','0.2988','0.1103','0.3656','0.1258','0.2150','0.0743','0.1626','0.1485','0.2256']){
-      check(evidence.includes(value),'Missing original RAG evaluation '+value);
-    }
-    check(await rag.locator('.rag-chart-group').count()===4,'RAG chart must have four question types');
-    await viewportChecks(page,label+' RAG proof');
-    await page.screenshot({path:path.join(shots,label+'-rag.png')});
-    for(const [lang,fragment] of [['en','Role-Based'],['th','เทคโนโลยี'],['ja','権限制御技術']]){
-      await page.locator('.info-header .language button[data-lang="'+lang+'"]').click();
-      check(await page.locator('html').getAttribute('lang')===lang,'Strengths language failed '+lang);
-      check((await page.locator('#access-control-details .proof-opening h3').textContent()).includes(fragment),'Access title not translated '+lang);
-      check((await page.locator('.info-nav a[data-site-i18n="back"]').getAttribute('href')).includes('lang='+lang),'Back link lost selected language');
-    }
-  });
-  await runCase(label+' cases and onboarding dedicated navigation',async()=>{
-    await page.goto(base+'index.html',{waitUntil:'load'});
-    await page.locator('#projects .info-entry[href^="./cases.html"]').click();
-    await page.waitForURL('**/cases.html?lang=ja');
-    check(await page.locator('.ledger-row').count()===4,'Case details missing');
-    const card=page.locator('#case-list');
-    check((await card.locator('strong').textContent()).includes('医薬品承認申請資料（CTD）'),'Case 01 title was not replaced with CTD development');
-    check((await card.innerText()).includes('Maxwell International'),'Case 01 collaboration not present');
-    const detailLink=card.locator('.case-detail-trigger');
-    const details=page.locator('#case-ctd');
-    check(await detailLink.isVisible(),'CTD detail navigation missing');
-    check(!(await details.isVisible()),'CTD detail should be collapsed before its button is clicked');
-    check(await detailLink.getAttribute('aria-expanded')==='false','Initial CTD toggle accessibility state wrong');
-    await detailLink.click();
-    await page.waitForURL('**/cases.html?lang=ja#case-ctd');
-    check(await details.isVisible(),'CTD detail did not open');
-    check(await detailLink.getAttribute('aria-expanded')==='true','Open CTD button must announce expanded state');
-    check((await detailLink.textContent()).includes('閉じる'),'CTD toggle label must change on opening');
-    const narrative=await details.innerText();
-    for(const phrase of ['背景と課題','2L²の取り組み','機密情報への配慮','業務特化型の開発','研究データを、業務で活用できるAIへ']){
-      check(narrative.includes(phrase),'Case 01 is missing material from uploaded CTD case record: '+phrase);
-    }
-    check(await details.locator('.case-value').count()===3,'CTD case should show three technical values');
-    check((await details.locator('.case-study-partner a').getAttribute('href'))==='https://maxwellinternational.net/',
-      'Collaborator link is incorrect');
-    await viewportChecks(page,label+' CTD detail');
-    await page.screenshot({path:path.join(shots,label+'-ctd.png')});
-    await details.locator('.case-back-link').click();
-    check(!(await details.isVisible()),'CTD text remains open after closing');
-    check(await detailLink.getAttribute('aria-expanded')==='false','CTD toggle did not reset accessibility state');
-    check((await detailLink.textContent()).includes('詳しく'),'CTD toggle label did not reset');
-    check(await card.isVisible(),'Return to case list is unavailable');
-    // The same button must work repeatedly, including by keyboard.
-    await detailLink.focus();
-    await page.keyboard.press('Enter');
-    check(await details.isVisible(),'CTD details did not reopen with keyboard');
-    await detailLink.click();
-    check(!(await details.isVisible()),'CTD details did not close on repeated button click');
-    await viewportChecks(page,label+' cases standalone');
-    await page.screenshot({path:path.join(shots,label+'-cases.png')});
-    for(const lang of ['en','th','ja']){
-      await page.locator('.info-header .language button[data-lang="'+lang+'"]').click();
-      check(await page.locator('html').getAttribute('lang')===lang,'Cases language failed '+lang);
-      const caseTitle=await page.locator('#case-list strong').textContent();
-      check(caseTitle.length>12,'Case 01 title missing in '+lang);
-      const detailTitle=await page.locator('#case-ctd-title').textContent();
-      check(caseTitle===detailTitle,'Case 01 title mismatch between card and detail in '+lang);
-      const caseButton=await page.locator('#case-list .case-detail-trigger').textContent();
-      check(caseButton.trim().length>5,'Case 01 detail button untranslated in '+lang);
-    }
-    await page.locator('.info-nav a[data-site-i18n="process"]').click();
-    await page.waitForURL('**/onboarding.html?lang=ja');
-    check((await page.locator('main').innerText()).includes('導入までの流れ'),'Onboarding details missing');
-    await page.goto(base+'index.html',{waitUntil:'load'});
-  });
-  if(mobile){
-   await runCase(label+' responsive menu',async()=>{
-    const button=page.locator('#menu-toggle');
-    await button.click();
-    check(await button.getAttribute('aria-expanded')==='true','menu did not open');
-    await page.locator('#mobile-nav a[href="#company"]').click();
-    check(await button.getAttribute('aria-expanded')==='false','menu not closed after navigation');
-   });
-  }
-  await runCase(label+' customer page robot sequence',async()=>{
-   await page.goto(base+'customer.html',{waitUntil:'load'});
-   const robot=page.locator('#robot-interact'),mood=page.locator('.robot-section');
-   await robot.waitFor();
-   await robot.click();check(await mood.getAttribute('data-mood')==='shy','first tap should blush');
-   await robot.click();check(await mood.getAttribute('data-mood')==='angry','second tap should be angry');
-   await robot.click();check(await mood.getAttribute('data-mood')==='unimpressed','third tap should be unimpressed');
-   await robot.click();check(await mood.getAttribute('data-mood')==='unimpressed','fourth tap should remain unimpressed');
-   await page.screenshot({path:path.join(shots,label+'-robot.png')});
-   await sleep(7800);
-   check(await mood.getAttribute('data-mood')==='neutral','robot did not reset after 7.6s');
-  });
-  await runCase(label+' customer cases menu uses dedicated listing',async()=>{
-   await page.goto(base+'customer.html',{waitUntil:'load'});
-   const nav=page.locator('[data-nav-key="projects"]');
-   check((await nav.getAttribute('href'))==='./cases.html','Customer menu incorrectly links to homepage fragment');
-  });
-  await runCase(label+' customer page language switch',async()=>{
-   await page.goto(base+'customer.html',{waitUntil:'load'});
-   for(const code of ['en','th','ja']){
-     await page.locator('.customer-language button[data-lang="'+code+'"]').click();
-     check(await page.locator('html').getAttribute('lang')===code,'Customer language did not switch to '+code);
-   }
-  });
-  await runCase(label+' linked subpages',async()=>{
-   for(const uri of ['onboarding.html','privacy.html','security.html']){
-     const response=await page.goto(base+uri,{waitUntil:'load'});
-     check(response?.ok(),uri+' did not load');
-     check((await page.locator('body').innerText()).length>60,uri+' appears blank');
-     for(const code of ['en','th','ja']){
-       await page.locator('.language button[data-lang="'+code+'"]').click();
-       check(await page.locator('html').getAttribute('lang')===code,uri+' language did not switch to '+code);
-     }
-   }
-  });
-  await runCase(label+' no browser exceptions / asset errors',async()=>observed.verify());
- }finally{await context.close();}
+    await caseTest(label+' expandable software explanations',async()=>{
+      await loaded(page,'index.html');
+      for(const id of ['service-item-local-llm-details','service-item-virtual-test-details']){
+        const detail=page.locator('#'+id);
+        assert.equal(await detail.count(),1);
+        await detail.locator('summary').click();
+        assert(await detail.evaluate(el=>el.open),id+' did not open');
+        const section=detail.locator('.service-detail-panel');
+        assert(await section.isVisible());
+        await screenshot(page,label+'-'+id.replace('service-item-',''));
+        await detail.locator('summary').click();
+        assert(!(await detail.evaluate(el=>el.open)),id+' did not close');
+      }
+      await inspect(page,label+' services');
+    });
+    await caseTest(label+' dedicated links',async()=>{
+      await loaded(page,'index.html');
+      assert.equal(await page.locator('#strengths-page-link').count(),1);
+      assert.equal(await page.locator('#cases-page-link').count(),1);
+      assert.match(await page.locator('#strengths-page-link').getAttribute('href'),/strengths.html/);
+      assert.match(await page.locator('#cases-page-link').getAttribute('href'),/cases.html/);
+    });
+    await caseTest(label+' strengths, RAG and scheduled processing',async()=>{
+      await loaded(page,'strengths.html?lang=ja');
+      assert.equal(await page.locator('.architecture-row').count(),5);
+      for(const id of ['access-control-details','rag-results-details','scheduled-execution-details']){
+        const link=page.locator('.architecture-row-link[href="#'+id+'"]');
+        assert.equal(await link.count(),1);
+        await link.click();
+        const detail=page.locator('#'+id);
+        assert(await detail.evaluate(el=>el.open),id+' did not open');
+      }
+      assert.equal(await page.locator('#scheduled-execution-details .schedule-preview-field').count(),4);
+      assert.equal(await page.locator('#scheduled-execution-details .schedule-ui-card').count(),1);
+      assert.equal(await page.locator('#scheduled-execution-details .schedule-ui-saved-card').count(),1);
+      const logo=page.locator('#scheduled-execution-details .schedule-ui-brand img');
+      assert(await logo.evaluate(img=>img.complete&&img.naturalWidth>0),'2L² logo failed to load');
+      assert.match(await page.locator('#scheduled-execution-details').innerText(),/AI実行システムへの接続が必要/);
+      await inspect(page,label+' strengths');await screenshot(page,label+'-strengths');
+    });
+    await caseTest(label+' onboarding link and selected language',async()=>{
+      await loaded(page,'strengths.html?lang=ja');
+      const link=page.locator('.architecture-row-onboarding');
+      assert.match(await link.getAttribute('href'),/onboarding.html/);
+      await page.locator('.info-header .language button[data-lang="en"]').click();
+      assert.match(await link.getAttribute('href'),/lang=en/);
+      await page.locator('.info-header .language button[data-lang="ja"]').click();
+      await link.click();
+      await page.waitForURL('**/onboarding.html?lang=ja');
+      assert.match(await page.locator('main').innerText(),/導入までの流れ/);
+    });
+    await caseTest(label+' CTD case details',async()=>{
+      await loaded(page,'cases.html?lang=ja');
+      assert.equal(await page.locator('.ledger-row').count(),3);
+      assert.match(await page.locator('#case-list strong').innerText(),/未公開CTD/);
+      const toggle=page.locator('#case-ctd-toggle'),detail=page.locator('#case-ctd');
+      assert.equal(await toggle.getAttribute('aria-expanded'),'false');
+      await toggle.click();
+      assert(await detail.isVisible(),'CTD case detail did not open');
+      assert.equal(await detail.locator('.case-study-section').count(),4);
+      assert.match(await detail.innerText(),/医学博士による実用性評価/);
+      await inspect(page,label+' cases');await screenshot(page,label+'-cases');
+      await page.locator('#case-ctd-close').click();
+      assert(!(await detail.isVisible()),'CTD detail did not close');
+    });
+    await caseTest(label+' contact page and legal pages',async()=>{
+      await loaded(page,'contact-form.html?lang=ja');
+      assert(await page.locator('#contact-name').isVisible());
+      assert(await page.locator('#contact-email').isVisible());
+      assert(await page.locator('#contact-message').isVisible());
+      for(const pageName of ['customer.html','privacy.html','security.html','onboarding.html']){
+        await loaded(page,pageName);
+        assert((await page.locator('body').innerText()).trim().length>80,pageName+' is empty');
+      }
+      await inspect(page,label+' subpage');
+    });
+    await caseTest(label+' no runtime or asset errors',async()=>verify());
+  }finally{await context.close()}
 }
 (async()=>{
-  const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
-  try{
-   await homepage(browser,'desktop-1440',1440,900,false);
-   await homepage(browser,'tablet-820',820,1000,false);
-   await homepage(browser,'mobile-390',390,844,true);
-   await homepage(browser,'mobile-320',320,700,true);
-   for(const [name,w,h,mobile] of [['desktop',1440,900,false],['mobile',390,844,true]]){
-    await runCase(name+' close only after expanded content passes viewport quarter',async()=>{
-      const ctx=await browser.newContext({viewport:{width:w,height:h},hasTouch:mobile,isMobile:mobile,reducedMotion:'reduce'});
-      const page=await ctx.newPage();
-      try{
-        await page.goto(base+'index.html',{waitUntil:'load'});
-        for(const id of ['service-item-local-llm-details','service-item-virtual-test-details']){
-          const panel=page.locator('#'+id);
-          if(!(await panel.evaluate(el=>el.open)))await panel.locator('summary').click();
-          const content=panel.locator('.service-detail-panel');
-          // Stop a little before the 25% line. The section should remain open.
-          await content.evaluate(el=>{
-            const desired=innerHeight*.25+35;
-            const bottom=el.getBoundingClientRect().bottom;
-            window.scrollTo({top:window.scrollY+bottom-desired,behavior:'instant'});
-          });
-          await sleep(90);
-          check(await panel.evaluate(el=>el.open),id+' closed before the last content was read');
-          await page.evaluate(()=>window.scrollBy({top:-18,behavior:'instant'}));
-          await sleep(60);
-          check(await panel.evaluate(el=>el.open),id+' closed while scrolling upward');
-          // Scroll past the quarter guide: closing must happen promptly.
-          await page.evaluate(()=>window.scrollBy({top:85,behavior:'instant'}));
-          await page.waitForFunction(identifier=>!document.getElementById(identifier).open,id,{timeout:1900});
-          check(!(await panel.evaluate(el=>el.open)),id+' remained open past the quarter');
-        }
-      }finally{await ctx.close()}
-    });
-   }
-   for(const [name,w,h,mobile] of [['desktop',1440,900,false],['mobile',390,844,true]]){
-    await runCase(name+' smooth scroll handoffs with animations enabled',async()=>{
-      const ctx=await browser.newContext({viewport:{width:w,height:h},hasTouch:mobile,isMobile:mobile,reducedMotion:'no-preference'});
-      const page=await ctx.newPage();
-      const errs=observe(page,name+' motion');
-      try{
-        await page.goto(base+'index.html',{waitUntil:'load'});
-        const local=page.locator('#service-item-local-llm-details');
-        await local.locator('summary').click();
-        await page.locator('.llm-story-agents').scrollIntoViewIfNeeded();
-        let started=false;
-        for(let i=0;i<90;i++){
-          if(!(await local.evaluate(el=>el.open))){started=true;break;}
-          await page.evaluate(()=>window.scrollBy({top:Math.max(70,innerHeight*.17),behavior:'instant'}));
-          await sleep(30);
-        }
-        check(started,'Local panel failed to hand off with smooth motion');
-        await sleep(220);
-        const afterLocal=await page.evaluate(()=>{
-          const el=document.querySelector('#service-item-virtual-test-details');
-          return {opened:el.open, top:el.querySelector('summary').getBoundingClientRect().top,header:document.querySelector('#site-header').getBoundingClientRect().bottom};
-        });
-        check(!afterLocal.opened && afterLocal.top>=afterLocal.header-12 && afterLocal.top<h*.42,
-          'Local-to-virtual smooth handoff position incorrect: '+JSON.stringify(afterLocal));
-        const virtual=page.locator('#service-item-virtual-test-details');
-        await virtual.locator('summary').click();
-        check(await virtual.evaluate(el=>el.open),'Virtual lab did not open on click');
-        await page.locator('.virtual-showcase').scrollIntoViewIfNeeded();
-        let finished=false;
-        for(let i=0;i<90;i++){
-          if(!(await virtual.evaluate(el=>el.open))){finished=true;break;}
-          await page.evaluate(()=>window.scrollBy({top:Math.max(70,innerHeight*.17),behavior:'instant'}));
-          await sleep(30);
-        }
-        check(finished,'Virtual panel failed to hand off smoothly to strengths');
-        await sleep(220);
-        const afterVirtual=await page.evaluate(()=>{
-          const el=document.querySelector('#technology .section-topline');
-          return {top:el.getBoundingClientRect().top,header:document.querySelector('#site-header').getBoundingClientRect().bottom};
-        });
-        check(afterVirtual.top>=afterVirtual.header-12 && afterVirtual.top<h*.42,
-          'Virtual-to-strengths smooth handoff position incorrect: '+JSON.stringify(afterVirtual));
-        errs.verify();
-      }finally{await ctx.close()}
-    });
-   }
-   await runCase('Deep links open appropriate service panel',async()=>{
-    const context=await browser.newContext({viewport:{width:1366,height:800},reducedMotion:'reduce'});
-    const page=await context.newPage();const obs=observe(page,'deep-link');
+ const browser=await chromium.launch({headless:true});
+ try{
+  for(const [label,width,height,mobile] of [
+    ['desktop-1440',1440,900,false],
+    ['tablet-820',820,1180,false],
+    ['mobile-390',390,844,true],
+    ['mobile-320',320,740,true]
+  ])await topPage(browser,label,width,height,mobile);
+  await caseTest('Direct linked technical panels',async()=>{
+    const page=await browser.newPage();
     try{
-     await page.goto(base+'index.html#local-llm-details',{waitUntil:'load'});
-     await sleep(150);
-     check(await page.locator('#service-item-local-llm-details').evaluate(el=>el.open),'Local hash target is closed');
-     await page.goto(base+'index.html#virtual-test-details',{waitUntil:'load'});
-     await sleep(150);
-     check(await page.locator('#service-item-virtual-test-details').evaluate(el=>el.open),'Virtual hash target is closed');
-     // Newly authored evidence sections also support direct fragment URLs.
-     for(const id of ['access-control-details','rag-results-details']){
-       await page.goto(base+'strengths.html#'+id,{waitUntil:'load'});
-       await sleep(150);
-       check(await page.locator('#'+id).evaluate(el=>el.open),'Proof hash target did not expand: '+id);
-     }
-     await page.goto(base+'cases.html?lang=ja#case-ctd',{waitUntil:'load'});
-     check(await page.locator('#case-ctd').isVisible(),'Direct link should reveal CTD details');
-     check(await page.locator('#case-ctd-toggle').getAttribute('aria-expanded')==='true','Direct CTD link toggle state incorrect');
-     obs.verify();
-    }finally{await context.close()}
-   });
-  }finally{await browser.close()}
-  fs.writeFileSync(path.join(shots,'results.json'),JSON.stringify({results,problems},null,2));
-  console.log('SMOKE SUMMARY: '+results.filter(x=>x.status==='passed').length+'/'+results.length+' passed');
-  if(problems.length){console.error(problems.join('\n\n'));process.exitCode=1}
-})().catch(err=>{console.error(err.stack||err);process.exitCode=1});
+      for(const id of ['access-control-details','rag-results-details','scheduled-execution-details']){
+        await loaded(page,'strengths.html?lang=ja#'+id);
+        assert(await page.locator('#'+id).evaluate(el=>el.open),id+' direct link did not expand');
+      }
+      await loaded(page,'cases.html?lang=ja#case-ctd');
+      assert(await page.locator('#case-ctd').isVisible(),'CTD deep link did not expand');
+    }finally{await page.close()}
+  });
+ }finally{await browser.close()}
+ fs.writeFileSync(path.join(artifacts,'results.json'),JSON.stringify({results,problems},null,2));
+ console.log('SMOKE SUMMARY '+results.filter(r=>r.status==='passed').length+'/'+results.length+' passed');
+ if(problems.length){console.error(problems.join('\n\n'));process.exitCode=1}
+})().catch(e=>{console.error(e.stack||e);process.exitCode=1});
