@@ -1767,3 +1767,182 @@ body:not(.information-page) .services .service-symbol-lab svg{
     height:30px!important;
   }
 }
+
+
+/* 2026-11-12: Our philosophy — editorial typography, generous space and restrained brass.
+   Keeps the existing site atmosphere, grid and primary navigation unchanged. */
+body:not(.information-page) .company .company-philosophy-label{
+  margin:0 auto clamp(15px,2.6vw,25px)!important;
+  color:#d8bf93;
+  font-family:var(--jp-gothic);
+  font-size:clamp(18px,1.8vw,23px)!important;
+  font-weight:540;
+  letter-spacing:.04em!important;
+  line-height:1.6;
+  text-align:center;
+}
+body:not(.information-page) .company-statement>h2{
+  max-width:min(1120px,100%)!important;
+  font-size:clamp(37px,4.65vw,69px)!important;
+  line-height:1.48!important;
+  letter-spacing:-.045em!important;
+  word-break:keep-all;
+  overflow-wrap:normal!important;
+}
+body:not(.information-page) .company-statement .company-philosophy-link{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:clamp(18px,2.7vw,34px);
+  width:min(100%,440px);
+  min-height:68px;
+  margin:clamp(31px,4.6vw,57px) auto 0;
+  padding:14px clamp(17px,2.7vw,28px);
+  color:#f1dfbe;
+  border:1px solid rgba(223,192,139,.61);
+  background:linear-gradient(145deg,rgba(33,43,49,.9),rgba(15,24,31,.93));
+  font-family:var(--jp-gothic);
+  font-size:clamp(15px,1.25vw,18px);
+  font-weight:550;
+  letter-spacing:.005em;
+  line-height:1.55;
+  text-decoration:none;
+  box-shadow:inset 0 1px rgba(239,216,167,.09),0 10px 30px rgba(0,0,0,.14);
+  transition:background .2s ease,border-color .2s ease,color .2s ease;
+}
+body:not(.information-page) .company-statement .company-philosophy-link:hover,
+body:not(.information-page) .company-statement .company-philosophy-link:focus-visible{
+  border-color:#eed19a;
+  background:linear-gradient(145deg,rgba(49,58,61,.97),rgba(24,35,42,.97));
+  color:#fff0d1;
+}
+body:not(.information-page) .company-statement .company-philosophy-link:focus-visible{
+  outline:2px solid #edce95;
+  outline-offset:5px;
+}
+body:not(.information-page) .company-philosophy-link-mark{
+  display:grid;
+  flex:0 0 39px;
+  width:39px;
+  height:39px;
+  place-items:center;
+  border:1px solid rgba(215,187,140,.42);
+  border-radius:50%;
+  color:#e6c993;
+}
+body:not(.information-page) .company-philosophy-link-mark svg{
+  width:22px;
+  height:22px;
+  display:block;
+}
+body:not(.information-page) .company-statement .company-details{
+  margin-top:clamp(55px,6vw,80px)!important;
+}
+
+/* Readable long-form statement in an intentionally quiet, non-template layout. */
+body.information-page.philosophy-document-page{
+  background:
+    radial-gradient(ellipse 110% 64% at 80% -30%,rgba(182,143,87,.08),transparent 75%),
+    #080e15;
+}
+body.information-page.philosophy-document-page .philosophy-document-section>.chapter-content{
+  width:min(100%,1100px);
+  padding:clamp(59px,8vw,125px) clamp(22px,5.3vw,70px) clamp(90px,10vw,152px)!important;
+  margin-inline:auto;
+}
+body.information-page .philosophy-document-header{
+  width:min(100%,1000px);
+  margin:0 auto clamp(47px,6.6vw,90px);
+}
+body.information-page .philosophy-document-label{
+  margin:0 0 clamp(17px,2.5vw,28px);
+  color:#dfc699;
+  font-family:var(--jp-gothic);
+  font-size:clamp(17px,1.55vw,21px);
+  font-weight:550;
+  letter-spacing:.025em;
+  line-height:1.65;
+}
+body.information-page .philosophy-document-header h1{
+  max-width:100%;
+  margin:0;
+  color:#f2eee7;
+  font-family:var(--jp-gothic);
+  font-size:clamp(37px,4.7vw,70px);
+  font-weight:610;
+  line-height:1.48;
+  letter-spacing:-.047em;
+  word-break:keep-all;
+  overflow-wrap:anywhere;
+  text-wrap:balance;
+}
+body.information-page .philosophy-document-line{
+  display:block;
+  width:clamp(75px,8vw,115px);
+  height:1px;
+  margin-top:clamp(31px,4vw,54px);
+  background:linear-gradient(90deg,#e8cc96,rgba(232,204,150,.20));
+}
+body.information-page .philosophy-document-body{
+  max-width:880px;
+  margin:auto;
+  color:#d6d8d5;
+  font-family:var(--jp-gothic);
+  font-size:clamp(16px,1.42vw,19px);
+  font-weight:430;
+  line-height:2.16;
+  letter-spacing:.007em;
+}
+body.information-page .philosophy-document-p{
+  margin:0 0 clamp(29px,3.9vw,47px);
+  line-height:inherit;
+}
+body.information-page .philosophy-document-opening{
+  color:#f0e5d3;
+  font-size:clamp(19px,1.75vw,24px);
+  font-weight:590;
+}
+body.information-page .philosophy-document-principle{
+  margin-bottom:clamp(16px,2.6vw,29px);
+  padding-left:clamp(16px,2.1vw,25px);
+  border-left:1px solid rgba(225,188,126,.64);
+  color:#e5e0d7;
+}
+body.information-page .philosophy-document-principle + .philosophy-document-p:not(.philosophy-document-principle){
+  margin-top:clamp(32px,5vw,58px);
+}
+body.information-page .philosophy-document-closing{
+  margin:clamp(43px,5.5vw,68px) 0 0;
+  padding-top:clamp(25px,4vw,40px);
+  border-top:1px solid rgba(215,183,131,.34);
+  color:#efd8b0;
+  font-size:clamp(18px,1.62vw,23px);
+  font-weight:590;
+  line-height:2.02;
+}
+@media(max-width:600px){
+  body:not(.information-page) .company .company-philosophy-label{
+    font-size:18px!important;
+  }
+  body:not(.information-page) .company-statement>h2{
+    font-size:clamp(29px,7.45vw,41px)!important;
+    line-height:1.55!important;
+    letter-spacing:-.055em!important;
+  }
+  body:not(.information-page) .company-statement .company-philosophy-link{
+    min-height:62px;
+    margin-top:29px;
+  }
+  body.information-page .philosophy-document-header h1{
+    font-size:clamp(31px,7.6vw,43px);
+  }
+  body.information-page .philosophy-document-body{
+    line-height:2.05;
+  }
+  body.information-page .philosophy-document-p{
+    margin-bottom:28px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  body:not(.information-page) .company-statement .company-philosophy-link{transition:none!important}
+}
