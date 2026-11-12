@@ -8,7 +8,6 @@
     name:form.querySelector('#contact-name'),
     email:form.querySelector('#contact-email'),
     phone:form.querySelector('#contact-phone'),
-    category:form.querySelector('#contact-category'),
     message:form.querySelector('#contact-message')
   };
   const reopen=form.querySelector('#contact-mailto-open');
@@ -70,13 +69,11 @@
       return;
     }
 
-    const type=fields.category.selectedOptions[0]?.textContent?.trim()||trimmed.category;
     const inJapanese=language()==='ja';
-    const subject=(inJapanese?'【2L²】お問い合わせ':'[2L²] Inquiry')+' / '+type;
+    const subject=inJapanese?'【2L²】お問い合わせ':'[2L²] Inquiry';
     const lines=[
       '2L² / CONTACT',
       '',
-      (inJapanese?'お問い合わせ種別':'Inquiry type')+': '+type,
       (inJapanese?'会社・団体名':'Company')+': '+(trimmed.company||'—'),
       (inJapanese?'お名前':'Name')+': '+trimmed.name,
       (inJapanese?'メールアドレス':'Email')+': '+trimmed.email,
