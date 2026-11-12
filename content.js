@@ -274,7 +274,7 @@ window.SITE_COPY={
       "p6": "導入から運用までを見据え、現場で確かに機能する仕組みをつくること。",
       "p7": "私たちは、これらを実現するために、技術の研究と開発に取り組みます。",
       "p8": "企業の規模や環境にかかわらず、必要な技術を自ら選び、使いこなせる社会へ。",
-      "p9": "<span class=\"closing-line\"><span class=\"closing-unit\">技術が人の可能性を</span><span class=\"closing-unit\">制限するのではなく、</span></span><span class=\"closing-line\"><span class=\"closing-unit\">人の可能性を</span><span class=\"closing-unit\">広げるために</span><span class=\"closing-unit\">存在する社会を、</span></span><span class=\"closing-line\"><span class=\"closing-unit\">私たちは目指します。</span></span>"
+      "p9": "<span class=\"closing-line\">技術が人の可能性を制限するのではなく</span><span class=\"closing-line\">人の可能性を広げるために存在する社会を</span><span class=\"closing-line\">私たちは目指します</span>"
     },
     "contact": {
       "singleButton": "お問い合わせ",
