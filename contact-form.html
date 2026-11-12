@@ -50,11 +50,11 @@
         <div class="contact-field"><label for="contact-name"><span data-i18n="contact.fieldName">お名前</span><small class="contact-required" data-i18n="contact.required">必須</small></label><input id="contact-name" name="name" type="text" autocomplete="name" maxlength="100" required data-i18n-placeholder="contact.placeholderName" placeholder="例）山田 太郎"></div>
         <div class="contact-field"><label for="contact-email"><span data-i18n="contact.fieldEmail">メールアドレス</span><small class="contact-required" data-i18n="contact.required">必須</small></label><input id="contact-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" required data-i18n-placeholder="contact.placeholderEmail" placeholder="example@company.co.jp"></div>
         <div class="contact-field"><label for="contact-phone"><span data-i18n="contact.fieldPhone">電話番号</span><small data-i18n="contact.optional">任意</small></label><input id="contact-phone" name="phone" type="tel" autocomplete="tel" maxlength="40"  data-i18n-placeholder="contact.placeholderPhone" placeholder="例）03-1234-5678"></div>
-        <div class="contact-field contact-field-full"><label for="contact-category"><span data-i18n="contact.fieldCategory">お問い合わせ種別</span><small class="contact-required" data-i18n="contact.required">必須</small></label><select id="contact-category" name="category" required><option value="" disabled selected data-i18n="contact.optionChoose">選択してください</option><option value="local"  data-i18n="contact.optionLocal">Local LLMの導入・運用</option><option value="virtual"  data-i18n="contact.optionVirtual">仮想テスト環境について</option><option value="poc"  data-i18n="contact.optionPoc">実証実験（PoC）・お見積り</option><option value="partner"  data-i18n="contact.optionPartner">共同研究・業務提携</option><option value="other"  data-i18n="contact.optionOther">その他</option></select></div>
+        <div class="contact-field contact-field-full"><label for="contact-category"><span data-i18n="contact.fieldCategory">お問い合わせ種別</span><small class="contact-required" data-i18n="contact.required">必須</small></label><select id="contact-category" name="category" required><option value="" disabled selected data-i18n="contact.optionChoose">選択してください</option><option value="general" data-i18n="contact.optionGeneral">一般のお問い合わせ</option><option value="policy" data-i18n="contact.optionPolicy">プライバシーポリシー等に関するお問い合わせ</option></select></div>
         <div class="contact-field contact-field-full"><label for="contact-message"><span data-i18n="contact.fieldMessage">お問い合わせ内容</span><small class="contact-required" data-i18n="contact.required">必須</small></label><textarea id="contact-message" name="message" rows="6" required maxlength="1300" data-i18n-placeholder="contact.placeholderMessage" placeholder="ご相談内容や現在の課題、ご希望の導入時期などをご記入ください。"></textarea><div class="contact-count"><output id="contact-message-count" for="contact-message">0</output><span>/ 1300</span></div></div>
         <div class="contact-form-bottom"><button type="submit" class="contact-submit" id="contact-submit">
             <span class="contact-submit-copy">
-              <span class="contact-submit-signature" aria-hidden="true">2L² / CONTACT</span>
+              
               <span class="contact-submit-label" data-i18n="contact.compose">メールアプリで送信内容を確認</span>
             </span>
             <span class="contact-submit-end" aria-hidden="true">
@@ -71,7 +71,7 @@
     </div>
   </div>
 </div>
-<footer class="site-footer"><a href="./customer.html" target="_blank" rel="noopener noreferrer" data-i18n="nav.customer">お客様向け情報</a><a href="./index.html#contact" data-i18n="contact.back">ホームページに戻る</a></footer>
+<footer class="site-footer"><nav class="policy-footer-links" aria-label="情報保護に関する方針"><a href="./information-protection.html?lang=ja" data-i18n="footer.protection">情報保護方針</a><a href="./information-security.html?lang=ja" data-i18n="footer.security">情報の安全管理・取扱</a><a href="./privacy-policy.html?lang=ja" data-i18n="footer.privacy">個人情報保護方針</a></nav><a href="./customer.html" target="_blank" rel="noopener noreferrer" data-i18n="nav.customer">お客様向け情報</a><a href="./index.html#contact" data-i18n="contact.back">ホームページに戻る</a></footer>
 </section>
   </main>
 </body></html>
