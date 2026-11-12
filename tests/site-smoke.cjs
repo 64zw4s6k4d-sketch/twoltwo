@@ -102,18 +102,21 @@ async function topPage(browser,label,width,height,mobile){
       const finaleSize=await page.locator('.philosophy-document-closing').evaluate(el=>parseFloat(getComputedStyle(el).fontSize));
       assert(finaleSize>=24,'Philosophy finale lacks visual emphasis');
       const closing=page.locator('.philosophy-document-closing');
-      const ending=await closing.innerText();
-      const sentence='技術が人の可能性を制限するのではなく、人の可能性を広げるために存在する社会を、私たちは目指します。';
-      assert.equal(ending.replace(/\s+/g,''),sentence,'Original philosophy statement must stay intact');
-      assert.equal(await closing.locator('.closing-unit').count(),6);
-      const phrasesFit=await closing.evaluate(el=>{
-        const pageWidth=document.documentElement.clientWidth;
-        return [...el.querySelectorAll('.closing-unit')].every(unit=>{
-          const rect=unit.getBoundingClientRect();
-          return rect.left>=-2 && rect.right<=pageWidth+2 && unit.getClientRects().length===1;
+      const lines=[
+        '技術が人の可能性を制限するのではなく',
+        '人の可能性を広げるために存在する社会を',
+        '私たちは目指します'
+      ];
+      assert.deepEqual(await closing.locator('.closing-line').allTextContents(),lines);
+      assert.equal((await closing.innerText()).replace(/\s+/g,''),lines.join(''),'Japanese finale wording changed');
+      const fits=await closing.evaluate(el=>{
+        const documentWidth=document.documentElement.clientWidth;
+        return [...el.querySelectorAll('.closing-line')].every(line=>{
+          const bounds=line.getBoundingClientRect();
+          return bounds.left>=-2 && bounds.right<=documentWidth+2 && line.scrollWidth<=line.clientWidth+2;
         });
       });
-      assert(phrasesFit,'A philosophy phrase is clipped or wraps mid-phrase');
+      assert(fits,'Japanese finale clips at the selected viewport');
       const article=await page.locator('.philosophy-document-body').innerText();
       for(const phrase of ['技術の進歩は、それ自体が目的ではありません。','企業が持つ情報を守ること。','それぞれの環境や目的に適した技術を提供すること。','導入から運用までを見据え、現場で確かに機能する仕組みをつくること。']){
         assert(article.includes(phrase), 'Philosophy missing '+phrase);
