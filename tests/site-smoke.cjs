@@ -98,6 +98,9 @@ async function topPage(browser,label,width,height,mobile){
       await page.waitForURL('**/philosophy.html?lang=ja');
       assert.equal(await page.locator('.philosophy-document-p').count(),9);
       assert.equal(await page.locator('.philosophy-document-header h1').innerText(),'技術の進歩を、人の自由に変える');
+      assert(await page.locator('.philosophy-document-finale').isVisible());
+      const finaleSize=await page.locator('.philosophy-document-closing').evaluate(el=>parseFloat(getComputedStyle(el).fontSize));
+      assert(finaleSize>=25,'Philosophy finale lacks visual emphasis');
       const ending=await page.locator('.philosophy-document-closing').innerText();
       assert.equal(ending.trim(),'技術が人の可能性を制限するのではなく、人の可能性を広げるために存在する社会を、私たちは目指します。');
       const article=await page.locator('.philosophy-document-body').innerText();
@@ -159,24 +162,26 @@ async function topPage(browser,label,width,height,mobile){
       await page.locator('#case-ctd-close').click();
       assert(!(await detail.isVisible()),'CTD detail did not close');
     });
-    await caseTest(label+' two inquiry routes and protected email preparation',async()=>{
+    await caseTest(label+' one premium contact route and single unified form',async()=>{
       await loaded(page,'index.html');
-      const general=page.locator('#general-inquiry-link');
-      const policy=page.locator('#policy-inquiry-link');
-      assert(await general.isVisible()&&await policy.isVisible(),'Both inquiry routes must be visible');
-      assert.equal(await page.locator('.contact-inquiry-option').count(),2);
+      const contact=page.locator('#contact-form-open');
+      assert(await contact.isVisible(),'Contact CTA must be visible');
+      assert.equal(await page.locator('.contact-inquiry-option').count(),0);
+      assert.equal(await page.locator('#contact .premium-action').count(),1);
       assert.equal(await page.locator('.site-footer .policy-footer-links a').count(),3);
-      await policy.click();
-      await page.waitForURL('**/contact-form.html?lang=ja&category=policy');
-      assert.equal(await page.locator('#contact-category').inputValue(),'policy');
-      assert.equal(await page.locator('#contact-category option').count(),3);
+      const geometry=await contact.evaluate(el=>({w:el.getBoundingClientRect().width,h:el.getBoundingClientRect().height}));
+      assert(geometry.h>=59&&geometry.w>150,'Contact CTA too small '+JSON.stringify(geometry));
+      await contact.click();
+      await page.waitForURL('**/contact-form.html?lang=ja');
+      assert.equal(await page.locator('#contact-category').count(),0);
       assert(await page.locator('#contact-name').isVisible());
       assert(await page.locator('#contact-email').isVisible());
       assert(await page.locator('#contact-message').isVisible());
       assert.match(await page.locator('.contact-form-notice').innerText(),/メールアプリ/);
-      await loaded(page,'contact-form.html?lang=en&category=general');
-      assert.equal(await page.locator('#contact-category').inputValue(),'general');
-      assert.equal(await page.locator('#contact-category option[value=general]').innerText(),'General inquiries');
+      await loaded(page,'contact-form.html?lang=en');
+      assert.equal(await page.locator('#contact-category').count(),0);
+      assert.match(await page.locator('.contact-panel-head').innerText(),/email application/);
+      await inspect(page,label+' contact form');
     });
     await caseTest(label+' legal policies in Japanese and English',async()=>{
       for(const [file,expectedCount] of [
