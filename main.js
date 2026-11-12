@@ -43,6 +43,8 @@
        const base=a.getAttribute('href').split('?')[0];
        a.href=base+'?lang='+encodeURIComponent(lang);
     });
+    const philosophyLink=$('#philosophy-page-link');
+    if(philosophyLink)philosophyLink.href='./philosophy.html?lang='+encodeURIComponent(lang);
     const formOpen=$('#contact-form-open');
     if(formOpen)formOpen.href='./contact-form.html?lang='+encodeURIComponent(lang);
     document.querySelectorAll('.language button').forEach(button=>{const selected=button.dataset.lang===lang;button.classList.toggle('active',selected);button.setAttribute('aria-pressed',String(selected));});

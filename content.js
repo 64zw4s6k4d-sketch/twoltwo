@@ -252,7 +252,9 @@ window.SITE_COPY={
     "company": {
       "kicker": "05 / COMPANY",
       "overline": "ABOUT 2L²",
-      "title": "業務に合わせた<br><span>AIソフトウェアを開発</span>",
+      "title": "技術の進歩を、<br><span>人の自由に変える</span>",
+      "philosophyLabel": "私たちの理念",
+      "philosophyLink": "理念全文を読む",
       "intro": "2L²は企業のデータとセキュリティ要件に合わせて ローカルLLM・RAG・専門業務向けAIを開発するソフトウェア企業",
       "nameLabel": "商号",
       "name": "ツーエルツー合同会社",
@@ -260,6 +262,19 @@ window.SITE_COPY={
       "rep": "並里 璃王",
       "locationLabel": "所在地",
       "location": "〒150-0041 東京都渋谷区神南1丁目11-4 FPGリンクス神南 5階"
+    },
+    "philosophyPage": {
+      "label": "私たちの理念",
+      "heading": "技術の進歩を、人の自由に変える",
+      "p1": "技術の進歩は、それ自体が目的ではありません。",
+      "p2": "新しい技術が生まれるたびに、人や企業ができることは増えていきます。しかし、その技術を自由に選び、理解し、活用できなければ、進歩の恩恵を十分に受けることはできません。",
+      "p3": "私たち2L²は、技術の価値は、その高度さや新しさだけでなく、実際に人や社会の可能性をどれだけ広げられるかによって決まると考えています。",
+      "p4": "企業が持つ情報を守ること。",
+      "p5": "それぞれの環境や目的に適した技術を提供すること。",
+      "p6": "導入から運用までを見据え、現場で確かに機能する仕組みをつくること。",
+      "p7": "私たちは、これらを実現するために、技術の研究と開発に取り組みます。",
+      "p8": "企業の規模や環境にかかわらず、必要な技術を自ら選び、使いこなせる社会へ。",
+      "p9": "技術が人の可能性を制限するのではなく、人の可能性を広げるために存在する社会を、私たちは目指します。"
     },
     "contact": {
       "kicker": "06 / CONTACT",
@@ -555,7 +570,9 @@ window.SITE_COPY={
     "company": {
       "kicker": "05 / COMPANY",
       "overline": "ABOUT 2L²",
-      "title": "Software engineered<br><span>around your workflows.</span>",
+      "title": "Turn technological progress<br><span>into human freedom.</span>",
+      "philosophyLabel": "Our philosophy",
+      "philosophyLink": "Read our philosophy",
       "intro": "2L² is a software development company building local LLM, RAG and specialized AI applications around customer workflows, data and security requirements.",
       "nameLabel": "Legal name",
       "name": "2L² LLC (Tsuerutsū GK)",
@@ -563,6 +580,19 @@ window.SITE_COPY={
       "rep": "Rio Narisato",
       "locationLabel": "Location",
       "location": "5F FPG Links Jinnan, 1-11-4 Jinnan, Shibuya-ku, Tokyo 150-0041, Japan"
+    },
+    "philosophyPage": {
+      "label": "Our philosophy",
+      "heading": "Turning technological progress into human freedom",
+      "p1": "Technological progress is not an end in itself.",
+      "p2": "Every new technology expands what people and businesses can accomplish. Yet if they cannot freely choose, understand, and use that technology, they cannot fully benefit from the progress it brings.",
+      "p3": "At 2L², we believe the value of technology is measured not only by how advanced or new it is, but by how much it expands the possibilities available to people and society.",
+      "p4": "Protecting the information entrusted to businesses.",
+      "p5": "Providing technology suited to each organization's environment and goals.",
+      "p6": "Building systems that work reliably in practice, from introduction through day-to-day operation.",
+      "p7": "To achieve these things, we pursue research and development.",
+      "p8": "We envision a society in which organizations of every size and in every environment can choose the technology they need and make it their own.",
+      "p9": "We aspire to a society in which technology exists not to limit human potential, but to expand it."
     },
     "contact": {
       "kicker": "06 / CONTACT",
@@ -858,7 +888,9 @@ window.SITE_COPY={
     "company": {
       "kicker": "05 / COMPANY",
       "overline": "ABOUT 2L²",
-      "title": "ซอฟต์แวร์ AI<br><span>ที่ออกแบบตามงานจริง</span>",
+      "title": "เปลี่ยนความก้าวหน้าทางเทคโนโลยี<br><span>ให้เป็นอิสระของผู้คน</span>",
+      "philosophyLabel": "ปรัชญาของเรา",
+      "philosophyLink": "อ่านปรัชญาของเรา",
       "intro": "2L² เป็นบริษัทพัฒนาซอฟต์แวร์ Local LLM, RAG และแอปพลิเคชัน AI เฉพาะทางตามขั้นตอนงาน ข้อมูล และข้อกำหนดด้านความปลอดภัยของลูกค้า",
       "nameLabel": "ชื่อบริษัท",
       "name": "2L² LLC (Tsuerutsū GK)",
@@ -866,6 +898,19 @@ window.SITE_COPY={
       "rep": "Rio Narisato",
       "locationLabel": "ที่ตั้ง",
       "location": "ชั้น 5 อาคาร FPG Links Jinnan, 1-11-4 Jinnan, Shibuya, Tokyo 150-0041 ญี่ปุ่น"
+    },
+    "philosophyPage": {
+      "label": "ปรัชญาของเรา",
+      "heading": "เปลี่ยนความก้าวหน้าทางเทคโนโลยีให้เป็นอิสระของผู้คน",
+      "p1": "ความก้าวหน้าทางเทคโนโลยีไม่ใช่เป้าหมายในตัวเอง",
+      "p2": "เมื่อเกิดเทคโนโลยีใหม่ ผู้คนและองค์กรย่อมทำสิ่งต่าง ๆ ได้มากขึ้น แต่หากไม่สามารถเลือก ทำความเข้าใจ และนำเทคโนโลยีเหล่านั้นมาใช้ได้อย่างอิสระ ก็ไม่อาจได้รับประโยชน์จากความก้าวหน้าอย่างเต็มที่",
+      "p3": "ที่ 2L² เราเชื่อว่าคุณค่าของเทคโนโลยีไม่ได้วัดเพียงความล้ำหน้าหรือความใหม่ แต่พิจารณาว่าเทคโนโลยีนั้นช่วยขยายโอกาสและความเป็นไปได้ของผู้คนและสังคมได้มากเพียงใด",
+      "p4": "ปกป้องข้อมูลขององค์กร",
+      "p5": "จัดหาเทคโนโลยีที่เหมาะกับสภาพแวดล้อมและเป้าหมายของแต่ละองค์กร",
+      "p6": "สร้างระบบที่ใช้งานได้จริงในหน้างาน โดยคำนึงถึงทุกขั้นตอนตั้งแต่เริ่มนำมาใช้จนถึงการดำเนินงาน",
+      "p7": "เรามุ่งมั่นวิจัยและพัฒนาเทคโนโลยีเพื่อทำให้สิ่งเหล่านี้เกิดขึ้นจริง",
+      "p8": "เพื่อสังคมที่องค์กรทุกขนาดและทุกสภาพแวดล้อมสามารถเลือกเทคโนโลยีที่จำเป็นและใช้ประโยชน์ได้ด้วยตนเอง",
+      "p9": "เรามุ่งสู่สังคมที่เทคโนโลยีไม่ได้มีไว้จำกัดศักยภาพของมนุษย์ แต่มีอยู่เพื่อขยายศักยภาพนั้น"
     },
     "contact": {
       "kicker": "06 / CONTACT",

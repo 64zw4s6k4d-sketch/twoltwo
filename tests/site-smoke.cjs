@@ -85,6 +85,37 @@ async function topPage(browser,label,width,height,mobile){
       assert.match(await page.locator('#strengths-page-link').getAttribute('href'),/strengths.html/);
       assert.match(await page.locator('#cases-page-link').getAttribute('href'),/cases.html/);
     });
+    await caseTest(label+' philosophy page and original manifesto',async()=>{
+      await loaded(page,'index.html');
+      const heading=page.locator('#company h2[data-i18n="company.title"]');
+      assert.match(await heading.innerText(),/技術の進歩を、/);
+      assert.match(await heading.innerText(),/人の自由に変える/);
+      assert.equal(await page.locator('#company .company-philosophy-label').innerText(),'私たちの理念');
+      const link=page.locator('#philosophy-page-link');
+      assert(await link.isVisible());
+      await inspect(page,label+' philosophy link');
+      await link.click();
+      await page.waitForURL('**/philosophy.html?lang=ja');
+      assert.equal(await page.locator('.philosophy-document-p').count(),9);
+      assert.equal(await page.locator('.philosophy-document-header h1').innerText(),'技術の進歩を、人の自由に変える');
+      const ending=await page.locator('.philosophy-document-closing').innerText();
+      assert.equal(ending.trim(),'技術が人の可能性を制限するのではなく、人の可能性を広げるために存在する社会を、私たちは目指します。');
+      const article=await page.locator('.philosophy-document-body').innerText();
+      for(const phrase of ['技術の進歩は、それ自体が目的ではありません。','企業が持つ情報を守ること。','それぞれの環境や目的に適した技術を提供すること。','導入から運用までを見据え、現場で確かに機能する仕組みをつくること。']){
+        assert(article.includes(phrase), 'Philosophy missing '+phrase);
+      }
+      await inspect(page,label+' philosophy document');
+      await screenshot(page,label+'-philosophy');
+      for(const code of ['en','th','ja']){
+        await page.locator('.info-header .language button[data-lang="'+code+'"]').click();
+        assert.equal(await page.locator('html').getAttribute('lang'),code);
+        assert((await page.locator('.philosophy-document-body').innerText()).length>250);
+      }
+      await loaded(page,'index.html?lang=en#company');
+      assert.match(await page.locator('#company h2').innerText(),/technological progress/i);
+      assert.match(await page.locator('#philosophy-page-link').getAttribute('href'),/lang=en/);
+      await loaded(page,'index.html?lang=ja');
+    });
     await caseTest(label+' strengths, RAG and scheduled processing',async()=>{
       await loaded(page,'strengths.html?lang=ja');
       assert.equal(await page.locator('.architecture-row').count(),5);
