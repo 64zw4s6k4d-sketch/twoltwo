@@ -6,6 +6,9 @@
   const backLinks=Array.from(document.querySelectorAll('.contact-form-back,.contact-page .brand,.contact-page .site-footer a[href^="./index.html"]'));
   const query=new URLSearchParams(window.location.search);
   const initial=query.get('lang');
+  const category=query.get('category');
+  const categoryField=document.querySelector('#contact-category');
+  if(categoryField&&['general','policy'].includes(category))categoryField.value=category;
   function languageCopy(path,lang){
     return path.split('.').reduce((value,key)=>value && value[key],window.SITE_COPY?.[lang]);
   }
@@ -29,6 +32,11 @@
     }
     for(const link of backLinks){
       link.href='./index.html?lang='+encodeURIComponent(lang)+'#contact';
+    }
+    for(const link of document.querySelectorAll('.policy-footer-links a')){
+      const url=new URL(link.getAttribute('href'),location.href);
+      url.searchParams.set('lang',lang==='th'?'en':lang);
+      link.href='./'+url.pathname.split('/').at(-1)+url.search;
     }
     document.title=(lang==='ja'?'お問い合わせフォーム':lang==='en'?'Contact Form':'แบบฟอร์มติดต่อ')+' | 2L²';
     const receiver=(window.SITE_CONFIG?.contactEmail||'').trim();
