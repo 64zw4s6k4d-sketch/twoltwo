@@ -6,9 +6,6 @@
   const backLinks=Array.from(document.querySelectorAll('.contact-form-back,.contact-page .brand,.contact-page .site-footer a[href^="./index.html"]'));
   const query=new URLSearchParams(window.location.search);
   const initial=query.get('lang');
-  const category=query.get('category');
-  const categoryField=document.querySelector('#contact-category');
-  if(categoryField&&['general','policy'].includes(category))categoryField.value=category;
   function languageCopy(path,lang){
     return path.split('.').reduce((value,key)=>value && value[key],window.SITE_COPY?.[lang]);
   }
