@@ -2273,7 +2273,7 @@ body.information-page.philosophy-document-page .philosophy-document-closing .clo
 }
 @media(max-width:360px){
   body.information-page.philosophy-document-page .philosophy-document-finale .philosophy-document-closing{
-    font-size:clamp(23px,7.15vw,25px)!important;
+    font-size:clamp(24px,7.5vw,25px)!important;
     letter-spacing:-.04em!important;
   }
 }
