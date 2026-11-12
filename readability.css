@@ -2242,38 +2242,36 @@ body:not(.information-page) .contact-landing .contact-landing-direct{
 }
 
 
-/* 2026-11-13 — Set the manifesto's final sentence in intentional Japanese
-   phrase groups. Full text is untouched; line composition adapts to width. */
+/* Approved three-line closing statement. Keep exact breaks on larger screens,
+   allow each line to wrap naturally on narrow phones instead of overflow. */
 body.information-page.philosophy-document-page .philosophy-document-finale .philosophy-document-closing{
-  font-size:clamp(26px,2.6vw,36px)!important;
-  line-height:1.82!important;
-  letter-spacing:-.036em!important;
+  font-size:clamp(25px,2.45vw,34px)!important;
+  line-height:1.85!important;
+  letter-spacing:-.035em!important;
   text-wrap:normal!important;
   word-break:normal!important;
-  overflow-wrap:normal!important;
+  overflow-wrap:anywhere!important;
 }
 body.information-page.philosophy-document-page .philosophy-document-closing .closing-line{
   display:block;
   width:100%;
-}
-body.information-page.philosophy-document-page .philosophy-document-closing .closing-unit{
-  display:inline;
-  white-space:nowrap;
+  text-wrap:balance;
+  white-space:normal;
+  line-break:strict;
 }
 @media(max-width:720px){
-  body.information-page.philosophy-document-page .philosophy-document-closing .closing-line{
-    display:contents;
-  }
   body.information-page.philosophy-document-page .philosophy-document-finale .philosophy-document-closing{
-    font-size:clamp(25px,6.6vw,30px)!important;
-    line-height:1.83!important;
+    font-size:clamp(24px,6.55vw,30px)!important;
+    line-height:1.85!important;
+    letter-spacing:-.04em!important;
     text-align:left;
-    overflow-wrap:normal!important;
+  }
+  body.information-page.philosophy-document-page .philosophy-document-closing .closing-line{
+    text-wrap:pretty;
   }
 }
 @media(max-width:360px){
   body.information-page.philosophy-document-page .philosophy-document-finale .philosophy-document-closing{
-    font-size:clamp(24px,7.5vw,25px)!important;
-    letter-spacing:-.04em!important;
+    font-size:24px!important;
   }
 }
