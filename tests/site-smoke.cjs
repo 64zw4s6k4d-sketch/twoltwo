@@ -104,7 +104,7 @@ async function topPage(browser,label,width,height,mobile){
       const closing=page.locator('.philosophy-document-closing');
       const ending=await closing.innerText();
       const sentence='技術が人の可能性を制限するのではなく、人の可能性を広げるために存在する社会を、私たちは目指します。';
-      assert.equal(ending.replace(/\\s+/g,''),sentence,'Original philosophy statement must stay intact');
+      assert.equal(ending.replace(/\s+/g,''),sentence,'Original philosophy statement must stay intact');
       assert.equal(await closing.locator('.closing-unit').count(),6);
       const phrasesFit=await closing.evaluate(el=>{
         const pageWidth=document.documentElement.clientWidth;
