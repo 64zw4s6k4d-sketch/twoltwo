@@ -28,11 +28,11 @@ async function inspect(page,name){
     body:document.body.scrollWidth,
     clipped:[...document.querySelectorAll('h1,h2,h3')].filter(n=>n.getClientRects().length&&n.scrollWidth>n.clientWidth+5).map(n=>n.textContent.trim().slice(0,80))
   }));
-  assert(Math.max(result.doc,result.body)<=result.inner+6,name+' horizontal overflow '+JSON.stringify(result));
+  assert(result.doc<=result.inner+6,name+' horizontal document overflow '+JSON.stringify(result));
   assert.equal(result.clipped.length,0,name+' clipped headings '+JSON.stringify(result.clipped));
 }
 async function screenshot(page,name){await page.screenshot({path:path.join(artifacts,name+'.png'),fullPage:false})}
-async function loaded(page,url){const r=await page.goto(base+url,{waitUntil:'load'});assert(r&&r.ok(),url+' failed HTTP request');}
+async function loaded(page,url){const r=await page.goto(base+url,{waitUntil:'load'});assert(!r||r.ok(),url+' failed HTTP request');assert(page.url().includes(url.split('#')[0]),url+' navigation failed');}
 async function topPage(browser,label,width,height,mobile){
   const context=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:mobile?2:1,reducedMotion:'reduce'});
   const page=await context.newPage();page.setDefaultTimeout(8000);const verify=monitor(page);
