@@ -3,7 +3,18 @@ name: 2L2 Static Site Browser Smoke
 on:
   push:
     branches:
-      - website-improvements
+      - main
+      - website-release-20261025
+    paths:
+      - '*.html'
+      - '*.css'
+      - '*.js'
+      - 'assets/**'
+      - 'tests/**'
+      - '.github/workflows/site-smoke.yml'
+  pull_request:
+    branches:
+      - main
     paths:
       - '*.html'
       - '*.css'
