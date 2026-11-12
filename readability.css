@@ -2240,3 +2240,40 @@ body:not(.information-page) .contact-landing .contact-landing-direct{
     transition:none!important;
   }
 }
+
+
+/* 2026-11-13 — Set the manifesto's final sentence in intentional Japanese
+   phrase groups. Full text is untouched; line composition adapts to width. */
+body.information-page.philosophy-document-page .philosophy-document-finale .philosophy-document-closing{
+  font-size:clamp(26px,2.6vw,36px)!important;
+  line-height:1.82!important;
+  letter-spacing:-.036em!important;
+  text-wrap:normal!important;
+  word-break:normal!important;
+  overflow-wrap:normal!important;
+}
+body.information-page.philosophy-document-page .philosophy-document-closing .closing-line{
+  display:block;
+  width:100%;
+}
+body.information-page.philosophy-document-page .philosophy-document-closing .closing-unit{
+  display:inline;
+  white-space:nowrap;
+}
+@media(max-width:720px){
+  body.information-page.philosophy-document-page .philosophy-document-closing .closing-line{
+    display:contents;
+  }
+  body.information-page.philosophy-document-page .philosophy-document-finale .philosophy-document-closing{
+    font-size:clamp(25px,6.6vw,30px)!important;
+    line-height:1.83!important;
+    text-align:left;
+    overflow-wrap:normal!important;
+  }
+}
+@media(max-width:360px){
+  body.information-page.philosophy-document-page .philosophy-document-finale .philosophy-document-closing{
+    font-size:clamp(23px,7.15vw,25px)!important;
+    letter-spacing:-.04em!important;
+  }
+}
