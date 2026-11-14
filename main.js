@@ -97,10 +97,6 @@
   menuToggle.addEventListener('click',()=>{const open=mobileNav.classList.toggle('open');menuToggle.setAttribute('aria-expanded',String(open));menuToggle.setAttribute('aria-label',open?'Close menu':'Open menu');});
   $$('#mobile-nav a').forEach(a=>a.addEventListener('click',closeMenu));
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
-  const configuredEmail=(window.SITE_CONFIG?.contactEmail||'').trim();
-  if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(configuredEmail)){
-    const link=$('#email-link');link.href=`mailto:${configuredEmail}?subject=${encodeURIComponent('2L² お問い合わせ')}`;link.hidden=false;$('#contact-unavailable').hidden=true;
-  }
   const clamp=(x,min,max)=>Math.max(min,Math.min(max,x));
   let activeIndex=0, lastWidth=window.innerWidth,snapTimer=null,snapDisabled=false;
   // Apply the same read-and-collapse rule to every inline <details> panel.
