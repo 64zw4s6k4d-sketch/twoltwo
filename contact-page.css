@@ -41,7 +41,10 @@ body.contact-page{
   padding-bottom:clamp(40px,7vh,85px);
 }
 .contact-page .contact-body{
-  margin-top:clamp(32px,4.8vw,66px);
+  display:block;
+  width:100%;
+  max-width:860px;
+  margin:clamp(32px,4.8vw,66px) auto 0;
 }
 .contact-page .contact-panel{
   box-shadow:0 25px 90px rgba(0,0,0,.23),inset 0 1px 0 rgba(245,217,171,.07)
@@ -326,3 +329,10 @@ body.contact-page{
   .contact-page .contact-submit-end,
   .contact-page .contact-submit-end svg{transition:none!important}
 }
+
+/* 2026-11-13: Legal document references remain secondary to the single inquiry form. */
+.contact-page .site-footer:has(.policy-footer-links){display:flex;flex-wrap:wrap;gap:13px 25px;align-items:center}
+.contact-page .policy-footer-links{display:flex;flex:0 0 100%;flex-wrap:wrap;gap:10px 25px;max-width:100%;width:100%;border-bottom:1px solid rgba(221,189,142,.22);padding:0 0 16px;margin:0 0 4px}
+.contact-page .policy-footer-links a{font-size:clamp(12px,1.04vw,14px);line-height:1.7;color:#cfbf9e;text-decoration:none;overflow-wrap:anywhere}
+.contact-page .policy-footer-links a:hover,.contact-page .policy-footer-links a:focus-visible{color:#f5dca8}
+.contact-page #contact-category:focus{border-color:#e4c38f}

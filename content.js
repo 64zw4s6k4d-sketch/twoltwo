@@ -274,24 +274,31 @@ window.SITE_COPY={
       "p6": "導入から運用までを見据え、現場で確かに機能する仕組みをつくること。",
       "p7": "私たちは、これらを実現するために、技術の研究と開発に取り組みます。",
       "p8": "企業の規模や環境にかかわらず、必要な技術を自ら選び、使いこなせる社会へ。",
-      "p9": "技術が人の可能性を制限するのではなく、人の可能性を広げるために存在する社会を、私たちは目指します。"
+      "p9": "<span class=\"closing-line\">技術が人の可能性を制限するのではなく</span><span class=\"closing-line\">人の可能性を広げるために存在する社会を</span><span class=\"closing-line\">私たちは目指します</span>"
     },
     "contact": {
+      "singleButton": "お問い合わせ",
+      "policyTitle": "プライバシーポリシー等に関するお問い合わせ",
+      "normalTitle": "一般のお問い合わせ",
+      "policyLead": "個人情報、情報保護方針、安全管理に関するご質問",
+      "generalLead": "サービスの導入、開発、お見積り、共同研究など",
+      "optionPolicy": "プライバシーポリシー等に関するお問い合わせ",
+      "optionGeneral": "一般のお問い合わせ",
       "kicker": "06 / CONTACT",
       "prelude": "お問い合わせ",
-      "title": "開発の相談は<br>こちらから",
-      "text": "社内文書の検索・ローカルLLMの導入・CTDなどの専門業務向け開発についてご相談ください",
+      "title": "お問い合わせ",
+      "text": "開発・導入に関するご相談から、情報保護・個人情報に関するご質問まで、お気軽にお問い合わせください。",
       "cta": "直接メールで問い合わせる",
       "unavailable": "現在、メールのご案内を準備しています。",
       "formTitle": "お問い合わせフォーム",
-      "formLead": "必要事項をご入力ください。内容をメールアプリに引き継ぎ、送信前にご確認いただけます。",
+      "formLead": "必要事項をご入力ください。送信前にメールアプリで内容をご確認いただけます。",
       "required": "必須",
       "optional": "任意",
       "fieldCompany": "会社・団体名",
       "fieldName": "お名前",
       "fieldEmail": "メールアドレス",
       "fieldPhone": "電話番号",
-      "fieldCategory": "お問い合わせ種別",
+      "fieldCategory": "お問い合わせの種類",
       "fieldMessage": "お問い合わせ内容",
       "placeholderCompany": "例）株式会社〇〇",
       "placeholderName": "例）山田 太郎",
@@ -318,6 +325,9 @@ window.SITE_COPY={
       "back": "ホームページに戻る"
     },
     "footer": {
+      "privacy": "個人情報保護方針",
+      "security": "情報の安全管理・取扱",
+      "protection": "情報保護方針",
       "back": "ページの先頭へ ↑"
     }
   },
@@ -595,21 +605,28 @@ window.SITE_COPY={
       "p9": "We aspire to a society in which technology exists not to limit human potential, but to expand it."
     },
     "contact": {
+      "singleButton": "Contact us",
+      "policyTitle": "Privacy and information protection inquiries",
+      "normalTitle": "General inquiries",
+      "policyLead": "Privacy, information protection and data security questions",
+      "generalLead": "Services, development, pricing, and partnerships",
+      "optionPolicy": "Privacy policy and information protection inquiries",
+      "optionGeneral": "General inquiries",
       "kicker": "06 / CONTACT",
       "prelude": "Get in touch",
-      "title": "Tell us about<br>your software needs.",
-      "text": "Get in touch about internal document retrieval, local LLM deployments, specialist writing tools, proofs of concept and ongoing system improvement.",
+      "title": "Contact us",
+      "text": "Contact us about development, implementation, partnerships, information protection, or personal data.",
       "cta": "Email us directly",
       "unavailable": "Our contact details are being prepared.",
       "formTitle": "Contact form",
-      "formLead": "Fill in the details below. We will prepare an email for you to review and send from your email application.",
+      "formLead": "Enter your details, then review the message in your email application before sending.",
       "required": "Required",
       "optional": "Optional",
       "fieldCompany": "Company / organization",
       "fieldName": "Your name",
       "fieldEmail": "Email address",
       "fieldPhone": "Phone number",
-      "fieldCategory": "Inquiry type",
+      "fieldCategory": "Inquiry category",
       "fieldMessage": "Your message",
       "placeholderCompany": "e.g. Example Company",
       "placeholderName": "e.g. Alex Smith",
@@ -636,6 +653,9 @@ window.SITE_COPY={
       "back": "Back to homepage"
     },
     "footer": {
+      "privacy": "Privacy Policy",
+      "security": "Information Security and Data Handling",
+      "protection": "Information Protection Policy",
       "back": "Back to top ↑"
     }
   },
@@ -913,14 +933,21 @@ window.SITE_COPY={
       "p9": "เรามุ่งสู่สังคมที่เทคโนโลยีไม่ได้มีไว้จำกัดศักยภาพของมนุษย์ แต่มีอยู่เพื่อขยายศักยภาพนั้น"
     },
     "contact": {
+      "singleButton": "ติดต่อเรา",
+      "policyTitle": "คำถามเกี่ยวกับนโยบายคุ้มครองข้อมูล",
+      "normalTitle": "การติดต่อทั่วไป",
+      "policyLead": "ความเป็นส่วนตัว การคุ้มครองข้อมูล และความปลอดภัยของข้อมูล",
+      "generalLead": "บริการ การพัฒนา ราคา และความร่วมมือ",
+      "optionPolicy": "คำถามเกี่ยวกับนโยบายความเป็นส่วนตัวและการคุ้มครองข้อมูล",
+      "optionGeneral": "การติดต่อทั่วไป",
       "kicker": "06 / CONTACT",
       "prelude": "ติดต่อเรา",
-      "title": "ปรึกษาเรื่อง<br>พัฒนาซอฟต์แวร์ AI",
-      "text": "ติดต่อเรื่องระบบค้นเอกสารภายใน การติดตั้ง Local LLM เครื่องมือเขียนเอกสารเฉพาะทาง PoC และการปรับปรุงระบบ",
+      "title": "ติดต่อเรา",
+      "text": "สอบถามเรื่องการพัฒนาและการนำระบบไปใช้ รวมถึงการคุ้มครองข้อมูลและข้อมูลส่วนบุคคลได้ที่นี่",
       "cta": "ติดต่อทางอีเมลโดยตรง",
       "unavailable": "กำลังเตรียมข้อมูลการติดต่อ",
       "formTitle": "แบบฟอร์มติดต่อ",
-      "formLead": "กรอกข้อมูลด้านล่างเพื่อสร้างอีเมล จากนั้นตรวจสอบและส่งผ่านแอปอีเมลของคุณ",
+      "formLead": "กรอกข้อมูลที่จำเป็น จากนั้นตรวจสอบข้อความในแอปอีเมลก่อนส่ง",
       "required": "จำเป็น",
       "optional": "ไม่บังคับ",
       "fieldCompany": "บริษัท / องค์กร",
@@ -954,6 +981,9 @@ window.SITE_COPY={
       "back": "กลับไปหน้าแรก"
     },
     "footer": {
+      "privacy": "นโยบายความเป็นส่วนตัว",
+      "security": "การรักษาความปลอดภัยและการจัดการข้อมูล",
+      "protection": "นโยบายคุ้มครองข้อมูล",
       "back": "กลับไปด้านบน ↑"
     }
   }

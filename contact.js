@@ -70,17 +70,17 @@
       return;
     }
 
-    const type=fields.category.selectedOptions[0]?.textContent?.trim()||trimmed.category;
     const inJapanese=language()==='ja';
-    const subject=(inJapanese?'【2L²】お問い合わせ':'[2L²] Inquiry')+' / '+type;
+    const categoryLabel=trimmed.category==='policy'?translated('optionPolicy'):translated('optionGeneral');
+    const subject=inJapanese?'【2L²】'+categoryLabel:'[2L²] '+categoryLabel;
     const lines=[
       '2L² / CONTACT',
       '',
-      (inJapanese?'お問い合わせ種別':'Inquiry type')+': '+type,
       (inJapanese?'会社・団体名':'Company')+': '+(trimmed.company||'—'),
       (inJapanese?'お名前':'Name')+': '+trimmed.name,
       (inJapanese?'メールアドレス':'Email')+': '+trimmed.email,
       (inJapanese?'電話番号':'Phone')+': '+(trimmed.phone||'—'),
+      (inJapanese?'お問い合わせの種類':'Inquiry category')+': '+categoryLabel,
       '',
       inJapanese?'【お問い合わせ内容】':'【Message】',
       trimmed.message

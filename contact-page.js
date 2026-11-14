@@ -30,6 +30,11 @@
     for(const link of backLinks){
       link.href='./index.html?lang='+encodeURIComponent(lang)+'#contact';
     }
+    for(const link of document.querySelectorAll('.policy-footer-links a')){
+      const url=new URL(link.getAttribute('href'),location.href);
+      url.searchParams.set('lang',lang==='th'?'en':lang);
+      link.href='./'+url.pathname.split('/').at(-1)+url.search;
+    }
     document.title=(lang==='ja'?'お問い合わせフォーム':lang==='en'?'Contact Form':'แบบฟอร์มติดต่อ')+' | 2L²';
     const receiver=(window.SITE_CONFIG?.contactEmail||'').trim();
     const link=document.querySelector('#email-link');

@@ -45,8 +45,13 @@
     });
     const philosophyLink=$('#philosophy-page-link');
     if(philosophyLink)philosophyLink.href='./philosophy.html?lang='+encodeURIComponent(lang);
-    const formOpen=$('#contact-form-open');
-    if(formOpen)formOpen.href='./contact-form.html?lang='+encodeURIComponent(lang);
+    const contactLink=$('#contact-form-open');
+    if(contactLink)contactLink.href='./contact-form.html?lang='+encodeURIComponent(lang);
+    for(const node of document.querySelectorAll('.policy-footer-links a')){
+      const url=new URL(node.getAttribute('href'),location.href);
+      url.searchParams.set('lang',lang==='th'?'en':lang);
+      node.href='./'+url.pathname.split('/').at(-1)+url.search+url.hash;
+    }
     document.querySelectorAll('.language button').forEach(button=>{const selected=button.dataset.lang===lang;button.classList.toggle('active',selected);button.setAttribute('aria-pressed',String(selected));});
     document.title = (lang==='ja'?'2L²｜ローカルAI':lang==='th'?'2L² | โลคัล AI':'2L² | Local AI');
     updateNavigation();
@@ -92,10 +97,6 @@
   menuToggle.addEventListener('click',()=>{const open=mobileNav.classList.toggle('open');menuToggle.setAttribute('aria-expanded',String(open));menuToggle.setAttribute('aria-label',open?'Close menu':'Open menu');});
   $$('#mobile-nav a').forEach(a=>a.addEventListener('click',closeMenu));
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
-  const configuredEmail=(window.SITE_CONFIG?.contactEmail||'').trim();
-  if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(configuredEmail)){
-    const link=$('#email-link');link.href=`mailto:${configuredEmail}?subject=${encodeURIComponent('2L² お問い合わせ')}`;link.hidden=false;$('#contact-unavailable').hidden=true;
-  }
   const clamp=(x,min,max)=>Math.max(min,Math.min(max,x));
   let activeIndex=0, lastWidth=window.innerWidth,snapTimer=null,snapDisabled=false;
   // Apply the same read-and-collapse rule to every inline <details> panel.
