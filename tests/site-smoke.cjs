@@ -99,7 +99,7 @@ async function topPage(browser,label,width,height,mobile){
       assert.equal(await page.locator('.philosophy-document-p').count(),9);
       assert.equal(await page.locator('.philosophy-document-header h1').innerText(),'技術の進歩を、人の自由に変える');
       const ending=await page.locator('.philosophy-document-closing').innerText();
-      assert.equal(ending.trim(),'技術が人の可能性を制限するのではなく、人の可能性を広げるために存在する社会を、私たちは目指します。');
+      assert.equal(ending.trim(),'技術が人の可能性を制限するのではなく\n人の可能性を広げるために存在する社会を\n私たちは目指します');
       const article=await page.locator('.philosophy-document-body').innerText();
       for(const phrase of ['技術の進歩は、それ自体が目的ではありません。','企業が持つ情報を守ること。','それぞれの環境や目的に適した技術を提供すること。','導入から運用までを見据え、現場で確かに機能する仕組みをつくること。']){
         assert(article.includes(phrase), 'Philosophy missing '+phrase);
@@ -164,6 +164,9 @@ async function topPage(browser,label,width,height,mobile){
       assert(await page.locator('#contact-name').isVisible());
       assert(await page.locator('#contact-email').isVisible());
       assert(await page.locator('#contact-message').isVisible());
+      assert.equal(await page.locator('.contact-intro').count(),0);
+      assert.equal(await page.locator('#contact-category option').count(),3);
+      assert(await page.locator('#contact-category').isVisible());
       for(const pageName of ['customer.html','privacy.html','security.html','onboarding.html']){
         await loaded(page,pageName);
         assert((await page.locator('body').innerText()).trim().length>80,pageName+' is empty');
